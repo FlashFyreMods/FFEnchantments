@@ -3,8 +3,6 @@ package com.flashfyre.ffenchants.enchantments;
 import com.flashfyre.ffenchants.FFE;
 import com.flashfyre.ffenchants.misc.LeapingToServerPacket;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.LivingEntity;
@@ -50,6 +48,8 @@ public class LeapingHorseEnchantment extends Enchantment {
 		
 		LivingEntity entity = event.getEntityLiving();
 		
+		if(!entity.world.isRemote) return;
+		
 		if(entity instanceof AbstractHorseEntity) {
 			FFE.PacketHandler.INSTANCE.sendToServer(new LeapingToServerPacket());
 		}
@@ -61,9 +61,5 @@ public class LeapingHorseEnchantment extends Enchantment {
 	
 	public static double getYVelocity(int level) {
 		return 0.12 * level;
-	}
-	
-	public static ClientWorld getWorld(Minecraft instance) {
-		return instance.world;
 	}
 }

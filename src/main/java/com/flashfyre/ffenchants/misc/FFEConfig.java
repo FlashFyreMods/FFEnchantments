@@ -35,19 +35,22 @@ public class FFEConfig
 		public final ForgeConfigSpec.BooleanValue enableQuickness;
 		public final ForgeConfigSpec.BooleanValue enableAnchoringCurse;
 		
-		public final ForgeConfigSpec.BooleanValue enableEndCityLootModifications;
-		public final ForgeConfigSpec.BooleanValue enableJungleTempleLootModifications;
-		public final ForgeConfigSpec.BooleanValue enableNetherFortressLootModifications;
-		public final ForgeConfigSpec.BooleanValue enablePillagerOutpostLootModifications;
-		public final ForgeConfigSpec.BooleanValue enableSmallOceanRuinLootModifications;
-		public final ForgeConfigSpec.BooleanValue enableLargeOceanRuinLootModifications;
-		public final ForgeConfigSpec.BooleanValue enableWoodlandMansionLootModifications;
-		public final ForgeConfigSpec.BooleanValue enableIglooLootModifications;
+		public final ForgeConfigSpec.BooleanValue enableEndCityLootAdditions;
+		public final ForgeConfigSpec.BooleanValue enableJungleTempleLootAdditions;
+		public final ForgeConfigSpec.BooleanValue enableNetherFortressLootAdditions;
+		public final ForgeConfigSpec.BooleanValue enablePillagerOutpostLootAdditions;
+		public final ForgeConfigSpec.BooleanValue enableSmallOceanRuinLootAdditions;
+		public final ForgeConfigSpec.BooleanValue enableLargeOceanRuinLootAdditions;
+		public final ForgeConfigSpec.BooleanValue enableWoodlandMansionLootAdditions;
+		public final ForgeConfigSpec.BooleanValue enableIglooLootAdditions;		
 		
-		public final ForgeConfigSpec.BooleanValue enableAllLootModifications;
+		public final ForgeConfigSpec.BooleanValue enableAllLootAdditions;
+		
+		public final ForgeConfigSpec.BooleanValue enableGlobalLootModifiers;
+		public final ForgeConfigSpec.DoubleValue enchantSaddleChance;
 		
 		public Common(ForgeConfigSpec.Builder builder) {
-			builder.comment("Enable/disable Enchantments")
+			builder.comment("Enchantment Configuration")
 			.push("enchantments");
 			
 			enableBloodlust = builder
@@ -142,53 +145,68 @@ public class FFEConfig
 			
 			builder.pop();
 			
-			builder.comment("Enable/disable Loot Table Modifications")
+			builder.comment("Loot Table Additions Configuration")
 			.push("loot_tables");
 
-			enableAllLootModifications = builder
-					.comment("Enable/disable all chest loot modifications")
+			enableAllLootAdditions = builder
+					.comment("Enable/disable all chest loot Additions")
 					.worldRestart()
-					.define("enableLootModifications", true);
+					.define("enableLootAdditions", true);
 			
-			enableEndCityLootModifications = builder
+			enableEndCityLootAdditions = builder
 					.comment("Enable/disable additions to end city chest loot. Disable this if you disable Obsidian Skull.")
 					.worldRestart()
-					.define("enableEndCityLootModifications", true);
+					.define("enableEndCityLootAdditions", true);
 			
-			enableJungleTempleLootModifications = builder
+			enableJungleTempleLootAdditions = builder
 					.comment("Enable/disable additions to jungle temple chest loot. Disable this if you disable Poison Aspect.")
 					.worldRestart()
-					.define("enableJungleTempleLootModifications", true);
+					.define("enableJungleTempleLootAdditions", true);
 			
-			enableNetherFortressLootModifications = builder
+			enableNetherFortressLootAdditions = builder
 					.comment("Enable/disable additions to nether fortress chest loot. Disable this if you disable Searing or Wither Aspect.")
 					.worldRestart()
-					.define("enableNetherFortressLootModifications", true);
+					.define("enableNetherFortressLootAdditions", true);
 			
-			enablePillagerOutpostLootModifications = builder
+			enablePillagerOutpostLootAdditions = builder
 					.comment("Enable/disable additions to pillager outpost chest loot. Disable this if you disable Pillaging.")
 					.worldRestart()
-					.define("enablePillagerOutpostLootModifications", true);
+					.define("enablePillagerOutpostLootAdditions", true);
 			
-			enableSmallOceanRuinLootModifications = builder
+			enableSmallOceanRuinLootAdditions = builder
 					.comment("Enable/disable additions to small ocean ruin chest loot. Disable this if you disable Curse of Anchoring, Torrent or Outrush.")
 					.worldRestart()
-					.define("enableSmallOceanRuinLootModifications", true);
+					.define("enableSmallOceanRuinLootAdditions", true);
 			
-			enableLargeOceanRuinLootModifications = builder
-					.comment("Enable/disable additions to large ocean ruin chest loot.Disable this if you disable Curse of Anchoring, Neptune's Rejuvenation, Torrent or Outrush.")
+			enableLargeOceanRuinLootAdditions = builder
+					.comment("Enable/disable additions to large ocean ruin chest loot. Disable this if you disable Curse of Anchoring, Neptune's Rejuvenation, Torrent or Outrush.")
 					.worldRestart()
-					.define("enableLargeOceanRuinLootModifications", true);
+					.define("enableLargeOceanRuinLootAdditions", true);
 			
-			enableWoodlandMansionLootModifications = builder
+			enableWoodlandMansionLootAdditions = builder
 					.comment("Enable/disable additions to woodland mansion chest loot. Disable this if you disable Bloodlust, Sharpshooter or Pillaging.")
 					.worldRestart()
-					.define("enableWoodlandMansionLootModifications", true);
+					.define("enableWoodlandMansionLootAdditions", true);
 			
-			enableIglooLootModifications = builder
+			enableIglooLootAdditions = builder
 					.comment("Enable/disable additions to igloo chest loot")
 					.worldRestart()
-					.define("enableIglooLootModifications", true);
+					.define("enableIglooLootAdditions", true);
+			
+			builder.pop();
+			
+			builder.comment("Loot Modifier Configuration")
+			.push("loot_modifiers");
+			
+			enableGlobalLootModifiers = builder
+					.comment("Enable/disable global loot modifiers. This adds enchantments to some saddles in chest loot")
+					.worldRestart()
+					.define("enableGlobalLootModifiers", true);
+			
+			enchantSaddleChance = builder
+					.comment("The chance for a saddle to be enchanted with a random saddle enchantment. 1.0F means it will be guaranteed to be enchanted.")
+					.worldRestart()
+					.defineInRange("enchantSaddleChance", 0.5F, 0.0F, 1.0F);
 			
 			builder.pop();
 		}

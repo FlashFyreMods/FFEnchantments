@@ -3,6 +3,8 @@ package com.flashfyre.ffenchants;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import javax.annotation.Nonnull;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,6 +33,7 @@ import com.flashfyre.ffenchants.enchantments.VampiricEnchantment;
 import com.flashfyre.ffenchants.enchantments.WeightedEnchantment;
 import com.flashfyre.ffenchants.enchantments.WitherAspectEnchantment;
 import com.flashfyre.ffenchants.misc.BuoyancyPacket;
+import com.flashfyre.ffenchants.misc.EnchantSaddlesLootModifier;
 import com.flashfyre.ffenchants.misc.FFEConfig;
 import com.flashfyre.ffenchants.misc.FFELootTables;
 import com.flashfyre.ffenchants.misc.LeapingToClientPacket;
@@ -46,6 +49,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -64,7 +68,7 @@ import net.minecraftforge.registries.ObjectHolder;
 public class FFE
 {
 	public static FFE instance;
-	public static final String MOD_ID = "ffenchants";    
+	public static final String MOD_ID = "ffenchants";
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 	
 	public FFE()
@@ -158,7 +162,7 @@ public class FFE
 		registerEnchantment(registry, ANCHORING_CURSE, FFEConfig.COMMON.enableAnchoringCurse.get());
 	}
 	
-	public static void registerEnchantment(IForgeRegistry<Enchantment> registry, Enchantment enchantment, boolean enabledInConfig) 
+	public static void registerEnchantment(IForgeRegistry<Enchantment> registry, Enchantment enchantment, boolean enabledInConfig)
 	{
 		
 		if(enabledInConfig) 
@@ -166,6 +170,13 @@ public class FFE
 			registry.register(enchantment);
 			LOGGER.info("Registered enchantment " + enchantment.getRegistryName() + ".");
 		}
+	}
+	
+	@SubscribeEvent
+	public static void registerLootModifierSerializers(@Nonnull final RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) 
+	{
+		
+		event.getRegistry().register(new EnchantSaddlesLootModifier.Serializer().setRegistryName(new ResourceLocation(FFE.MOD_ID, "enchant_saddles")));	
 	}
 	
 	@SubscribeEvent
@@ -179,15 +190,15 @@ public class FFE
 		CapabilityManager.INSTANCE.register(IShooterEnchantments.class, new ShooterEnchantmentsStorage(), ShooterEnchantments::new);
 		CapabilityManager.INSTANCE.register(ISteadfastHandler.class, new SteadfastHandlerStorage(), SteadfastHandler::new);
 		
-		if(!FFEConfig.COMMON.enableAllLootModifications.get()) return;
-		if(FFEConfig.COMMON.enableEndCityLootModifications.get()) FFELootTables.CHESTS.add("end_city_treasure");
-		if(FFEConfig.COMMON.enableJungleTempleLootModifications.get()) FFELootTables.CHESTS.add("jungle_temple");
-		if(FFEConfig.COMMON.enableNetherFortressLootModifications.get()) FFELootTables.CHESTS.add("nether_bridge");
-		if(FFEConfig.COMMON.enablePillagerOutpostLootModifications.get()) FFELootTables.CHESTS.add("pillager_outpost");
-		if(FFEConfig.COMMON.enableSmallOceanRuinLootModifications.get()) FFELootTables.CHESTS.add("underwater_ruin_small");
-		if(FFEConfig.COMMON.enableLargeOceanRuinLootModifications.get()) FFELootTables.CHESTS.add("underwater_ruin_big");
-		if(FFEConfig.COMMON.enableWoodlandMansionLootModifications.get()) FFELootTables.CHESTS.add("woodland_mansion");
-		if(FFEConfig.COMMON.enableIglooLootModifications.get()) FFELootTables.CHESTS.add("igloo_chest");
+		if(!FFEConfig.COMMON.enableAllLootAdditions.get()) return;
+		if(FFEConfig.COMMON.enableEndCityLootAdditions.get()) FFELootTables.CHESTS.add("end_city_treasure");
+		if(FFEConfig.COMMON.enableJungleTempleLootAdditions.get()) FFELootTables.CHESTS.add("jungle_temple");
+		if(FFEConfig.COMMON.enableNetherFortressLootAdditions.get()) FFELootTables.CHESTS.add("nether_bridge");
+		if(FFEConfig.COMMON.enablePillagerOutpostLootAdditions.get()) FFELootTables.CHESTS.add("pillager_outpost");
+		if(FFEConfig.COMMON.enableSmallOceanRuinLootAdditions.get()) FFELootTables.CHESTS.add("underwater_ruin_small");
+		if(FFEConfig.COMMON.enableLargeOceanRuinLootAdditions.get()) FFELootTables.CHESTS.add("underwater_ruin_big");
+		if(FFEConfig.COMMON.enableWoodlandMansionLootAdditions.get()) FFELootTables.CHESTS.add("woodland_mansion");
+		if(FFEConfig.COMMON.enableIglooLootAdditions.get()) FFELootTables.CHESTS.add("igloo_chest");
 	}
 	
 	public static int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
@@ -216,6 +227,12 @@ public class FFE
 	    	AbstractHorseEntity horse = (AbstractHorseEntity) world.getEntityByID(packet.entityId);
 	    	double velocity = LeapingHorseEnchantment.getYVelocity(packet.enchantmentLevel);
 	    	horse.addVelocity(0, velocity, 0);
-		}		
+		}
+		
+		public static void handleBuoyancyPacket(BuoyancyPacket packet, Supplier<NetworkEvent.Context> ctx) {
+			World world = Minecraft.getInstance().world;
+	    	AbstractHorseEntity horse = (AbstractHorseEntity) world.getEntityByID(packet.entityId);
+	    	horse.addVelocity(0, 0.06D, 0);
+		}
 	}
 }

@@ -7,7 +7,7 @@ version="${file.jarVersion}" #mandatory
 displayName="FlashFyre's Enchantments"
 #updateJSONURL="http://myurl.me/" #optional
 #displayURL="http://example.com/" #optional
-#logoFile="examplemod.png" #optional
+logoFile="ffenchants.png" #optional
 #credits="" #optional
 authors="FlashFyre" #optional
 # The description text for the mod (multi line!) (#mandatory)

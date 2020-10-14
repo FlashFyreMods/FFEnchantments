@@ -21,7 +21,7 @@ public class FFELootTables {
 	@SubscribeEvent
 	public static void injectLootPools(LootTableLoadEvent event) {
 		
-		if(!FFEConfig.COMMON.enableAllLootModifications.get()) return;
+		if(!FFEConfig.COMMON.enableAllLootAdditions.get()) return;
 		
 		String prefix = "minecraft:chests/";
 		String name = event.getName().toString();

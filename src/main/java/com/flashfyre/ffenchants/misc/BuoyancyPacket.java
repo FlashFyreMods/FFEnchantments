@@ -2,15 +2,16 @@ package com.flashfyre.ffenchants.misc;
 
 import java.util.function.Supplier;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.passive.horse.AbstractHorseEntity;
+import com.flashfyre.ffenchants.FFE;
+
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class BuoyancyPacket {
 	
-	private final int entityId;
+	public final int entityId;
 	
 	public BuoyancyPacket(int id) {
 		entityId = id;
@@ -26,11 +27,10 @@ public class BuoyancyPacket {
 	}
 	
 	public static void handle(BuoyancyPacket packet, Supplier<NetworkEvent.Context> ctx) {
-	    ctx.get().enqueueWork(() -> {
-	    	World world = Minecraft.getInstance().world;
-	    	AbstractHorseEntity horse = (AbstractHorseEntity) world.getEntityByID(packet.entityId);
-	    	horse.addVelocity(0, 0.06D, 0);	        
-	    });
+		if (FMLEnvironment.dist == Dist.CLIENT) {
+			ctx.get().enqueueWork(() ->
+			FFE.ClientPacketHandler.handleBuoyancyPacket(packet, ctx));
+		}
 	    ctx.get().setPacketHandled(true);
 	}
 
