@@ -1,11 +1,13 @@
 package com.flashfyre.ffenchants.enchantments;
 
 import com.flashfyre.ffenchants.FFE;
+import com.flashfyre.ffenchants.misc.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.ProtectionEnchantment;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -35,11 +37,6 @@ public class ObsidianSkullEnchantment extends Enchantment {
 	}
 	
 	@Override
-	public boolean isTreasureEnchantment() {
-		return true;
-	}
-	
-	@Override
 	public boolean canApplyTogether(Enchantment ench) {
 		if (ench instanceof ProtectionEnchantment) {
 			return false;
@@ -47,6 +44,24 @@ public class ObsidianSkullEnchantment extends Enchantment {
 			return super.canApplyTogether(ench);
 		}
     }
+	
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if(FFEConfig.canObsidianSkullBeAppliedToItems) {
+			return super.canApplyAtEnchantingTable(stack);
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean isAllowedOnBooks() {
+		return FFEConfig.canObsidianSkullBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean isTreasureEnchantment() {
+		return !(FFEConfig.canObsidianSkullBeAppliedToBooks || FFEConfig.canObsidianSkullBeAppliedToItems);
+	}
 	
 	@SubscribeEvent
 	public static void reduceImpactDamage(LivingHurtEvent event) {	

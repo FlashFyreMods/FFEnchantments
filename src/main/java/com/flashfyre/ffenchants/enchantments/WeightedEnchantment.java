@@ -3,6 +3,7 @@ package com.flashfyre.ffenchants.enchantments;
 import java.util.Random;
 
 import com.flashfyre.ffenchants.FFE;
+import com.flashfyre.ffenchants.misc.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -41,7 +42,28 @@ public class WeightedEnchantment extends Enchantment {
 	
 	@Override
 	public boolean canApply(ItemStack stack) {
-		return stack.getItem() instanceof AxeItem ? true : super.canApply(stack);
+		if(FFEConfig.canWeightedBeAppliedToItems) {
+			return stack.getItem() instanceof AxeItem ? true : super.canApply(stack);
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if(FFEConfig.canWeightedBeAppliedToItems) {
+			return super.canApplyAtEnchantingTable(stack);
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean isAllowedOnBooks() {
+		return FFEConfig.canWeightedBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean isTreasureEnchantment() {
+		return !FFEConfig.canWeightedBeAppliedToBooks && !FFEConfig.canWeightedBeAppliedToItems;
 	}
 	
 	@SubscribeEvent

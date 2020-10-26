@@ -1,6 +1,7 @@
 package com.flashfyre.ffenchants.enchantments;
 
 import com.flashfyre.ffenchants.FFE;
+import com.flashfyre.ffenchants.misc.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -14,10 +15,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
-public class RejuvenationEnchantment extends Enchantment {
-	public RejuvenationEnchantment(Enchantment.Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
+public class AquaticRejuvenationEnchantment extends Enchantment {
+	public AquaticRejuvenationEnchantment(Enchantment.Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);
-		setRegistryName(FFE.MOD_ID, "rejuvenation");
 	}
 	
 	@Override
@@ -37,13 +37,26 @@ public class RejuvenationEnchantment extends Enchantment {
 	}
 	
 	@Override
-	public boolean isTreasureEnchantment() {
-		return true;
+	public boolean canApplyTogether(Enchantment ench) {
+		return super.canApplyTogether(ench) && ench != Enchantments.MENDING;
 	}
 	
 	@Override
-	public boolean canApplyTogether(Enchantment ench) {
-		return super.canApplyTogether(ench) && ench != Enchantments.MENDING;
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if(FFEConfig.canAquaticRejuvenationBeAppliedToItems) {
+			return super.canApplyAtEnchantingTable(stack);
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean isAllowedOnBooks() {
+		return FFEConfig.canAquaticRejuvenationBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean isTreasureEnchantment() {
+		return !(FFEConfig.canAquaticRejuvenationBeAppliedToBooks || FFEConfig.canAquaticRejuvenationBeAppliedToItems);
 	}
 	
 	@SubscribeEvent
@@ -52,7 +65,7 @@ public class RejuvenationEnchantment extends Enchantment {
 		if(entity.isInWaterRainOrBubbleColumn()) {
 			ItemStack stack = entity.getHeldItem(Hand.MAIN_HAND);
 			if(!stack.isDamaged()) return;
-			int level = FFE.getEnchantmentLevel(stack, FFE.REJUVENATION);
+			int level = FFE.getEnchantmentLevel(stack, FFE.AQUATIC_REJUVENATION);
 			if(level > 0) {
 				if(entity.world.getGameTime() % (140 - (level * 40)) == 0) {
 					stack.setDamage(stack.getDamage() - 1);

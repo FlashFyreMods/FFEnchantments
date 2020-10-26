@@ -10,7 +10,6 @@ displayName="FlashFyre's Enchantments"
 logoFile="ffenchants.png" #optional
 #credits="" #optional
 authors="FlashFyre" #optional
-# The description text for the mod (multi line!) (#mandatory)
 description='''
 A mod adding lots of new enchantments to the game.
 '''

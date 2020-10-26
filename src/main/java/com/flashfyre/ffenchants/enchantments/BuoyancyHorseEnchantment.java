@@ -1,7 +1,8 @@
 package com.flashfyre.ffenchants.enchantments;
 
 import com.flashfyre.ffenchants.FFE;
-import com.flashfyre.ffenchants.misc.BuoyancyPacket;
+import com.flashfyre.ffenchants.misc.FFEConfig;
+import com.flashfyre.ffenchants.packets.BuoyancyPacket;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -22,7 +23,6 @@ public class BuoyancyHorseEnchantment extends Enchantment {
 
 	public BuoyancyHorseEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType[] slots) {
 		super(rarityIn, typeIn, slots);
-		setRegistryName(FFE.MOD_ID, "buoyancy_horse");
 	}
 	
 	@Override
@@ -39,13 +39,21 @@ public class BuoyancyHorseEnchantment extends Enchantment {
 	}
 	
 	@Override
-	public boolean canApply(ItemStack stack) {
-		return stack.getItem() instanceof SaddleItem;
+	public boolean canApplyAtEnchantingTable(ItemStack stack) { //Doesn't actually work as saddle items aren't enchantable and have an enchantability of 0
+		if(stack.getItem() instanceof SaddleItem) {
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
-	public boolean canApplyAtEnchantingTable(ItemStack stack) {
-		return stack.getItem() instanceof SaddleItem;
+	public boolean isTreasureEnchantment() {
+		return !FFEConfig.canBuoyancyBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean isAllowedOnBooks() {
+		return FFEConfig.canBuoyancyBeAppliedToBooks;
 	}
 	
 	@SubscribeEvent

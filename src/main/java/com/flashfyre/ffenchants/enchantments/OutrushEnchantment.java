@@ -2,6 +2,7 @@ package com.flashfyre.ffenchants.enchantments;
 
 import com.flashfyre.ffenchants.FFE;
 import com.flashfyre.ffenchants.capability.ShooterEnchantmentsProvider;
+import com.flashfyre.ffenchants.misc.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -9,6 +10,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -43,6 +45,24 @@ public class OutrushEnchantment extends Enchantment
 	public int getMaxEnchantability(int enchantmentLevel) 
 	{
 		return this.getMinEnchantability(enchantmentLevel) + 20;
+	}
+	
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if(FFEConfig.canOutrushBeAppliedToItems) {
+			return super.canApplyAtEnchantingTable(stack);
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean isAllowedOnBooks() {
+		return FFEConfig.canOutrushBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean isTreasureEnchantment() {
+		return !(FFEConfig.canOutrushBeAppliedToBooks || FFEConfig.canOutrushBeAppliedToItems);
 	}
 	
 	@SubscribeEvent

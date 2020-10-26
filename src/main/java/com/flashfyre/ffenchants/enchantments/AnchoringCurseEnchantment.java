@@ -16,7 +16,6 @@ public class AnchoringCurseEnchantment extends Enchantment {
 
 	public AnchoringCurseEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType... slots) {
 		super(rarityIn, typeIn, slots);
-		setRegistryName(FFE.MOD_ID, "anchoring_curse");
 	}
 	
 	public int getMinEnchantability(int enchantmentLevel) {

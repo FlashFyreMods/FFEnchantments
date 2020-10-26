@@ -3,6 +3,7 @@ package com.flashfyre.ffenchants.enchantments;
 import java.util.UUID;
 
 import com.flashfyre.ffenchants.FFE;
+import com.flashfyre.ffenchants.misc.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -39,6 +40,24 @@ public class TorrentEnchantment extends Enchantment {
 	@Override
 	public int getMaxEnchantability(int enchantmentLevel) {
 		return this.getMinEnchantability(enchantmentLevel) + 6;
+	}
+	
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if(FFEConfig.canTorrentBeAppliedToItems) {
+			return super.canApplyAtEnchantingTable(stack);
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean isAllowedOnBooks() {
+		return FFEConfig.canTorrentBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean isTreasureEnchantment() {
+		return !FFEConfig.canTorrentBeAppliedToBooks && !FFEConfig.canTorrentBeAppliedToItems;
 	}
 	
 	@SubscribeEvent

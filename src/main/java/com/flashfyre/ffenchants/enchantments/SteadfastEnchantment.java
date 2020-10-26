@@ -2,11 +2,13 @@ package com.flashfyre.ffenchants.enchantments;
 
 import com.flashfyre.ffenchants.FFE;
 import com.flashfyre.ffenchants.capability.SteadfastHandlerProvider;
+import com.flashfyre.ffenchants.misc.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,6 +35,24 @@ public class SteadfastEnchantment extends Enchantment {
 	@Override
 	public int getMaxEnchantability(int level) {
 		return super.getMinEnchantability(level) + 50;
+	}
+	
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if(FFEConfig.canSteadfastBeAppliedToItems) {
+			return super.canApplyAtEnchantingTable(stack);
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean isAllowedOnBooks() {
+		return FFEConfig.canSteadfastBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean isTreasureEnchantment() {
+		return !FFEConfig.canSteadfastBeAppliedToBooks && !FFEConfig.canSteadfastBeAppliedToItems;
 	}
 	
 	@SubscribeEvent

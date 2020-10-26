@@ -3,6 +3,7 @@ package com.flashfyre.ffenchants.enchantments;
 import java.util.Random;
 
 import com.flashfyre.ffenchants.FFE;
+import com.flashfyre.ffenchants.misc.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -10,6 +11,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -26,6 +28,35 @@ public class VampiricEnchantment extends Enchantment {
 	public VampiricEnchantment(Enchantment.Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);
 		setRegistryName(FFE.MOD_ID, "vampiric");
+	}
+	
+	@Override
+	public int getMaxLevel()
+	{
+		return 2;
+	}
+	
+	@Override
+	public int getMinEnchantability(int enchantmentLevel) {
+		return 1 + enchantmentLevel * 5;
+	}
+	
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if(FFEConfig.canVampiricBeAppliedToItems) {
+			return super.canApplyAtEnchantingTable(stack);
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean isAllowedOnBooks() {
+		return FFEConfig.canVampiricBeAppliedToBooks;
+	}	
+	
+	@Override
+	public boolean isTreasureEnchantment() {
+		return !(FFEConfig.canVampiricBeAppliedToBooks || FFEConfig.canVampiricBeAppliedToItems);
 	}
 	
 	/*
@@ -68,22 +99,6 @@ public class VampiricEnchantment extends Enchantment {
 				}			
 			}
 		}
-	}
-	
-	@Override
-	public int getMaxLevel()
-	{
-		return 2;
-	}
-	
-	@Override
-	public int getMinEnchantability(int enchantmentLevel) {
-		return 1 + enchantmentLevel * 5;
-	}
-	
-	@Override
-	public boolean isTreasureEnchantment() {
-		return true;
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.flashfyre.ffenchants.misc;
+package com.flashfyre.ffenchants.packets;
 
 import java.util.function.Supplier;
 

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "entries": [
-    "ffenchants:enchant_saddles"
+    "ffenchants:enchant_saddles",
+	"ffenchants:remove_disabled_enchantments"
   ]
 }

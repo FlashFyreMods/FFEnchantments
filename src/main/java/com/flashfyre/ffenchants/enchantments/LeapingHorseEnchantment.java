@@ -1,7 +1,8 @@
 package com.flashfyre.ffenchants.enchantments;
 
 import com.flashfyre.ffenchants.FFE;
-import com.flashfyre.ffenchants.misc.LeapingToServerPacket;
+import com.flashfyre.ffenchants.misc.FFEConfig;
+import com.flashfyre.ffenchants.packets.LeapingToServerPacket;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -39,7 +40,20 @@ public class LeapingHorseEnchantment extends Enchantment {
 	
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack) {
-		return stack.getItem() instanceof SaddleItem;
+		if(stack.getItem() instanceof SaddleItem) {
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean isAllowedOnBooks() {
+		return FFEConfig.canLeapingBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean isTreasureEnchantment() {
+		return !FFEConfig.canLeapingBeAppliedToBooks;
 	}
 	
 	//This event is client side only in the case of horses jumping while being controlled by the player, hence we need to send a packet to the server

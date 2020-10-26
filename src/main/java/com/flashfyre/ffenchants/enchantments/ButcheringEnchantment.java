@@ -1,6 +1,7 @@
 package com.flashfyre.ffenchants.enchantments;
 
 import com.flashfyre.ffenchants.FFE;
+import com.flashfyre.ffenchants.misc.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -18,7 +19,6 @@ public class ButcheringEnchantment extends Enchantment {
 	
 	public ButcheringEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType... slots) {
 		super(rarityIn, typeIn, slots);
-		setRegistryName(FFE.MOD_ID, "butchering");
 	}
 	
 	@Override
@@ -37,15 +37,23 @@ public class ButcheringEnchantment extends Enchantment {
 	}
 	
 	@Override
-	public boolean canApply(ItemStack stack) {
-		return stack.getItem() instanceof AxeItem;
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if(FFEConfig.canButcheringBeAppliedToItems && stack.getItem() instanceof AxeItem) {
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
-	public boolean canApplyAtEnchantingTable(ItemStack stack) {
-		return stack.getItem() instanceof AxeItem;
+	public boolean isAllowedOnBooks() {
+		return FFEConfig.canButcheringBeAppliedToBooks;
 	}
-
+	
+	@Override
+	public boolean isTreasureEnchantment() {
+		return !(FFEConfig.canButcheringBeAppliedToBooks || FFEConfig.canButcheringBeAppliedToItems);
+	}
+	
 	@SubscribeEvent
 	public static void applyExtraDamage(LivingHurtEvent event) {
 		if(event.getSource().getImmediateSource() instanceof LivingEntity) {

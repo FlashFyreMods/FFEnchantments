@@ -1,6 +1,7 @@
 package com.flashfyre.ffenchants.enchantments;
 
 import com.flashfyre.ffenchants.FFE;
+import com.flashfyre.ffenchants.misc.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -21,7 +22,6 @@ public class BloodlustEnchantment extends Enchantment {
 
 	public BloodlustEnchantment(Enchantment.Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);
-		setRegistryName(FFE.MOD_ID, "bloodlust");
 	}
 	
 	@Override
@@ -41,7 +41,20 @@ public class BloodlustEnchantment extends Enchantment {
 	
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack) {
-		return stack.getItem() instanceof AxeItem;
+		if(FFEConfig.canBloodlustBeAppliedToItems && stack.getItem() instanceof AxeItem) {
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean isAllowedOnBooks() {
+		return FFEConfig.canBloodlustBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean isTreasureEnchantment() {
+		return !(FFEConfig.canBloodlustBeAppliedToBooks || FFEConfig.canBloodlustBeAppliedToItems);
 	}
 	
 	@SubscribeEvent

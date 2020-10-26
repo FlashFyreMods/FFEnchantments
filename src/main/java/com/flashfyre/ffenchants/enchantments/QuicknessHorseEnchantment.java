@@ -3,6 +3,7 @@ package com.flashfyre.ffenchants.enchantments;
 import java.util.UUID;
 
 import com.flashfyre.ffenchants.FFE;
+import com.flashfyre.ffenchants.misc.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -43,13 +44,21 @@ public class QuicknessHorseEnchantment extends Enchantment {
 	}
 	
 	@Override
-	public boolean canApply(ItemStack stack) {
-		return stack.getItem() instanceof SaddleItem;
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
+		if(stack.getItem() instanceof SaddleItem) {
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
-	public boolean canApplyAtEnchantingTable(ItemStack stack) {
-		return stack.getItem() instanceof SaddleItem;
+	public boolean isAllowedOnBooks() {
+		return FFEConfig.canQuicknessBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean isTreasureEnchantment() {
+		return !FFEConfig.canQuicknessBeAppliedToBooks;
 	}
 	
 	@SubscribeEvent

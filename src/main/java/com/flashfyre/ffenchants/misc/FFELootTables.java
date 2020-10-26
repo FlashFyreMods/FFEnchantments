@@ -21,7 +21,7 @@ public class FFELootTables {
 	@SubscribeEvent
 	public static void injectLootPools(LootTableLoadEvent event) {
 		
-		if(!FFEConfig.COMMON.enableAllLootAdditions.get()) return;
+		if(!FFEConfig.enableAllLootAdditions) return;
 		
 		String prefix = "minecraft:chests/";
 		String name = event.getName().toString();
@@ -48,6 +48,4 @@ public class FFELootTables {
 		return TableLootEntry.builder(table)
 				.weight(weight);
 	}
-
-
 }

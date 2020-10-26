@@ -1,4 +1,4 @@
-package com.flashfyre.ffenchants.misc;
+package com.flashfyre.ffenchants.loot_modifiers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.Random;
 
 import javax.annotation.Nonnull;
 
+import com.flashfyre.ffenchants.misc.FFEConfig;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -34,21 +35,19 @@ public class EnchantSaddlesLootModifier extends LootModifier {
 	@Nonnull
 	@Override
 	public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext ctx) {
-		
-		if(FFEConfig.COMMON.enableGlobalLootModifiers.get()) {
+		if(FFEConfig.enableSaddlesRandomlyEnchanted) {
 			Random r = ctx.getRandom();
 			
 			for(ItemStack stack : generatedLoot) {
 				if(stack.isEmpty()) continue;
 				if(stack.getItem() == itemToCheck) {
-					if(r.nextDouble() < FFEConfig.COMMON.enchantSaddleChance.get()) {
+					if(r.nextDouble() < FFEConfig.enchantSaddleChance) {
 						Enchantment enchantment = enchantments.get(r.nextInt(enchantments.size()));
 						stack.addEnchantment(enchantment, 1 + ctx.getRandom().nextInt(enchantment.getMaxLevel()));
 					}					
 				}
 			}
-		}		
-		
+		}
 		return generatedLoot;
 	}
 	
