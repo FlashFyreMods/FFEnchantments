@@ -4,7 +4,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.flashfyre.ffenchants.FFE;
 
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,73 +23,91 @@ public class FFEConfig
 		COMMON = specPair.getLeft();
 	}
 	
-	public static boolean canAnchoringCurseSpawnOnBooks;
+	public static boolean canAnchoringCurseGenerateInLoot;
+	public static boolean canAnchoringAppearInTrades;
 	
 	public static boolean canAquaticRejuvenationBeAppliedToBooks;
 	public static boolean canAquaticRejuvenationBeAppliedToItems;
-	public static boolean canAquaticRejuvenationSpawnOnBooks;
+	public static boolean canAquaticRejuvenationGenerateInLoot;
+	public static boolean canAquaticRejuvenationAppearInTrades;
 
 	public static boolean canBloodlustBeAppliedToBooks;
 	public static boolean canBloodlustBeAppliedToItems;
-	public static boolean canBloodlustSpawnOnBooks;
+	public static boolean canBloodlustGenerateInLoot;
+	public static boolean canBloodlustAppearInTrades;
 	
 	public static boolean canBuoyancyBeAppliedToBooks;
-	public static boolean canBuoyancySpawnOnBooks;
+	public static boolean canBuoyancyGenerateInLoot;
+	public static boolean canBuoyancyAppearInTrades;
 	
 	public static boolean canButcheringBeAppliedToBooks;
 	public static boolean canButcheringBeAppliedToItems;
-	public static boolean canButcheringSpawnOnBooks;
+	public static boolean canButcheringGenerateInLoot;
+	public static boolean canButcheringAppearInTrades;
 	
 	public static boolean canLeapingBeAppliedToBooks;
-	public static boolean canLeapingSpawnOnBooks;
+	public static boolean canLeapingGenerateInLoot;
+	public static boolean canLeapingAppearInTrades;
 	
 	public static boolean canObsidianSkullBeAppliedToBooks;
 	public static boolean canObsidianSkullBeAppliedToItems;
-	public static boolean canObsidianSkullSpawnOnBooks;
+	public static boolean canObsidianSkullGenerateInLoot;
+	public static boolean canObsidianSkullAppearInTrades;
 	
 	public static boolean canOutrushBeAppliedToBooks;
 	public static boolean canOutrushBeAppliedToItems;
-	public static boolean canOutrushSpawnOnBooks;
+	public static boolean canOutrushGenerateInLoot;
+	public static boolean canOutrushAppearInTrades;
 
 	public static boolean canPillagingBeAppliedToBooks;
 	public static boolean canPillagingBeAppliedToItems;
-	public static boolean canPillagingSpawnOnBooks;
+	public static boolean canPillagingGenerateInLoot;
+	public static boolean canPillagingAppearInTrades;
 
 	public static boolean canPoisonAspectBeAppliedToBooks;
 	public static boolean canPoisonAspectBeAppliedToItems;
-	public static boolean canPoisonAspectSpawnOnBooks;
+	public static boolean canPoisonAspectGenerateInLoot;
+	public static boolean canPoisonAspectAppearInTrades;
 	
 	public static boolean canQuicknessBeAppliedToBooks;
-	public static boolean canQuicknessSpawnOnBooks;
+	public static boolean canQuicknessGenerateInLoot;
+	public static boolean canQuicknessAppearInTrades;
 	
 	public static boolean canSearingBeAppliedToBooks;
 	public static boolean canSearingBeAppliedToItems;
 	//public static boolean isSearingApplicableOnOtherArmourAnvil;
-	public static boolean canSearingSpawnOnBooks;
+	public static boolean canSearingGenerateInLoot;
+	public static boolean canSearingAppearInTrades;
 	
 	public static boolean canSharpshooterBeAppliedToBooks;
 	public static boolean canSharpshooterBeAppliedToItems;
-	public static boolean canSharpshooterSpawnOnBooks;
+	public static boolean canSharpshooterGenerateInLoot;
+	public static boolean canSharpshooterAppearInTrades;
 	
 	public static boolean canSteadfastBeAppliedToBooks;
 	public static boolean canSteadfastBeAppliedToItems;
-	public static boolean canSteadfastSpawnOnBooks;
+	public static boolean canSteadfastGenerateInLoot;
+	public static boolean canSteadfastAppearInTrades;
 	
 	public static boolean canTorrentBeAppliedToBooks;
 	public static boolean canTorrentBeAppliedToItems;
-	public static boolean canTorrentSpawnOnBooks;
+	public static boolean canTorrentGenerateInLoot;
+	public static boolean canTorrentAppearInTrades;
 
 	public static boolean canVampiricBeAppliedToBooks;
 	public static boolean canVampiricBeAppliedToItems;
-	public static boolean canVampiricSpawnOnBooks;
+	public static boolean canVampiricGenerateInLoot;
+	public static boolean canVampiricAppearInTrades;
 	
 	public static boolean canWeightedBeAppliedToBooks;
 	public static boolean canWeightedBeAppliedToItems;
-	public static boolean canWeightedSpawnOnBooks;
+	public static boolean canWeightedGenerateInLoot;
+	public static boolean canWeightedAppearInTrades;
 	
 	public static boolean canWitherAspectBeAppliedToBooks;
 	public static boolean canWitherAspectBeAppliedToItems;
-	public static boolean canWitherAspectSpawnOnBooks;
+	public static boolean canWitherAspectGenerateInLoot;
+	public static boolean canWitherAspectAppearInTrades;
 	
 	
 	public static boolean enableEndCityLootAdditions;
@@ -109,90 +126,90 @@ public class FFEConfig
 	
 	public static void bakeConfig() {
 		
-		canAnchoringCurseSpawnOnBooks = COMMON.canAnchoringCurseSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "anchoring_curse"), canAnchoringCurseSpawnOnBooks);
+		canAnchoringCurseGenerateInLoot = COMMON.canAnchoringCurseGenerateInLoot.get();
+		canAnchoringAppearInTrades = COMMON.canAnchoringCurseAppearInTrades.get();
 		
 		canAquaticRejuvenationBeAppliedToBooks = COMMON.canAquaticRejuvenationBeAppliedToBooks.get();
 		canAquaticRejuvenationBeAppliedToItems = COMMON.canAquaticRejuvenationBeAppliedToItems.get();
-		canAquaticRejuvenationSpawnOnBooks = COMMON.canAquaticRejuvenationSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "aquatic_rejuvenation"), canAquaticRejuvenationSpawnOnBooks);
+		canAquaticRejuvenationGenerateInLoot = COMMON.canAquaticRejuvenationGenerateInLoot.get();
+		canAquaticRejuvenationAppearInTrades = COMMON.canAquaticRejuvenationAppearInTrades.get();
 		
 		canBloodlustBeAppliedToBooks = COMMON.canBloodlustBeAppliedToBooks.get();
 		canBloodlustBeAppliedToItems = COMMON.canBloodlustBeAppliedToItems.get();
-		canBloodlustSpawnOnBooks = COMMON.canBloodlustSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "bloodlust"), canBloodlustSpawnOnBooks);
+		canBloodlustGenerateInLoot = COMMON.canBloodlustGenerateInLoot.get();
+		canBloodlustAppearInTrades = COMMON.canBloodlustAppearInTrades.get();
 		
 		canButcheringBeAppliedToBooks = COMMON.canButcheringBeAppliedToBooks.get();
 		canButcheringBeAppliedToItems = COMMON.canButcheringBeAppliedToItems.get();
-		canButcheringSpawnOnBooks = COMMON.canButcheringSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "butchering"), canButcheringSpawnOnBooks);
+		canButcheringGenerateInLoot = COMMON.canButcheringGenerateInLoot.get();
+		canButcheringAppearInTrades = COMMON.canButcheringAppearInTrades.get();
 		
 		canBuoyancyBeAppliedToBooks = COMMON.canBuoyancyBeAppliedToBooks.get();
-		canBuoyancySpawnOnBooks = COMMON.canBuoyancySpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "buoyancy_horse"), canBuoyancySpawnOnBooks);
+		canBuoyancyGenerateInLoot = COMMON.canBuoyancyGenerateInLoot.get();
+		canBuoyancyAppearInTrades = COMMON.canBuoyancyAppearInTrades.get();
 		
 		canLeapingBeAppliedToBooks = COMMON.canLeapingBeAppliedToBooks.get();
-		canLeapingSpawnOnBooks = COMMON.canLeapingSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "leaping_horse"), canLeapingSpawnOnBooks);
+		canLeapingGenerateInLoot = COMMON.canLeapingGenerateInLoot.get();
+		canLeapingAppearInTrades = COMMON.canLeapingAppearInTrades.get();
 		
 		canObsidianSkullBeAppliedToBooks = COMMON.canObsidianSkullBeAppliedToBooks.get();
 		canObsidianSkullBeAppliedToItems = COMMON.canObsidianSkullBeAppliedToItems.get();
-		canObsidianSkullSpawnOnBooks = COMMON.canObsidianSkullSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "obsidian_skull"), canObsidianSkullSpawnOnBooks);
+		canObsidianSkullGenerateInLoot = COMMON.canObsidianSkullGenerateInLoot.get();
+		canObsidianSkullAppearInTrades = COMMON.canObsidianSkullAppearInTrades.get();
 		
 		canOutrushBeAppliedToBooks = COMMON.canOutrushBeAppliedToBooks.get();
 		canOutrushBeAppliedToItems = COMMON.canOutrushBeAppliedToItems.get();
-		canOutrushSpawnOnBooks = COMMON.canOutrushSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "outrush"), canOutrushSpawnOnBooks);
+		canOutrushGenerateInLoot = COMMON.canOutrushGenerateInLoot.get();
+		canOutrushAppearInTrades = COMMON.canOutrushAppearInTrades.get();
 		
 		canPillagingBeAppliedToBooks = COMMON.canPillagingBeAppliedToBooks.get();
 		canPillagingBeAppliedToItems = COMMON.canPillagingBeAppliedToItems.get();
-		canPillagingSpawnOnBooks = COMMON.canPillagingSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "pillaging"), canPillagingSpawnOnBooks);
+		canPillagingGenerateInLoot = COMMON.canPillagingGenerateInLoot.get();
+		canPillagingAppearInTrades = COMMON.canPillagingAppearInTrades.get();
 		
 		canPoisonAspectBeAppliedToBooks = COMMON.canPoisonAspectBeAppliedToBooks.get();
 		canPoisonAspectBeAppliedToItems = COMMON.canPoisonAspectBeAppliedToItems.get();
-		canPoisonAspectSpawnOnBooks = COMMON.canPoisonAspectSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "poison_aspect"), canPoisonAspectSpawnOnBooks);
+		canPoisonAspectGenerateInLoot = COMMON.canPoisonAspectGenerateInLoot.get();
+		canPoisonAspectAppearInTrades = COMMON.canPoisonAspectAppearInTrades.get();
 		
 		canQuicknessBeAppliedToBooks = COMMON.canQuicknessBeAppliedToBooks.get();
-		canQuicknessSpawnOnBooks = COMMON.canQuicknessSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "quickness_horse"), canQuicknessSpawnOnBooks);
+		canQuicknessGenerateInLoot = COMMON.canQuicknessGenerateInLoot.get();
+		canQuicknessAppearInTrades = COMMON.canQuicknessAppearInTrades.get();
 		
 		canSearingBeAppliedToBooks = COMMON.canSearingBeAppliedToBooks.get();
 		canSearingBeAppliedToItems = COMMON.canSearingBeAppliedToItems.get();
-		canSearingSpawnOnBooks = COMMON.canSearingSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "searing"), canSearingSpawnOnBooks);
+		canSearingGenerateInLoot = COMMON.canSearingGenerateInLoot.get();
+		canSearingAppearInTrades = COMMON.canSearingAppearInTrades.get();
 		
 		canSharpshooterBeAppliedToBooks = COMMON.canSharpshooterBeAppliedToBooks.get();
 		canSharpshooterBeAppliedToItems = COMMON.canSharpshooterBeAppliedToItems.get();
-		canSharpshooterSpawnOnBooks = COMMON.canSharpshooterSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "sharpshooter"), canSharpshooterSpawnOnBooks);
+		canSharpshooterGenerateInLoot = COMMON.canSharpshooterGenerateInLoot.get();
+		canSharpshooterAppearInTrades = COMMON.canSharpshooterAppearInTrades.get();
 		
 		canSteadfastBeAppliedToBooks = COMMON.canSteadfastBeAppliedToBooks.get();
 		canSteadfastBeAppliedToItems = COMMON.canSteadfastBeAppliedToItems.get();
-		canSteadfastSpawnOnBooks = COMMON.canSteadfastSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "steadfast"), canSteadfastSpawnOnBooks);
+		canSteadfastGenerateInLoot = COMMON.canSteadfastGenerateInLoot.get();
+		canSteadfastAppearInTrades = COMMON.canSteadfastAppearInTrades.get();
 		
 		canTorrentBeAppliedToBooks = COMMON.canTorrentBeAppliedToBooks.get();
 		canTorrentBeAppliedToItems = COMMON.canTorrentBeAppliedToItems.get();
-		canTorrentSpawnOnBooks = COMMON.canTorrentSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "torrent"), canTorrentSpawnOnBooks);
+		canTorrentGenerateInLoot = COMMON.canTorrentGenerateInLoot.get();
+		canTorrentAppearInTrades = COMMON.canTorrentAppearInTrades.get();
 		
 		canVampiricBeAppliedToBooks = COMMON.canVampiricBeAppliedToBooks.get();
 		canVampiricBeAppliedToItems = COMMON.canVampiricBeAppliedToItems.get();
-		canVampiricSpawnOnBooks = COMMON.canVampiricSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "vampiric"), canVampiricSpawnOnBooks);
+		canVampiricGenerateInLoot = COMMON.canVampiricGenerateInLoot.get();
+		canVampiricAppearInTrades = COMMON.canVampiricAppearInTrades.get();
 		
 		canWeightedBeAppliedToBooks = COMMON.canWeightedBeAppliedToBooks.get();
 		canWeightedBeAppliedToItems = COMMON.canWeightedBeAppliedToItems.get();
-		canWeightedSpawnOnBooks = COMMON.canWeightedSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "weighted"), canWeightedSpawnOnBooks);
+		canWeightedGenerateInLoot = COMMON.canWeightedGenerateInLoot.get();
+		canWeightedAppearInTrades = COMMON.canWeightedAppearInTrades.get();
 		
 		canWitherAspectBeAppliedToBooks = COMMON.canWitherAspectBeAppliedToBooks.get();
 		canWitherAspectBeAppliedToItems = COMMON.canWitherAspectBeAppliedToItems.get();
-		canWitherAspectSpawnOnBooks = COMMON.canWitherAspectSpawnOnBooks.get();
-		addEnchantmentIfValid(new ResourceLocation(FFE.MOD_ID, "wither_aspect"), canWitherAspectSpawnOnBooks);
+		canWitherAspectGenerateInLoot = COMMON.canWitherAspectGenerateInLoot.get();
+		canWitherAspectAppearInTrades = COMMON.canWitherAspectAppearInTrades.get();
 		
 		enableEndCityLootAdditions = COMMON.enableEndCityLootAdditions.get();
 		enableJungleTempleLootAdditions = COMMON.enableJungleTempleLootAdditions.get();
@@ -208,13 +225,6 @@ public class FFEConfig
 		enchantSaddleChance = COMMON.enchantSaddleChance.get();
 		
 		FFE.LOGGER.info("Baked FFE Config.");
-	}
-	
-	public static void addEnchantmentIfValid(ResourceLocation resourceLocation, boolean isValid) {
-		
-		if(isValid) {
-			FFE.validEnchantmentsForChestLoot.add(resourceLocation);
-		}
 	}
 	
 	@SubscribeEvent
@@ -236,72 +246,90 @@ public class FFEConfig
 	
 	public static class Common {
 		
-		public final ForgeConfigSpec.BooleanValue canAnchoringCurseSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canAnchoringCurseGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canAnchoringCurseAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canAquaticRejuvenationBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canAquaticRejuvenationBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canAquaticRejuvenationSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canAquaticRejuvenationGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canAquaticRejuvenationAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canBloodlustBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canBloodlustBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canBloodlustSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canBloodlustGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canBloodlustAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canBuoyancyBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canBuoyancySpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canBuoyancyGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canBuoyancyAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canButcheringBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canButcheringBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canButcheringSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canButcheringGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canButcheringAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canLeapingBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canLeapingSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canLeapingGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canLeapingAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canObsidianSkullBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canObsidianSkullBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canObsidianSkullSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canObsidianSkullGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canObsidianSkullAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canOutrushBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canOutrushBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canOutrushSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canOutrushGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canOutrushAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canPillagingBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canPillagingBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canPillagingSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canPillagingGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canPillagingAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canPoisonAspectBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canPoisonAspectBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canPoisonAspectSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canPoisonAspectGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canPoisonAspectAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canQuicknessBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canQuicknessSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canQuicknessGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canQuicknessAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canSearingBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canSearingBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canSearingSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canSearingGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canSearingAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canSharpshooterBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canSharpshooterBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canSharpshooterSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canSharpshooterGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canSharpshooterAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canSteadfastBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canSteadfastBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canSteadfastSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canSteadfastGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canSteadfastAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canTorrentBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canTorrentBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canTorrentSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canTorrentGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canTorrentAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canVampiricBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canVampiricBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canVampiricSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canVampiricGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canVampiricAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canWeightedBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canWeightedBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canWeightedSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canWeightedGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canWeightedAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canWitherAspectBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canWitherAspectBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canWitherAspectSpawnOnBooks;
+		public final ForgeConfigSpec.BooleanValue canWitherAspectGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canWitherAspectAppearInTrades;
 
 		//Loot configs
 		public final ForgeConfigSpec.BooleanValue enableEndCityLootAdditions;
@@ -323,10 +351,15 @@ public class FFEConfig
 			.push("enchantments");
 			
 			builder.push("anchoring_curse");
-			canAnchoringCurseSpawnOnBooks = builder
+			canAnchoringCurseGenerateInLoot = builder
 					.comment("Whether or not Curse of Anchoring can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canAnchoringCurseSpawnOnBooks", true);
+					.define("canAnchoringCurseGenerateInLoot", true);
+			
+			canAnchoringCurseAppearInTrades = builder
+					.comment("Whether or not Curse of Anchoring can be traded by villagers.")
+					.worldRestart()
+					.define("canAnchoringCurseAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("aquatic_rejuvenation");
@@ -340,10 +373,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canAquaticRejuvenationBeAppliedToBooks", false);			
 			
-			canAquaticRejuvenationSpawnOnBooks = builder
+			canAquaticRejuvenationGenerateInLoot = builder
 					.comment("Whether or not Aquatic Rejuvenation can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canAquaticRejuvenationSpawnOnBooks", true);
+					.define("canAquaticRejuvenationGenerateInLoot", true);
+			
+			canAquaticRejuvenationAppearInTrades = builder
+					.comment("Whether or not Aquatic Rejuvenation can be traded by villagers.")
+					.worldRestart()
+					.define("canAquaticRejuvenationAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("bloodlust");
@@ -357,10 +395,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canBloodlustBeAppliedToBooks", true);			
 			
-			canBloodlustSpawnOnBooks = builder
+			canBloodlustGenerateInLoot = builder
 					.comment("Whether or not Bloodlust can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canBloodlustSpawnOnBooks", true);				
+					.define("canBloodlustGenerateInLoot", true);
+			
+			canBloodlustAppearInTrades = builder
+					.comment("Whether or not Bloodlust can be traded by villagers.")
+					.worldRestart()
+					.define("canBloodlustAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("buoyancy");
@@ -369,10 +412,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canBuoyancyBeAppliedToBooks", true);
 			
-			canBuoyancySpawnOnBooks = builder
+			canBuoyancyGenerateInLoot = builder
 					.comment("Whether or not Buoyancy can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canBuoyancySpawnOnBooks", true);
+					.define("canBuoyancyGenerateInLoot", true);
+			
+			canBuoyancyAppearInTrades = builder
+					.comment("Whether or not Buoyancy can be traded by villagers.")
+					.worldRestart()
+					.define("canBuoyancyAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("butchering");
@@ -386,10 +434,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canButcheringBeAppliedToBooks", true);			
 			
-			canButcheringSpawnOnBooks = builder
+			canButcheringGenerateInLoot = builder
 					.comment("Whether or not Butchering can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canButcheringSpawnOnBooks", true);
+					.define("canButcheringGenerateInLoot", true);
+			
+			canButcheringAppearInTrades = builder
+					.comment("Whether or not Butchering can be traded by villagers.")
+					.worldRestart()
+					.define("canButcheringAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("leaping");
@@ -398,10 +451,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canLeapingBeAppliedToBooks", true);
 			
-			canLeapingSpawnOnBooks = builder
+			canLeapingGenerateInLoot = builder
 					.comment("Whether or not Leaping can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canLeapingSpawnOnBooks", true);
+					.define("canLeapingGenerateInLoot", true);
+			
+			canLeapingAppearInTrades = builder
+					.comment("Whether or not Leaping can be traded by villagers.")
+					.worldRestart()
+					.define("canLeapingAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("obsidian_skull");
@@ -415,10 +473,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canObsidianSkullBeAppliedToBooks", false);			
 			
-			canObsidianSkullSpawnOnBooks = builder
+			canObsidianSkullGenerateInLoot = builder
 					.comment("Whether or not Obsidian Skull can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canObsidianSkullSpawnOnBooks", true);
+					.define("canObsidianSkullGenerateInLoot", true);
+			
+			canObsidianSkullAppearInTrades = builder
+					.comment("Whether or not Obsidian Skull can be traded by villagers.")
+					.worldRestart()
+					.define("canObsidianSkullAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("outrush");
@@ -432,10 +495,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canOutrushBeAppliedToBooks", true);			
 			
-			canOutrushSpawnOnBooks = builder
+			canOutrushGenerateInLoot = builder
 					.comment("Whether or not Outrush can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canOutrushSpawnOnBooks", true);
+					.define("canOutrushGenerateInLoot", true);
+			
+			canOutrushAppearInTrades = builder
+					.comment("Whether or not Outrush can be traded by villagers.")
+					.worldRestart()
+					.define("canOutrushAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("pillaging");
@@ -449,10 +517,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canPillagingBeAppliedToBooks", true);			
 			
-			canPillagingSpawnOnBooks = builder
+			canPillagingGenerateInLoot = builder
 					.comment("Whether or not Pillaging can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canPillagingSpawnOnBooks", true);
+					.define("canPillagingGenerateInLoot", true);
+			
+			canPillagingAppearInTrades = builder
+					.comment("Whether or not Pillaging can be traded by villagers.")
+					.worldRestart()
+					.define("canPillagingAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("poison_aspect");
@@ -466,10 +539,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canPoisonAspectBeAppliedToBooks", true);			
 			
-			canPoisonAspectSpawnOnBooks = builder
+			canPoisonAspectGenerateInLoot = builder
 					.comment("Whether or not Poison Aspect can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canPoisonAspectSpawnOnBooks", true);
+					.define("canPoisonAspectGenerateInLoot", true);
+			
+			canPoisonAspectAppearInTrades = builder
+					.comment("Whether or not Poison Aspect can be traded by villagers.")
+					.worldRestart()
+					.define("canPoisonAspectAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("quickness");
@@ -478,10 +556,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canQuicknessBeAppliedToBooks", true);
 			
-			canQuicknessSpawnOnBooks = builder
+			canQuicknessGenerateInLoot = builder
 					.comment("Whether or not Quickness can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canQuicknessSpawnOnBooks", true);
+					.define("canQuicknessGenerateInLoot", true);
+			
+			canQuicknessAppearInTrades = builder
+					.comment("Whether or not Quickness can be traded by villagers.")
+					.worldRestart()
+					.define("canQuicknessAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("searing");
@@ -495,10 +578,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canSearingBeAppliedToBooks", true);
 		
-			canSearingSpawnOnBooks = builder
+			canSearingGenerateInLoot = builder
 					.comment("Whether or not Searing can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canSearingSpawnOnBooks", true);
+					.define("canSearingGenerateInLoot", true);
+			
+			canSearingAppearInTrades = builder
+					.comment("Whether or not Searing can be traded by villagers.")
+					.worldRestart()
+					.define("canSearingAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("sharpshooter");
@@ -512,10 +600,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canSharpshooterBeAppliedToBooks", true);			
 			
-			canSharpshooterSpawnOnBooks = builder
+			canSharpshooterGenerateInLoot = builder
 					.comment("Whether or not Sharpshooter can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canSharpshooterSpawnOnBooks", true);
+					.define("canSharpshooterGenerateInLoot", true);
+			
+			canSharpshooterAppearInTrades = builder
+					.comment("Whether or not Sharpshooter can be traded by villagers.")
+					.worldRestart()
+					.define("canSharpshootertAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("steadfast");
@@ -529,10 +622,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canSteadfastBeAppliedToBooks", true);			
 			
-			canSteadfastSpawnOnBooks = builder
+			canSteadfastGenerateInLoot = builder
 					.comment("Whether or not Steadfast can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canSteadfastSpawnOnBooks", true);
+					.define("canSteadfastGenerateInLoot", true);
+			
+			canSteadfastAppearInTrades = builder
+					.comment("Whether or not Steadfast can be traded by villagers.")
+					.worldRestart()
+					.define("canSteadfastAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("torrent");
@@ -546,10 +644,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canTorrentBeAppliedToBooks", true);			
 			
-			canTorrentSpawnOnBooks = builder
+			canTorrentGenerateInLoot = builder
 					.comment("Whether or not Torrent can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canTorrentSpawnOnBooks", true);
+					.define("canTorrentGenerateInLoot", true);
+			
+			canTorrentAppearInTrades = builder
+					.comment("Whether or not Torrent can be traded by villagers.")
+					.worldRestart()
+					.define("canTorrentAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("vampiric");
@@ -563,10 +666,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canVampiricBeAppliedToBooks", false);			
 			
-			canVampiricSpawnOnBooks = builder
+			canVampiricGenerateInLoot = builder
 					.comment("Whether or not Vampiric can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canVampiricSpawnOnBooks", true);
+					.define("canVampiricGenerateInLoot", true);
+			
+			canVampiricAppearInTrades = builder
+					.comment("Whether or not Vampiric can be traded by villagers.")
+					.worldRestart()
+					.define("canVampiricAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("weighted");
@@ -580,10 +688,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canWeightedBeAppliedToBooks", true);			
 			
-			canWeightedSpawnOnBooks = builder
+			canWeightedGenerateInLoot = builder
 					.comment("Whether or not Weighted can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canWeightedSpawnOnBooks", true);
+					.define("canWeightedGenerateInLoot", true);
+			
+			canWeightedAppearInTrades = builder
+					.comment("Whether or not Weighted can be traded by villagers.")
+					.worldRestart()
+					.define("canWeightedAppearInTrades", true);
 			builder.pop();				
 			
 			builder.push("wither_aspect");
@@ -597,10 +710,15 @@ public class FFEConfig
 					.worldRestart()
 					.define("canWitherAspectBeAppliedToBooks", false);			
 			
-			canWitherAspectSpawnOnBooks = builder
+			canWitherAspectGenerateInLoot = builder
 					.comment("Whether or not Wither Aspect can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
-					.define("canWitherAspectSpawnOnBooks", true);
+					.define("canWitherAspectGenerateInLoot", true);
+			
+			canWitherAspectAppearInTrades = builder
+					.comment("Whether or not Wither Aspect can be traded by villagers.")
+					.worldRestart()
+					.define("canWitherAspectAppearInTrades", true);
 			builder.pop();
 			
 			builder.pop();

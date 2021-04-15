@@ -41,11 +41,11 @@ public class CapabilityEventHandler
 		if(event.getEntity() instanceof AbstractArrowEntity)
 		{			
 			AbstractArrowEntity arrow = (AbstractArrowEntity) event.getEntity();			
-			if(arrow.getShooter() instanceof LivingEntity)
+			if(arrow.func_234616_v_() instanceof LivingEntity)
 			{				
 				arrow.getCapability(ShooterEnchantmentsProvider.SHOOTER_INFO_CAPABILITY).ifPresent(data -> //If the capability is present, which it should always be
 				{	
-					LivingEntity shooter = (LivingEntity)arrow.getShooter();
+					LivingEntity shooter = (LivingEntity)arrow.func_234616_v_();
 					ItemStack item = shooter.getHeldItem(Hand.MAIN_HAND);
 					
 					int pillagingLevel = EnchantmentHelper.getEnchantmentLevel(FFE.PILLAGING, item);

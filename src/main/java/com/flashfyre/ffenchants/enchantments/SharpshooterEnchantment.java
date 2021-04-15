@@ -17,7 +17,6 @@ public class SharpshooterEnchantment extends Enchantment
 	public SharpshooterEnchantment(Enchantment.Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) 
 	{
 		super(rarity, type, slots);
-		setRegistryName(FFE.MOD_ID, "sharpshooter");
 	}
 	
 	@Override
@@ -49,6 +48,16 @@ public class SharpshooterEnchantment extends Enchantment
 	@Override
 	public boolean isAllowedOnBooks() {
 		return FFEConfig.canSharpshooterBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canSharpshooterGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canSharpshooterAppearInTrades;
 	}
 	
 	@Override

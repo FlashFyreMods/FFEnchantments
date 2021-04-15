@@ -15,8 +15,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.conditions.ILootCondition;
+import net.minecraft.loot.LootContext;
+import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -63,6 +63,11 @@ public class EnchantSaddlesLootModifier extends LootModifier {
             }
             return new EnchantSaddlesLootModifier(conditionsIn, saddleItem, enchantments);
         }
+
+		@Override
+		public JsonObject write(EnchantSaddlesLootModifier instance) {
+			throw new UnsupportedOperationException("datagen not supported omegalul");
+		}
     }
 
 }

@@ -18,7 +18,6 @@ public class PoisonAspectEnchantment extends Enchantment {
 	
 	public PoisonAspectEnchantment(Enchantment.Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);
-		setRegistryName(FFE.MOD_ID, "poison_aspect");
 	}
 	
 	@Override
@@ -52,6 +51,16 @@ public class PoisonAspectEnchantment extends Enchantment {
 	@Override
 	public boolean isAllowedOnBooks() {
 		return FFEConfig.canPoisonAspectBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canPoisonAspectGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canPoisonAspectAppearInTrades;
 	}
 	
 	@Override

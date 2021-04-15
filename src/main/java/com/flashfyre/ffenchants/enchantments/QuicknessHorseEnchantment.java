@@ -8,8 +8,8 @@ import com.flashfyre.ffenchants.misc.FFEConfig;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
@@ -25,7 +25,6 @@ public class QuicknessHorseEnchantment extends Enchantment {
 
 	public QuicknessHorseEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType[] slots) {
 		super(rarityIn, typeIn, slots);
-		setRegistryName(FFE.MOD_ID, "quickness_horse");
 	}
 	
 	@Override
@@ -57,6 +56,16 @@ public class QuicknessHorseEnchantment extends Enchantment {
 	}
 	
 	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canQuicknessGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canQuicknessAppearInTrades;
+	}
+	
+	@Override
 	public boolean isTreasureEnchantment() {
 		return !FFEConfig.canQuicknessBeAppliedToBooks;
 	}
@@ -70,13 +79,13 @@ public class QuicknessHorseEnchantment extends Enchantment {
 			ItemStack saddle = horse.horseChest.getStackInSlot(0);
 			int level = FFE.getEnchantmentLevel(saddle, FFE.QUICKNESS_HORSE);
 			if(level > 0) {
-				if(entity.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getModifier(UUID.fromString(quickness_modifier_uuid)) == null) {
+				if(entity.getAttribute(Attributes.MOVEMENT_SPEED).getModifier(UUID.fromString(quickness_modifier_uuid)) == null) {
 					AttributeModifier modifier = new AttributeModifier(UUID.fromString(quickness_modifier_uuid), "quickness_horse_enchantment", 0.045F * level, AttributeModifier.Operation.ADDITION);
-					entity.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).applyModifier(modifier);
+					entity.getAttribute(Attributes.MOVEMENT_SPEED).applyPersistentModifier(modifier);
 				}
 			}
 			else {
-				entity.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeModifier(UUID.fromString(quickness_modifier_uuid));
+				entity.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(UUID.fromString(quickness_modifier_uuid));
 			}
 		}	
 	}

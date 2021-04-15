@@ -18,7 +18,6 @@ public class ObsidianSkullEnchantment extends Enchantment {
 
 	public ObsidianSkullEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType... slots) {
 		super(rarityIn, typeIn, slots);
-		setRegistryName(FFE.MOD_ID, "obsidian_skull");
 	}
 	
 	@Override
@@ -56,6 +55,16 @@ public class ObsidianSkullEnchantment extends Enchantment {
 	@Override
 	public boolean isAllowedOnBooks() {
 		return FFEConfig.canObsidianSkullBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canObsidianSkullGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canObsidianSkullAppearInTrades;
 	}
 	
 	@Override

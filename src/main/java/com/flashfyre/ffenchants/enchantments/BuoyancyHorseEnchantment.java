@@ -56,6 +56,16 @@ public class BuoyancyHorseEnchantment extends Enchantment {
 		return FFEConfig.canBuoyancyBeAppliedToBooks;
 	}
 	
+	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canBuoyancyGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canBuoyancyAppearInTrades;
+	}
+	
 	@SubscribeEvent
 	public static void buoyancyTick(LivingUpdateEvent event) {
 		LivingEntity entity = event.getEntityLiving();

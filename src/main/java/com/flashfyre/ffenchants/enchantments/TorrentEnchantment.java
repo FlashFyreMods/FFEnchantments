@@ -12,6 +12,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -23,7 +24,6 @@ public class TorrentEnchantment extends Enchantment {
 	
 	public TorrentEnchantment(Enchantment.Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);
-		setRegistryName(FFE.MOD_ID, "torrent");
 	}
 	
 	@Override
@@ -56,6 +56,16 @@ public class TorrentEnchantment extends Enchantment {
 	}
 	
 	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canTorrentGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canTorrentAppearInTrades;
+	}
+	
+	@Override
 	public boolean isTreasureEnchantment() {
 		return !FFEConfig.canTorrentBeAppliedToBooks && !FFEConfig.canTorrentBeAppliedToItems;
 	}
@@ -67,21 +77,21 @@ public class TorrentEnchantment extends Enchantment {
 		ItemStack heldItem = entity.getHeldItem(Hand.MAIN_HAND);
 		int level = FFE.getEnchantmentLevel(heldItem, FFE.TORRENT);
 		if(!entity.isInWater()) {
-			if(entity.getAttribute(LivingEntity.SWIM_SPEED).getModifier(UUID.fromString(torrent_modifier_uuid)) != null) {
-				entity.getAttribute(LivingEntity.SWIM_SPEED).removeModifier(UUID.fromString(torrent_modifier_uuid));
+			if(entity.getAttribute(ForgeMod.SWIM_SPEED.get()).getModifier(UUID.fromString(torrent_modifier_uuid)) != null) {
+				entity.getAttribute(ForgeMod.SWIM_SPEED.get()).removeModifier(UUID.fromString(torrent_modifier_uuid));
 			}
 			return;
 		}
 		if(level > 0) {
-			if(entity.getAttribute(LivingEntity.SWIM_SPEED).getModifier(UUID.fromString(torrent_modifier_uuid)) == null) {
+			if(entity.getAttribute(ForgeMod.SWIM_SPEED.get()).getModifier(UUID.fromString(torrent_modifier_uuid)) == null) {
 				AttributeModifier modifier = new AttributeModifier(UUID.fromString(torrent_modifier_uuid), "torrent_enchantment", 0.2F + (level * 0.3), AttributeModifier.Operation.ADDITION);
-				entity.getAttribute(LivingEntity.SWIM_SPEED).applyModifier(modifier);
+				entity.getAttribute(ForgeMod.SWIM_SPEED.get()).applyPersistentModifier(modifier);
 			}
 			
 		}
 		else {
-			if(entity.getAttribute(LivingEntity.SWIM_SPEED).getModifier(UUID.fromString(torrent_modifier_uuid)) != null) {
-				entity.getAttribute(LivingEntity.SWIM_SPEED).removeModifier(UUID.fromString(torrent_modifier_uuid));
+			if(entity.getAttribute(ForgeMod.SWIM_SPEED.get()).getModifier(UUID.fromString(torrent_modifier_uuid)) != null) {
+				entity.getAttribute(ForgeMod.SWIM_SPEED.get()).removeModifier(UUID.fromString(torrent_modifier_uuid));
 			}		
 		}	
 	}

@@ -20,7 +20,6 @@ public class LeapingHorseEnchantment extends Enchantment {
 
 	public LeapingHorseEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType... slots) {
 		super(rarityIn, typeIn, slots);
-		setRegistryName(FFE.MOD_ID, "leaping_horse");
 	}
 	
 	@Override
@@ -49,6 +48,16 @@ public class LeapingHorseEnchantment extends Enchantment {
 	@Override
 	public boolean isAllowedOnBooks() {
 		return FFEConfig.canLeapingBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canLeapingGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canLeapingAppearInTrades;
 	}
 	
 	@Override

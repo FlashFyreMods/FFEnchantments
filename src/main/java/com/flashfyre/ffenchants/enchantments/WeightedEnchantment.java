@@ -22,7 +22,6 @@ public class WeightedEnchantment extends Enchantment {
 	
 	public WeightedEnchantment(Enchantment.Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);
-		setRegistryName(FFE.MOD_ID, "weighted");
 	}
 	
 	@Override
@@ -59,6 +58,16 @@ public class WeightedEnchantment extends Enchantment {
 	@Override
 	public boolean isAllowedOnBooks() {
 		return FFEConfig.canWeightedBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canWeightedGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canWeightedAppearInTrades;
 	}
 	
 	@Override

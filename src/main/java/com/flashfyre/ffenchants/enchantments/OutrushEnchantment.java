@@ -26,7 +26,6 @@ public class OutrushEnchantment extends Enchantment
 {
 	public OutrushEnchantment(Enchantment.Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);
-		setRegistryName(FFE.MOD_ID, "outrush");
 	}
 	
 	@Override
@@ -58,6 +57,16 @@ public class OutrushEnchantment extends Enchantment
 	@Override
 	public boolean isAllowedOnBooks() {
 		return FFEConfig.canOutrushBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canOutrushGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canOutrushAppearInTrades;
 	}
 	
 	@Override

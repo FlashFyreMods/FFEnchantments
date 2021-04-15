@@ -20,7 +20,6 @@ public class PillagingEnchantment extends Enchantment
 	public PillagingEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType... slots) 
 	{
 		super(rarityIn, typeIn, slots);
-		setRegistryName(FFE.MOD_ID, "pillaging");
 	}
 	
 	@Override
@@ -52,6 +51,16 @@ public class PillagingEnchantment extends Enchantment
 	@Override
 	public boolean isAllowedOnBooks() {
 		return FFEConfig.canPillagingBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canPillagingGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canPillagingAppearInTrades;
 	}
 	
 	@Override

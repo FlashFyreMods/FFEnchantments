@@ -50,6 +50,16 @@ public class ButcheringEnchantment extends Enchantment {
 	}
 	
 	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canButcheringGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canButcheringAppearInTrades;
+	}
+	
+	@Override
 	public boolean isTreasureEnchantment() {
 		return !(FFEConfig.canButcheringBeAppliedToBooks || FFEConfig.canButcheringBeAppliedToItems);
 	}

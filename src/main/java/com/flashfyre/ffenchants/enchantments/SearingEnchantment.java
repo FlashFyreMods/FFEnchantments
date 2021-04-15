@@ -24,7 +24,6 @@ public class SearingEnchantment extends Enchantment {
 	
 	public SearingEnchantment(Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);
-		setRegistryName(FFE.MOD_ID, "searing");
 	}
 	
 	@Override
@@ -66,6 +65,16 @@ public class SearingEnchantment extends Enchantment {
 	@Override
 	public boolean isAllowedOnBooks() {
 		return FFEConfig.canSearingBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canSearingGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canSearingAppearInTrades;
 	}
 	
 	@Override

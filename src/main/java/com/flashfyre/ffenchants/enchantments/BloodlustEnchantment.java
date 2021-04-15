@@ -53,6 +53,16 @@ public class BloodlustEnchantment extends Enchantment {
 	}
 	
 	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canBloodlustGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canBloodlustAppearInTrades;
+	}
+	
+	@Override
 	public boolean isTreasureEnchantment() {
 		return !(FFEConfig.canBloodlustBeAppliedToBooks || FFEConfig.canBloodlustBeAppliedToItems);
 	}

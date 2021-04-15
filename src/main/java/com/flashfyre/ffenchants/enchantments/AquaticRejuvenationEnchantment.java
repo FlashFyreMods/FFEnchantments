@@ -55,6 +55,16 @@ public class AquaticRejuvenationEnchantment extends Enchantment {
 	}
 	
 	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canAquaticRejuvenationGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canAquaticRejuvenationAppearInTrades;
+	}
+	
+	@Override
 	public boolean isTreasureEnchantment() {
 		return !(FFEConfig.canAquaticRejuvenationBeAppliedToBooks || FFEConfig.canAquaticRejuvenationBeAppliedToItems);
 	}

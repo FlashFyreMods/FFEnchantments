@@ -27,7 +27,6 @@ public class VampiricEnchantment extends Enchantment {
 
 	public VampiricEnchantment(Enchantment.Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);
-		setRegistryName(FFE.MOD_ID, "vampiric");
 	}
 	
 	@Override
@@ -52,7 +51,17 @@ public class VampiricEnchantment extends Enchantment {
 	@Override
 	public boolean isAllowedOnBooks() {
 		return FFEConfig.canVampiricBeAppliedToBooks;
-	}	
+	}
+	
+	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canVampiricGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canVampiricAppearInTrades;
+	}
 	
 	@Override
 	public boolean isTreasureEnchantment() {

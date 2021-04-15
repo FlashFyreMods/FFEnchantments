@@ -18,7 +18,6 @@ public class WitherAspectEnchantment extends Enchantment {
 
 	public WitherAspectEnchantment(Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);
-		setRegistryName(FFE.MOD_ID, "wither_aspect");
 	}
 	
 	public int getMinEnchantability(int enchantmentLevel) {
@@ -51,6 +50,16 @@ public class WitherAspectEnchantment extends Enchantment {
 	@Override
 	public boolean isAllowedOnBooks() {
 		return FFEConfig.canWitherAspectBeAppliedToBooks;
+	}
+	
+	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canWitherAspectGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canWitherAspectAppearInTrades;
 	}
 	
 	@Override

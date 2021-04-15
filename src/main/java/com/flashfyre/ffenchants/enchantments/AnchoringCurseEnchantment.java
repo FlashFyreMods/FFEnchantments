@@ -1,6 +1,7 @@
 package com.flashfyre.ffenchants.enchantments;
 
 import com.flashfyre.ffenchants.FFE;
+import com.flashfyre.ffenchants.misc.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -36,6 +37,16 @@ public class AnchoringCurseEnchantment extends Enchantment {
 	
 	public boolean isCurse() {
 		return true;
+	}
+	
+	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canAnchoringCurseGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canAnchoringAppearInTrades;
 	}
 	
 	@SubscribeEvent

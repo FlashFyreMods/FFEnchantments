@@ -1,25 +1,31 @@
 package com.flashfyre.ffenchants.enchantments;
 
+import java.util.UUID;
+
 import com.flashfyre.ffenchants.FFE;
-import com.flashfyre.ffenchants.capability.SteadfastHandlerProvider;
 import com.flashfyre.ffenchants.misc.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
 public class SteadfastEnchantment extends Enchantment {
 	
+	public static final String steadfast_modifier_uuid = "c9b42190-12b8-4015-96b3-d0df6c89812c";
+	
 	public SteadfastEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType... slots) {
 		super(rarityIn, typeIn, slots);
-		setRegistryName(FFE.MOD_ID, "steadfast");
 	}
 	
 	@Override
@@ -51,39 +57,51 @@ public class SteadfastEnchantment extends Enchantment {
 	}
 	
 	@Override
+	public boolean canGenerateInLoot() {
+		return FFEConfig.canSteadfastGenerateInLoot;
+	}
+	
+	@Override
+	public boolean canVillagerTrade() {
+		return FFEConfig.canSteadfastAppearInTrades;
+	}
+	
+	@Override
 	public boolean isTreasureEnchantment() {
 		return !FFEConfig.canSteadfastBeAppliedToBooks && !FFEConfig.canSteadfastBeAppliedToItems;
 	}
 	
 	@SubscribeEvent
-	public static void reduceKnockback(LivingKnockBackEvent event) {
+	public static void applyKnockbackResistance(LivingEquipmentChangeEvent event) {
+		LivingEntity wearer = event.getEntityLiving();
+		if(event.getSlot() == EquipmentSlotType.CHEST) { // If chestplate is put in armour slot
+			int levelTo = FFE.getEnchantmentLevel(event.getTo(), FFE.STEADFAST);
+			int levelFrom = FFE.getEnchantmentLevel(event.getFrom(), FFE.STEADFAST);
+			if(levelTo == levelFrom) return; //If the levels are the same we don't need to adjust anything
+			if(levelFrom > 0) { //If the item taken out was enchanted with steadfast, remove the modifier
+				wearer.getAttribute(Attributes.KNOCKBACK_RESISTANCE).removeModifier(UUID.fromString(steadfast_modifier_uuid));
+			}
+			if(levelTo > 0) { //If the item put in is enchanted with steadfast
+				if(wearer.getAttribute(Attributes.KNOCKBACK_RESISTANCE).getModifier(UUID.fromString(steadfast_modifier_uuid)) == null) {
+					AttributeModifier modifier = new AttributeModifier(UUID.fromString(steadfast_modifier_uuid), "steadfast_enchantment", 0.2F * levelTo, AttributeModifier.Operation.ADDITION);
+					wearer.getAttribute(Attributes.KNOCKBACK_RESISTANCE).applyPersistentModifier(modifier);
+				}
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public static void knockBackAttacker(LivingAttackEvent event) {
 		LivingEntity target = event.getEntityLiving();
 		if(target instanceof FakePlayer) return;
-		target.getCapability(SteadfastHandlerProvider.STEADFAST_HANDLER_CAPABILITY).ifPresent(targetData ->
-		{			
-			boolean steadfastHandled = targetData.getSteadfastHandled();
-			if(steadfastHandled == true) { //Occurrs if an attacker was just knocked back by steadfast and is now the target
-				targetData.setSteadfastHandled(false);
+		int level = FFE.getEnchantmentLevel(target.getItemStackFromSlot(EquipmentSlotType.CHEST), FFE.STEADFAST);
+		if(level > 0) {
+			Entity source = event.getSource().getImmediateSource();
+			if(source == null) return;
+			if(source instanceof LivingEntity) {
+				LivingEntity attacker = (LivingEntity) source;				
+				attacker.applyKnockback(0.15F * level, target.getPosX() - attacker.getPosX(), target.getPosZ() - attacker.getPosZ());
 			}
-			
-			int level = FFE.getEnchantmentLevel(target.getItemStackFromSlot(EquipmentSlotType.CHEST), FFE.STEADFAST);
-			if(level > 0) {
-				float strength = event.getStrength();
-				float newStrength =  strength - level / 10.0F;			
-				event.setStrength(newStrength);
-				if(steadfastHandled == true) { //Occurrs if an attacker was just knocked back by steadfast and is now the target
-					return;
-				}
-				if(event.getAttacker() instanceof LivingEntity) {
-					LivingEntity attacker = (LivingEntity) event.getAttacker();
-					attacker.getCapability(SteadfastHandlerProvider.STEADFAST_HANDLER_CAPABILITY).ifPresent(attackerData ->
-					{	
-						attackerData.setSteadfastHandled(true); //This entity is about to be knocked back by steadfast
-						attacker.velocityChanged = true;
-						attacker.knockBack(target, 0.4F, target.getPosX() - attacker.getPosX(), target.getPosZ() - attacker.getPosZ());
-					});
-				}
-			}
-		});			
+		}
 	}
 }

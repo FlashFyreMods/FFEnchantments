@@ -1,8 +1,6 @@
 package com.flashfyre.ffenchants;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
@@ -17,6 +15,7 @@ import com.flashfyre.ffenchants.capability.ShooterEnchantmentsStorage;
 import com.flashfyre.ffenchants.capability.SteadfastHandler;
 import com.flashfyre.ffenchants.capability.SteadfastHandlerStorage;
 import com.flashfyre.ffenchants.enchantments.AnchoringCurseEnchantment;
+import com.flashfyre.ffenchants.enchantments.AquaticRejuvenationEnchantment;
 import com.flashfyre.ffenchants.enchantments.BloodlustEnchantment;
 import com.flashfyre.ffenchants.enchantments.BuoyancyHorseEnchantment;
 import com.flashfyre.ffenchants.enchantments.ButcheringEnchantment;
@@ -26,7 +25,6 @@ import com.flashfyre.ffenchants.enchantments.OutrushEnchantment;
 import com.flashfyre.ffenchants.enchantments.PillagingEnchantment;
 import com.flashfyre.ffenchants.enchantments.PoisonAspectEnchantment;
 import com.flashfyre.ffenchants.enchantments.QuicknessHorseEnchantment;
-import com.flashfyre.ffenchants.enchantments.AquaticRejuvenationEnchantment;
 import com.flashfyre.ffenchants.enchantments.SearingEnchantment;
 import com.flashfyre.ffenchants.enchantments.SharpshooterEnchantment;
 import com.flashfyre.ffenchants.enchantments.SteadfastEnchantment;
@@ -35,7 +33,6 @@ import com.flashfyre.ffenchants.enchantments.VampiricEnchantment;
 import com.flashfyre.ffenchants.enchantments.WeightedEnchantment;
 import com.flashfyre.ffenchants.enchantments.WitherAspectEnchantment;
 import com.flashfyre.ffenchants.loot_modifiers.EnchantSaddlesLootModifier;
-import com.flashfyre.ffenchants.loot_modifiers.RemoveDisabledEnchantmentsLootModifier;
 import com.flashfyre.ffenchants.misc.FFEConfig;
 import com.flashfyre.ffenchants.misc.FFELootTables;
 import com.flashfyre.ffenchants.packets.BuoyancyPacket;
@@ -48,7 +45,9 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.SaddleItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -81,6 +80,12 @@ public class FFE
 	}
 		
 	private static final EquipmentSlotType[] ARMOUR_SLOTS = new EquipmentSlotType[] {EquipmentSlotType.HEAD, EquipmentSlotType.CHEST, EquipmentSlotType.LEGS, EquipmentSlotType.FEET};
+	
+	
+	private static class FFEEnchantmentTypes {
+		private static final EnchantmentType AXE = EnchantmentType.create("AXE",  item -> item instanceof AxeItem);
+		private static final EnchantmentType SADDLE = EnchantmentType.create("SADDLE", item -> item instanceof SaddleItem);
+	}	
 	
 	@ObjectHolder("ffenchants:bloodlust")
 	public static Enchantment BLOODLUST = null;
@@ -119,8 +124,6 @@ public class FFE
 	@ObjectHolder("ffenchants:anchoring_curse")
 	public static Enchantment ANCHORING_CURSE = null;
 	
-	public static Set<ResourceLocation> validEnchantmentsForChestLoot = new HashSet<>();
-	
 	@SubscribeEvent
 	public static void registerEnchantments(RegistryEvent.Register<Enchantment> event) 
 	{
@@ -131,22 +134,22 @@ public class FFE
 		
 		ANCHORING_CURSE = new AnchoringCurseEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.ARMOR_FEET, EquipmentSlotType.FEET).setRegistryName(FFE.MOD_ID, "anchoring_curse");
 		AQUATIC_REJUVENATION = new AquaticRejuvenationEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.TRIDENT, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "aquatic_rejuvenation");
-		BLOODLUST = new BloodlustEnchantment(Enchantment.Rarity.RARE, EnchantmentType.ALL, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "bloodlust"); //Only on Axes
-		BUOYANCY_HORSE = new BuoyancyHorseEnchantment(Enchantment.Rarity.RARE, EnchantmentType.ALL, emptySlots).setRegistryName(FFE.MOD_ID, "buoyancy_horse"); //Only on horse armour
-		BUTCHERING = new ButcheringEnchantment(Enchantment.Rarity.RARE, EnchantmentType.ALL, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "butchering"); //Only on Axes
-		VAMPIRIC = new VampiricEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.WEAPON, EquipmentSlotType.MAINHAND);
-		WEIGHTED = new WeightedEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.WEAPON, EquipmentSlotType.MAINHAND);
-		POISON_ASPECT = new PoisonAspectEnchantment(Enchantment.Rarity.RARE, EnchantmentType.WEAPON, EquipmentSlotType.MAINHAND);
-		WITHER_ASPECT = new WitherAspectEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.WEAPON, EquipmentSlotType.MAINHAND);
-		PILLAGING = new PillagingEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.CROSSBOW, EquipmentSlotType.MAINHAND);
-		SEARING = new SearingEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.ARMOR_CHEST, ARMOUR_SLOTS);
-		STEADFAST = new SteadfastEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.ARMOR_CHEST, EquipmentSlotType.CHEST);
-		OUTRUSH = new OutrushEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.TRIDENT, EquipmentSlotType.MAINHAND);
-		TORRENT = new TorrentEnchantment(Enchantment.Rarity.RARE, EnchantmentType.TRIDENT, EquipmentSlotType.MAINHAND);
-		SHARPSHOOTER = new SharpshooterEnchantment(Enchantment.Rarity.RARE, EnchantmentType.CROSSBOW, EquipmentSlotType.MAINHAND);	
-		OBSIDIAN_SKULL = new ObsidianSkullEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.ARMOR_HEAD, EquipmentSlotType.HEAD);
-		LEAPING_HORSE = new LeapingHorseEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.ALL, emptySlots); //Only on horse armour
-		QUICKNESS_HORSE = new QuicknessHorseEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.ALL, emptySlots); //Only on horse armour
+		BLOODLUST = new BloodlustEnchantment(Enchantment.Rarity.RARE, FFEEnchantmentTypes.AXE, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "bloodlust"); //Only on Axes
+		BUOYANCY_HORSE = new BuoyancyHorseEnchantment(Enchantment.Rarity.RARE, FFEEnchantmentTypes.SADDLE, emptySlots).setRegistryName(FFE.MOD_ID, "buoyancy_horse"); //Only on horse armour
+		BUTCHERING = new ButcheringEnchantment(Enchantment.Rarity.RARE, FFEEnchantmentTypes.AXE, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "butchering"); //Only on Axes
+		VAMPIRIC = new VampiricEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.WEAPON, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "vampiric");
+		WEIGHTED = new WeightedEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.WEAPON, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "weighted");
+		POISON_ASPECT = new PoisonAspectEnchantment(Enchantment.Rarity.RARE, EnchantmentType.WEAPON, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "poison_aspect");
+		WITHER_ASPECT = new WitherAspectEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.WEAPON, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "wither_aspect");
+		PILLAGING = new PillagingEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.CROSSBOW, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "pillaging");
+		SEARING = new SearingEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.ARMOR_CHEST, ARMOUR_SLOTS).setRegistryName(FFE.MOD_ID, "searing");
+		STEADFAST = new SteadfastEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.ARMOR_CHEST, EquipmentSlotType.CHEST).setRegistryName(FFE.MOD_ID, "steadfast");
+		OUTRUSH = new OutrushEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.TRIDENT, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "outrush");
+		TORRENT = new TorrentEnchantment(Enchantment.Rarity.RARE, EnchantmentType.TRIDENT, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "torrent");
+		SHARPSHOOTER = new SharpshooterEnchantment(Enchantment.Rarity.RARE, EnchantmentType.CROSSBOW, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "sharpshooter");	
+		OBSIDIAN_SKULL = new ObsidianSkullEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.ARMOR_HEAD, EquipmentSlotType.HEAD).setRegistryName(FFE.MOD_ID, "obsidian_skull");
+		LEAPING_HORSE = new LeapingHorseEnchantment(Enchantment.Rarity.UNCOMMON, FFEEnchantmentTypes.SADDLE, emptySlots).setRegistryName(FFE.MOD_ID, "leaping_horse"); //Only on horse armour
+		QUICKNESS_HORSE = new QuicknessHorseEnchantment(Enchantment.Rarity.UNCOMMON, FFEEnchantmentTypes.SADDLE, emptySlots).setRegistryName(FFE.MOD_ID, "quickness_horse"); //Only on horse armour
 		registerEnchantment(registry, BLOODLUST);
 		registerEnchantment(registry, VAMPIRIC);
 		registerEnchantment(registry, PILLAGING);
@@ -178,7 +181,6 @@ public class FFE
 	{
 		
 		event.getRegistry().register(new EnchantSaddlesLootModifier.Serializer().setRegistryName(new ResourceLocation(FFE.MOD_ID, "enchant_saddles")));	
-		event.getRegistry().register(new RemoveDisabledEnchantmentsLootModifier.Serializer().setRegistryName(new ResourceLocation(FFE.MOD_ID, "remove_disabled_enchantments")));
 	}
 	
 	@SubscribeEvent
