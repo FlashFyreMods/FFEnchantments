@@ -15,7 +15,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
-public class AquaticRejuvenationEnchantment extends Enchantment {
+public class AquaticRejuvenationEnchantment extends FFEnchantment {
 	public AquaticRejuvenationEnchantment(Enchantment.Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);
 	}
@@ -36,11 +36,26 @@ public class AquaticRejuvenationEnchantment extends Enchantment {
 		return super.getMinEnchantability(enchantmentLevel) + 50;
 	}
 	
+	/*
+	 * Returns false on enchantments that should be incompatible.
+	 * Used in:
+	 *  Anvils
+	 * 	Enchantment tables
+	 *  EnchantmentHelper#addRandomEnchantment
+	 *  Enchant command
+	 */
 	@Override
 	public boolean canApplyTogether(Enchantment ench) {
 		return super.canApplyTogether(ench) && ench != Enchantments.MENDING;
 	}
 	
+	/*
+	 * Checks if itemstack is the right type to recieve the enchantment
+	 * Used in:
+	 * 	Enchantment tables
+	 * 	EnchantmentHelper#addRandomEnchantment
+	 * 	Enchantment#canApply
+	 */
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack) {
 		if(FFEConfig.canAquaticRejuvenationBeAppliedToItems) {
@@ -54,23 +69,36 @@ public class AquaticRejuvenationEnchantment extends Enchantment {
 		return FFEConfig.canAquaticRejuvenationBeAppliedToBooks;
 	}
 	
+	/*
+	 * Whether or not this enchantment can generate in loot AND whether or not it can appear in the enchantment table.
+	 * False will prevent it from appearing in the enchantment table as well.
+	 */
 	@Override
 	public boolean canGenerateInLoot() {
 		return FFEConfig.canAquaticRejuvenationGenerateInLoot;
 	}
 	
+	/*
+	 * Whether or not a villager can trade an enchanted book with this enchantment
+	 */
 	@Override
 	public boolean canVillagerTrade() {
 		return FFEConfig.canAquaticRejuvenationAppearInTrades;
 	}
-	
+	/*
+	 * If true:
+	 * - Prevents enchantment from appearing in enchantment table on both books and items
+	 * - Prevents villagers from selling items enchanted with this enchantment
+	 * - Prevents all other instances of items being enchanted with this item aside from the EnchantWithLevels loot function IF treasure is enabled, which is set in the loot table.
+	 * - Increases price of enchanted book in villager trades
+	 */	
 	@Override
 	public boolean isTreasureEnchantment() {
 		return !(FFEConfig.canAquaticRejuvenationBeAppliedToBooks || FFEConfig.canAquaticRejuvenationBeAppliedToItems);
 	}
 	
 	@SubscribeEvent
-	public static void healTick(LivingUpdateEvent event) {
+	public static void repairTick(LivingUpdateEvent event) {
 		LivingEntity entity = event.getEntityLiving();
 		if(entity.isInWaterRainOrBubbleColumn()) {
 			ItemStack stack = entity.getHeldItem(Hand.MAIN_HAND);

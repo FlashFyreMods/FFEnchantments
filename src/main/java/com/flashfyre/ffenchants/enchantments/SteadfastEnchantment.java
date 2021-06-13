@@ -5,7 +5,6 @@ import java.util.UUID;
 import com.flashfyre.ffenchants.FFE;
 import com.flashfyre.ffenchants.misc.FFEConfig;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -20,7 +19,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
-public class SteadfastEnchantment extends Enchantment {
+public class SteadfastEnchantment extends FFEnchantment {
 	
 	public static final String steadfast_modifier_uuid = "c9b42190-12b8-4015-96b3-d0df6c89812c";
 	

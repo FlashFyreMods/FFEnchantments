@@ -3,7 +3,6 @@ package com.flashfyre.ffenchants.enchantments;
 import com.flashfyre.ffenchants.FFE;
 import com.flashfyre.ffenchants.misc.FFEConfig;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,7 +12,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
-public class AnchoringCurseEnchantment extends Enchantment {
+public class AnchoringCurseEnchantment extends FFEnchantment {
 
 	public AnchoringCurseEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType... slots) {
 		super(rarityIn, typeIn, slots);

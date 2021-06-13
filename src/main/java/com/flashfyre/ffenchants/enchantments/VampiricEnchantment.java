@@ -23,7 +23,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
-public class VampiricEnchantment extends Enchantment {
+public class VampiricEnchantment extends FFEnchantment {
 
 	public VampiricEnchantment(Enchantment.Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);

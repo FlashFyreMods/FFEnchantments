@@ -14,7 +14,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraftforge.common.util.FakePlayer;
 
-public class WitherAspectEnchantment extends Enchantment {
+public class WitherAspectEnchantment extends FFEnchantment {
 
 	public WitherAspectEnchantment(Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);

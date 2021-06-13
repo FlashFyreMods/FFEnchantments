@@ -18,7 +18,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
-public class TorrentEnchantment extends Enchantment {
+public class TorrentEnchantment extends FFEnchantment {
 	
 	public static final String torrent_modifier_uuid = "6ec63b9e-3854-4d1a-9b4f-1b9a568a8905";
 	

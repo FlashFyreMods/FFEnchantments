@@ -16,6 +16,7 @@
 	"enchantment.ffenchants.leaping_horse": "Leaping",
 	"enchantment.ffenchants.buoyancy_horse": "Buoyancy",
 	"enchantment.ffenchants.quickness_horse": "Quickness",
+	"enchantment.ffenchants.maelstrom": "Maelstrom",
 	"enchantment.ffenchants.anchoring_curse": "Curse of Anchoring",
 	
 	"enchantment.ffenchants.bloodlust.desc": "Gives the wielder strength when a mob is killed.",
@@ -26,7 +27,7 @@
 	"enchantment.ffenchants.pillaging.desc": "Deals increased damage to illagers.",
 	"enchantment.ffenchants.searing.desc": "Has a chance to light mobs that hit you on fire.",
 	"enchantment.ffenchants.sharpshooter.desc": "Increases arrow velocity, decreases inaccuracy and increases damage slightly.",
-	"enchantment.ffenchants.steadfast.desc": "Reduces knockback taken.",	
+	"enchantment.ffenchants.steadfast.desc": "Reduces knockback taken and knocks back attackers.",	
 	"enchantment.ffenchants.outrush.desc": "Deals increased damage to fire mobs.",
 	"enchantment.ffenchatns.torrent.desc": "Increases entities' swimming speed while the trident is being held.",
 	"enchantment.ffenchants.aquatic_rejuvenation.desc": "Regenerates the durability of tridents while being held in water or rain.",
@@ -35,5 +36,8 @@
 	"enchantment.ffenchants.leaping_horse.desc": "Increases jump height of horses.",
 	"enchantment.ffenchants.buoyancy_horse.desc": "Allows horses to float in water while being ridden.",
 	"enchantment.ffenchants.quickness_horse.desc": "Increases the movement speed of horses.",
-	"enchantment.ffenchants.anchoring_curse.desc": "Causes mobs to sink faster in water."
+	"enchantment.ffenchants.maelstrom.desc": "Pulls in mobs towards the trident and damages them.",
+	"enchantment.ffenchants.anchoring_curse.desc": "Causes mobs to sink faster in water.",
+	
+	"death.attack.ffenchants.maelstrom": "%1$s perished in %2$s's whirlpool"
 }

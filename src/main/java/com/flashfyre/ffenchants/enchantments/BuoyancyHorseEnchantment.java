@@ -4,7 +4,6 @@ import com.flashfyre.ffenchants.FFE;
 import com.flashfyre.ffenchants.misc.FFEConfig;
 import com.flashfyre.ffenchants.packets.BuoyancyPacket;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -19,7 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
-public class BuoyancyHorseEnchantment extends Enchantment {
+public class BuoyancyHorseEnchantment extends FFEnchantment {
 
 	public BuoyancyHorseEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType[] slots) {
 		super(rarityIn, typeIn, slots);

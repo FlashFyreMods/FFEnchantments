@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
-public class SharpshooterEnchantment extends Enchantment 
+public class SharpshooterEnchantment extends FFEnchantment 
 {
 	public SharpshooterEnchantment(Enchantment.Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) 
 	{

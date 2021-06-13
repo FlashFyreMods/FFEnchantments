@@ -348,6 +348,7 @@ public class FFEConfig
 		
 		public Common(ForgeConfigSpec.Builder builder) {
 			builder.comment("Enchantment Configuration")
+			.comment("Note: Due to vanilla behaviour, disabling enchantments from being generated in loot also prevents them from being in enchantment tables.")
 			.push("enchantments");
 			
 			builder.push("anchoring_curse");
@@ -371,7 +372,7 @@ public class FFEConfig
 			canAquaticRejuvenationBeAppliedToBooks = builder
 					.comment("Whether or not Aquatic Rejuvenation can be applied to books.")
 					.worldRestart()
-					.define("canAquaticRejuvenationBeAppliedToBooks", false);			
+					.define("canAquaticRejuvenationBeAppliedToBooks", false);
 			
 			canAquaticRejuvenationGenerateInLoot = builder
 					.comment("Whether or not Aquatic Rejuvenation can be found on enchanted books in naturally generated chests.")

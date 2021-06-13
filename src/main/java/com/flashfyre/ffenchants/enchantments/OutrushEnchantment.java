@@ -87,7 +87,7 @@ public class OutrushEnchantment extends Enchantment
 				if(level > 0) 
 				{
 					event.setAmount(((float)level * 2.5F) + event.getAmount());
-					doExtraEffects(attacker, target);										
+					doOtherEffects(attacker, target);										
 				}			
 			}
 			else if(event.getSource().getImmediateSource() instanceof TridentEntity) //When a trident hits a living entity
@@ -103,8 +103,11 @@ public class OutrushEnchantment extends Enchantment
 						{
 							
 							int level = data.getEnchantments().get(FFE.OUTRUSH);
-							event.setAmount(((float)level * 2.5F) + event.getAmount());							
-							doExtraEffects(thrower, target);
+							event.setAmount(((float)level * 2.5F) + event.getAmount());
+							if(target.isBurning()) {
+								target.extinguish();
+							}
+							doOtherEffects(thrower, target);
 						}				
 					});					
 				}									
@@ -112,12 +115,8 @@ public class OutrushEnchantment extends Enchantment
 		}				
 	}
 	
-	public static void doExtraEffects(LivingEntity attacker, LivingEntity target) 
+	public static void doOtherEffects(LivingEntity attacker, LivingEntity target) 
 	{		
-		if(target.isBurning()) {
-			target.extinguish();
-		}
-		
 		World world = attacker.world;
 		if(!world.isRemote()) 
 		{

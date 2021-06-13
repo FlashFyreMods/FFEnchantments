@@ -20,7 +20,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
-public class SearingEnchantment extends Enchantment {
+public class SearingEnchantment extends FFEnchantment {
 	
 	public SearingEnchantment(Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);

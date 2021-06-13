@@ -5,7 +5,6 @@ import java.util.UUID;
 import com.flashfyre.ffenchants.FFE;
 import com.flashfyre.ffenchants.misc.FFEConfig;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -19,7 +18,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
-public class QuicknessHorseEnchantment extends Enchantment {
+public class QuicknessHorseEnchantment extends FFEnchantment {
 	
 	public static final String quickness_modifier_uuid = "340345c6-41e4-4e9f-ada2-b6f7161871fb";
 

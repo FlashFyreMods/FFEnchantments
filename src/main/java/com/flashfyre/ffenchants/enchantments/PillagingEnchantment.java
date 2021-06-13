@@ -4,7 +4,6 @@ import com.flashfyre.ffenchants.FFE;
 import com.flashfyre.ffenchants.capability.ShooterEnchantmentsProvider;
 import com.flashfyre.ffenchants.misc.FFEConfig;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
@@ -15,7 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
-public class PillagingEnchantment extends Enchantment 
+public class PillagingEnchantment extends FFEnchantment 
 {
 	public PillagingEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType... slots) 
 	{

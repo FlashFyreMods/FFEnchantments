@@ -14,7 +14,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraftforge.common.util.FakePlayer;
 
-public class PoisonAspectEnchantment extends Enchantment {
+public class PoisonAspectEnchantment extends FFEnchantment {
 	
 	public PoisonAspectEnchantment(Enchantment.Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
 		super(rarity, type, slots);

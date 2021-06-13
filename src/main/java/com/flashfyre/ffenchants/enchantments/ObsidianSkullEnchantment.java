@@ -14,7 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
-public class ObsidianSkullEnchantment extends Enchantment {
+public class ObsidianSkullEnchantment extends FFEnchantment {
 
 	public ObsidianSkullEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType... slots) {
 		super(rarityIn, typeIn, slots);

@@ -4,7 +4,6 @@ import com.flashfyre.ffenchants.FFE;
 import com.flashfyre.ffenchants.misc.FFEConfig;
 import com.flashfyre.ffenchants.packets.LeapingToServerPacket;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
@@ -16,7 +15,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
-public class LeapingHorseEnchantment extends Enchantment {
+public class LeapingHorseEnchantment extends FFEnchantment {
 
 	public LeapingHorseEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType... slots) {
 		super(rarityIn, typeIn, slots);
