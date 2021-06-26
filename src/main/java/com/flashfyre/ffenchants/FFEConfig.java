@@ -1,8 +1,6 @@
-package com.flashfyre.ffenchants.misc;
+package com.flashfyre.ffenchants;
 
 import org.apache.commons.lang3.tuple.Pair;
-
-import com.flashfyre.ffenchants.FFE;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -45,9 +43,19 @@ public class FFEConfig
 	public static boolean canButcheringGenerateInLoot;
 	public static boolean canButcheringAppearInTrades;
 	
+	public static boolean canInfernoBeAppliedToBooks;
+	public static boolean canInfernoBeAppliedToItems;
+	public static boolean canInfernoGenerateInLoot;
+	public static boolean canInfernoAppearInTrades;
+	
 	public static boolean canLeapingBeAppliedToBooks;
 	public static boolean canLeapingGenerateInLoot;
 	public static boolean canLeapingAppearInTrades;
+	
+	public static boolean canMaelstromBeAppliedToBooks;
+	public static boolean canMaelstromBeAppliedToItems;
+	public static boolean canMaelstromGenerateInLoot;
+	public static boolean canMaelstromAppearInTrades;
 	
 	public static boolean canObsidianSkullBeAppliedToBooks;
 	public static boolean canObsidianSkullBeAppliedToItems;
@@ -107,19 +115,7 @@ public class FFEConfig
 	public static boolean canWitherAspectBeAppliedToBooks;
 	public static boolean canWitherAspectBeAppliedToItems;
 	public static boolean canWitherAspectGenerateInLoot;
-	public static boolean canWitherAspectAppearInTrades;
-	
-	
-	public static boolean enableEndCityLootAdditions;
-	public static boolean enableJungleTempleLootAdditions;
-	public static boolean enableNetherFortressLootAdditions;
-	public static boolean enablePillagerOutpostLootAdditions;
-	public static boolean enableSmallOceanRuinLootAdditions;
-	public static boolean enableLargeOceanRuinLootAdditions;
-	public static boolean enableWoodlandMansionLootAdditions;
-	public static boolean enableIglooLootAdditions;			
-	public static boolean enableAllLootAdditions;
-	
+	public static boolean canWitherAspectAppearInTrades;	
 	
 	public static boolean enableSaddlesRandomlyEnchanted;
 	public static double enchantSaddleChance;
@@ -148,9 +144,19 @@ public class FFEConfig
 		canBuoyancyGenerateInLoot = COMMON.canBuoyancyGenerateInLoot.get();
 		canBuoyancyAppearInTrades = COMMON.canBuoyancyAppearInTrades.get();
 		
+		canInfernoBeAppliedToBooks = COMMON.canInfernoBeAppliedToBooks.get();
+		canInfernoBeAppliedToItems = COMMON.canInfernoBeAppliedToItems.get();
+		canInfernoGenerateInLoot = COMMON.canInfernoGenerateInLoot.get();
+		canInfernoAppearInTrades = COMMON.canInfernoAppearInTrades.get();
+		
 		canLeapingBeAppliedToBooks = COMMON.canLeapingBeAppliedToBooks.get();
 		canLeapingGenerateInLoot = COMMON.canLeapingGenerateInLoot.get();
 		canLeapingAppearInTrades = COMMON.canLeapingAppearInTrades.get();
+		
+		canMaelstromBeAppliedToBooks = COMMON.canMaelstromBeAppliedToBooks.get();
+		canMaelstromBeAppliedToItems = COMMON.canMaelstromBeAppliedToItems.get();
+		canMaelstromGenerateInLoot = COMMON.canMaelstromGenerateInLoot.get();
+		canMaelstromAppearInTrades = COMMON.canMaelstromAppearInTrades.get();
 		
 		canObsidianSkullBeAppliedToBooks = COMMON.canObsidianSkullBeAppliedToBooks.get();
 		canObsidianSkullBeAppliedToItems = COMMON.canObsidianSkullBeAppliedToItems.get();
@@ -211,16 +217,6 @@ public class FFEConfig
 		canWitherAspectGenerateInLoot = COMMON.canWitherAspectGenerateInLoot.get();
 		canWitherAspectAppearInTrades = COMMON.canWitherAspectAppearInTrades.get();
 		
-		enableEndCityLootAdditions = COMMON.enableEndCityLootAdditions.get();
-		enableJungleTempleLootAdditions = COMMON.enableJungleTempleLootAdditions.get();
-		enableNetherFortressLootAdditions = COMMON.enableNetherFortressLootAdditions.get();
-		enablePillagerOutpostLootAdditions = COMMON.enablePillagerOutpostLootAdditions.get();
-		enableSmallOceanRuinLootAdditions = COMMON.enableSmallOceanRuinLootAdditions.get();
-		enableLargeOceanRuinLootAdditions = COMMON.enableLargeOceanRuinLootAdditions.get();
-		enableWoodlandMansionLootAdditions = COMMON.enableWoodlandMansionLootAdditions.get();
-		enableIglooLootAdditions = COMMON.enableIglooLootAdditions.get();
-		enableAllLootAdditions = COMMON.enableAllLootAdditions.get();
-		
 		enableSaddlesRandomlyEnchanted = COMMON.enableSaddlesRandomlyEnchanted.get();
 		enchantSaddleChance = COMMON.enchantSaddleChance.get();
 		
@@ -268,9 +264,19 @@ public class FFEConfig
 		public final ForgeConfigSpec.BooleanValue canButcheringGenerateInLoot;
 		public final ForgeConfigSpec.BooleanValue canButcheringAppearInTrades;
 		
+		public final ForgeConfigSpec.BooleanValue canInfernoBeAppliedToItems;
+		public final ForgeConfigSpec.BooleanValue canInfernoBeAppliedToBooks;
+		public final ForgeConfigSpec.BooleanValue canInfernoGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canInfernoAppearInTrades;
+		
 		public final ForgeConfigSpec.BooleanValue canLeapingBeAppliedToBooks;
 		public final ForgeConfigSpec.BooleanValue canLeapingGenerateInLoot;
 		public final ForgeConfigSpec.BooleanValue canLeapingAppearInTrades;
+		
+		public final ForgeConfigSpec.BooleanValue canMaelstromBeAppliedToItems;
+		public final ForgeConfigSpec.BooleanValue canMaelstromBeAppliedToBooks;
+		public final ForgeConfigSpec.BooleanValue canMaelstromGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canMaelstromAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canObsidianSkullBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canObsidianSkullBeAppliedToBooks;
@@ -330,18 +336,6 @@ public class FFEConfig
 		public final ForgeConfigSpec.BooleanValue canWitherAspectBeAppliedToBooks;
 		public final ForgeConfigSpec.BooleanValue canWitherAspectGenerateInLoot;
 		public final ForgeConfigSpec.BooleanValue canWitherAspectAppearInTrades;
-
-		//Loot configs
-		public final ForgeConfigSpec.BooleanValue enableEndCityLootAdditions;
-		public final ForgeConfigSpec.BooleanValue enableJungleTempleLootAdditions;
-		public final ForgeConfigSpec.BooleanValue enableNetherFortressLootAdditions;
-		public final ForgeConfigSpec.BooleanValue enablePillagerOutpostLootAdditions;
-		public final ForgeConfigSpec.BooleanValue enableSmallOceanRuinLootAdditions;
-		public final ForgeConfigSpec.BooleanValue enableLargeOceanRuinLootAdditions;
-		public final ForgeConfigSpec.BooleanValue enableWoodlandMansionLootAdditions;
-		public final ForgeConfigSpec.BooleanValue enableIglooLootAdditions;		
-		
-		public final ForgeConfigSpec.BooleanValue enableAllLootAdditions;
 		
 		public final ForgeConfigSpec.BooleanValue enableSaddlesRandomlyEnchanted;
 		public final ForgeConfigSpec.DoubleValue enchantSaddleChance;
@@ -353,424 +347,343 @@ public class FFEConfig
 			
 			builder.push("anchoring_curse");
 			canAnchoringCurseGenerateInLoot = builder
-					.comment("Whether or not Curse of Anchoring can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canAnchoringCurseGenerateInLoot", true);
 			
 			canAnchoringCurseAppearInTrades = builder
-					.comment("Whether or not Curse of Anchoring can be traded by villagers.")
 					.worldRestart()
 					.define("canAnchoringCurseAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("aquatic_rejuvenation");
 			canAquaticRejuvenationBeAppliedToItems = builder
-					.comment("Whether or not Aquatic Rejuvenation can be applied to possible items.")
 					.worldRestart()
 					.define("canAquaticRejuvenationBeAppliedToItems", false);
 			
 			canAquaticRejuvenationBeAppliedToBooks = builder
-					.comment("Whether or not Aquatic Rejuvenation can be applied to books.")
 					.worldRestart()
 					.define("canAquaticRejuvenationBeAppliedToBooks", false);
 			
 			canAquaticRejuvenationGenerateInLoot = builder
-					.comment("Whether or not Aquatic Rejuvenation can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canAquaticRejuvenationGenerateInLoot", true);
 			
 			canAquaticRejuvenationAppearInTrades = builder
-					.comment("Whether or not Aquatic Rejuvenation can be traded by villagers.")
 					.worldRestart()
 					.define("canAquaticRejuvenationAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("bloodlust");
 			canBloodlustBeAppliedToItems = builder
-					.comment("Whether or not Bloodlust can be applied to possible items.")
 					.worldRestart()
 					.define("canBloodlustBeAppliedToItems", true);
 			
 			canBloodlustBeAppliedToBooks = builder
-					.comment("Whether or not Bloodlust can be applied to books.")
 					.worldRestart()
 					.define("canBloodlustBeAppliedToBooks", true);			
 			
 			canBloodlustGenerateInLoot = builder
-					.comment("Whether or not Bloodlust can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canBloodlustGenerateInLoot", true);
 			
 			canBloodlustAppearInTrades = builder
-					.comment("Whether or not Bloodlust can be traded by villagers.")
 					.worldRestart()
 					.define("canBloodlustAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("buoyancy");
 			canBuoyancyBeAppliedToBooks = builder
-					.comment("Whether or not Buoyancy can be applied to books.")
 					.worldRestart()
 					.define("canBuoyancyBeAppliedToBooks", true);
 			
 			canBuoyancyGenerateInLoot = builder
-					.comment("Whether or not Buoyancy can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canBuoyancyGenerateInLoot", true);
 			
 			canBuoyancyAppearInTrades = builder
-					.comment("Whether or not Buoyancy can be traded by villagers.")
 					.worldRestart()
 					.define("canBuoyancyAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("butchering");
 			canButcheringBeAppliedToItems = builder
-					.comment("Whether or not Butchering can be applied to possible items.")
 					.worldRestart()
 					.define("canButcheringBeAppliedToItems", true);
 			
 			canButcheringBeAppliedToBooks = builder
-					.comment("Whether or not Butchering can be applied to books.")
 					.worldRestart()
 					.define("canButcheringBeAppliedToBooks", true);			
 			
 			canButcheringGenerateInLoot = builder
-					.comment("Whether or not Butchering can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canButcheringGenerateInLoot", true);
 			
 			canButcheringAppearInTrades = builder
-					.comment("Whether or not Butchering can be traded by villagers.")
 					.worldRestart()
 					.define("canButcheringAppearInTrades", true);
 			builder.pop();
 			
+			builder.push("inferno");
+			canInfernoBeAppliedToItems = builder
+					.worldRestart()
+					.define("canInfernoBeAppliedToItems", true);
+			
+			canInfernoBeAppliedToBooks = builder
+					.worldRestart()
+					.define("canInfernoBeAppliedToBooks", true);			
+			
+			canInfernoGenerateInLoot = builder
+					.worldRestart()
+					.define("canInfernoGenerateInLoot", true);
+			
+			canInfernoAppearInTrades = builder
+					.worldRestart()
+					.define("canInfernoAppearInTrades", true);
+			builder.pop();
+			
 			builder.push("leaping");
 			canLeapingBeAppliedToBooks = builder
-					.comment("Whether or not Leaping can be applied to books.")
 					.worldRestart()
 					.define("canLeapingBeAppliedToBooks", true);
 			
 			canLeapingGenerateInLoot = builder
-					.comment("Whether or not Leaping can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canLeapingGenerateInLoot", true);
 			
 			canLeapingAppearInTrades = builder
-					.comment("Whether or not Leaping can be traded by villagers.")
 					.worldRestart()
 					.define("canLeapingAppearInTrades", true);
 			builder.pop();
 			
+			builder.push("maelstrom");
+			canMaelstromBeAppliedToItems = builder
+					.worldRestart()
+					.define("canMaelstromBeAppliedToItems", true);
+			
+			canMaelstromBeAppliedToBooks = builder
+					.worldRestart()
+					.define("canMaelstromBeAppliedToBooks", true);			
+			
+			canMaelstromGenerateInLoot = builder
+					.worldRestart()
+					.define("canMaelstromGenerateInLoot", true);
+			
+			canMaelstromAppearInTrades = builder
+					.worldRestart()
+					.define("canMaelstromAppearInTrades", true);
+			builder.pop();
+			
 			builder.push("obsidian_skull");
 			canObsidianSkullBeAppliedToItems = builder
-					.comment("Whether or not Obsidian Skull can be applied to possible items.")
 					.worldRestart()
 					.define("canObsidianSkullBeAppliedToItems", false);
 			
 			canObsidianSkullBeAppliedToBooks = builder
-					.comment("Whether or not Obsidia nSkull can be applied to books.")
 					.worldRestart()
 					.define("canObsidianSkullBeAppliedToBooks", false);			
 			
 			canObsidianSkullGenerateInLoot = builder
-					.comment("Whether or not Obsidian Skull can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canObsidianSkullGenerateInLoot", true);
 			
 			canObsidianSkullAppearInTrades = builder
-					.comment("Whether or not Obsidian Skull can be traded by villagers.")
 					.worldRestart()
 					.define("canObsidianSkullAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("outrush");
 			canOutrushBeAppliedToItems = builder
-					.comment("Whether or not Outrush can be applied to possible items.")
 					.worldRestart()
 					.define("canOutrushBeAppliedToItems", true);
 			
 			canOutrushBeAppliedToBooks = builder
-					.comment("Whether or not Outrush can be applied to books.")
 					.worldRestart()
 					.define("canOutrushBeAppliedToBooks", true);			
 			
 			canOutrushGenerateInLoot = builder
-					.comment("Whether or not Outrush can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canOutrushGenerateInLoot", true);
 			
 			canOutrushAppearInTrades = builder
-					.comment("Whether or not Outrush can be traded by villagers.")
 					.worldRestart()
 					.define("canOutrushAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("pillaging");
 			canPillagingBeAppliedToItems = builder
-					.comment("Whether or not Pillaging can be applied to possible items.")
 					.worldRestart()
 					.define("canPillagingBeAppliedToItems", true);
 			
 			canPillagingBeAppliedToBooks = builder
-					.comment("Whether or not Pillaging can be applied to books.")
 					.worldRestart()
 					.define("canPillagingBeAppliedToBooks", true);			
 			
 			canPillagingGenerateInLoot = builder
-					.comment("Whether or not Pillaging can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canPillagingGenerateInLoot", true);
 			
 			canPillagingAppearInTrades = builder
-					.comment("Whether or not Pillaging can be traded by villagers.")
 					.worldRestart()
 					.define("canPillagingAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("poison_aspect");
 			canPoisonAspectBeAppliedToItems = builder
-					.comment("Whether or not Poison Aspect can be applied to possible items.")
 					.worldRestart()
 					.define("canPoisonAspectBeAppliedToItems", true);
 			
 			canPoisonAspectBeAppliedToBooks = builder
-					.comment("Whether or not Poison Aspect can be applied to books.")
 					.worldRestart()
 					.define("canPoisonAspectBeAppliedToBooks", true);			
 			
 			canPoisonAspectGenerateInLoot = builder
-					.comment("Whether or not Poison Aspect can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canPoisonAspectGenerateInLoot", true);
 			
 			canPoisonAspectAppearInTrades = builder
-					.comment("Whether or not Poison Aspect can be traded by villagers.")
 					.worldRestart()
 					.define("canPoisonAspectAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("quickness");
 			canQuicknessBeAppliedToBooks = builder
-					.comment("Whether or not Quickness can be applied to books.")
 					.worldRestart()
 					.define("canQuicknessBeAppliedToBooks", true);
 			
 			canQuicknessGenerateInLoot = builder
-					.comment("Whether or not Quickness can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canQuicknessGenerateInLoot", true);
 			
 			canQuicknessAppearInTrades = builder
-					.comment("Whether or not Quickness can be traded by villagers.")
 					.worldRestart()
 					.define("canQuicknessAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("searing");
 			canSearingBeAppliedToItems = builder
-					.comment("Whether or not Searing can be applied to possible items.")
 					.worldRestart()
 					.define("canSearingBeAppliedToItems", true);
 			
 			canSearingBeAppliedToBooks = builder
-					.comment("Whether or not Searing can be applied to books.")
 					.worldRestart()
 					.define("canSearingBeAppliedToBooks", true);
 		
 			canSearingGenerateInLoot = builder
-					.comment("Whether or not Searing can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canSearingGenerateInLoot", true);
 			
 			canSearingAppearInTrades = builder
-					.comment("Whether or not Searing can be traded by villagers.")
 					.worldRestart()
 					.define("canSearingAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("sharpshooter");
 			canSharpshooterBeAppliedToItems = builder
-					.comment("Whether or not Sharpshooter can be applied to possible items.")
 					.worldRestart()
 					.define("canSharpshooterBeAppliedToItems", true);
 			
 			canSharpshooterBeAppliedToBooks = builder
-					.comment("Whether or not Sharpshooter can be applied to books.")
 					.worldRestart()
 					.define("canSharpshooterBeAppliedToBooks", true);			
 			
 			canSharpshooterGenerateInLoot = builder
-					.comment("Whether or not Sharpshooter can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canSharpshooterGenerateInLoot", true);
 			
 			canSharpshooterAppearInTrades = builder
-					.comment("Whether or not Sharpshooter can be traded by villagers.")
 					.worldRestart()
 					.define("canSharpshootertAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("steadfast");
 			canSteadfastBeAppliedToItems = builder
-					.comment("Whether or not Steadfast can be applied to possible items.")
 					.worldRestart()
 					.define("canSteadfastBeAppliedToItems", true);
 			
 			canSteadfastBeAppliedToBooks = builder
-					.comment("Whether or not Steadfast can be applied to books.")
 					.worldRestart()
 					.define("canSteadfastBeAppliedToBooks", true);			
 			
 			canSteadfastGenerateInLoot = builder
-					.comment("Whether or not Steadfast can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canSteadfastGenerateInLoot", true);
 			
 			canSteadfastAppearInTrades = builder
-					.comment("Whether or not Steadfast can be traded by villagers.")
 					.worldRestart()
 					.define("canSteadfastAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("torrent");
 			canTorrentBeAppliedToItems = builder
-					.comment("Whether or not Torrent can be applied to possible items.")
 					.worldRestart()
 					.define("canTorrentBeAppliedToItems", true);
 			
 			canTorrentBeAppliedToBooks = builder
-					.comment("Whether or not Torrent can be applied to books.")
 					.worldRestart()
 					.define("canTorrentBeAppliedToBooks", true);			
 			
 			canTorrentGenerateInLoot = builder
-					.comment("Whether or not Torrent can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canTorrentGenerateInLoot", true);
 			
 			canTorrentAppearInTrades = builder
-					.comment("Whether or not Torrent can be traded by villagers.")
 					.worldRestart()
 					.define("canTorrentAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("vampiric");
 			canVampiricBeAppliedToItems = builder
-					.comment("Whether or not Vampiric can be applied to possible items.")
 					.worldRestart()
 					.define("canVampiricBeAppliedToItems", false);
 			
 			canVampiricBeAppliedToBooks = builder
-					.comment("Whether or not Vampiric can be applied to books.")
 					.worldRestart()
 					.define("canVampiricBeAppliedToBooks", false);			
 			
 			canVampiricGenerateInLoot = builder
-					.comment("Whether or not Vampiric can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canVampiricGenerateInLoot", true);
 			
 			canVampiricAppearInTrades = builder
-					.comment("Whether or not Vampiric can be traded by villagers.")
 					.worldRestart()
 					.define("canVampiricAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("weighted");
 			canWeightedBeAppliedToItems = builder
-					.comment("Whether or not Weighted can be applied to possible items.")
 					.worldRestart()
 					.define("canWeightedBeAppliedToItems", true);
 			
 			canWeightedBeAppliedToBooks = builder
-					.comment("Whether or not Weighted can be applied to books.")
 					.worldRestart()
 					.define("canWeightedBeAppliedToBooks", true);			
 			
 			canWeightedGenerateInLoot = builder
-					.comment("Whether or not Weighted can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canWeightedGenerateInLoot", true);
 			
 			canWeightedAppearInTrades = builder
-					.comment("Whether or not Weighted can be traded by villagers.")
 					.worldRestart()
 					.define("canWeightedAppearInTrades", true);
 			builder.pop();				
 			
 			builder.push("wither_aspect");
 			canWitherAspectBeAppliedToItems = builder
-					.comment("Whether or not Wither Aspect can be applied to possible items.")
 					.worldRestart()
 					.define("canWitherAspectBeAppliedToItems", false);
 			
 			canWitherAspectBeAppliedToBooks = builder
-					.comment("Whether or not Wither Aspect can be applied to books.")
 					.worldRestart()
 					.define("canWitherAspectBeAppliedToBooks", false);			
 			
 			canWitherAspectGenerateInLoot = builder
-					.comment("Whether or not Wither Aspect can be found on enchanted books in naturally generated chests.")
 					.worldRestart()
 					.define("canWitherAspectGenerateInLoot", true);
 			
 			canWitherAspectAppearInTrades = builder
-					.comment("Whether or not Wither Aspect can be traded by villagers.")
 					.worldRestart()
 					.define("canWitherAspectAppearInTrades", true);
 			builder.pop();
-			
-			builder.pop();
-			
-			builder.comment("Loot Table Additions Configuration")
-			.push("loot_tables");
-
-			enableAllLootAdditions = builder
-					.comment("Enable/disable all chest loot additions")
-					.worldRestart()
-					.define("enableLootAdditions", true);
-			
-			enableEndCityLootAdditions = builder
-					.comment("Enable/disable additions to end city chest loot")
-					.worldRestart()
-					.define("enableEndCityLootAdditions", true);
-			
-			enableJungleTempleLootAdditions = builder
-					.comment("Enable/disable additions to jungle temple chest loot")
-					.worldRestart()
-					.define("enableJungleTempleLootAdditions", true);
-			
-			enableNetherFortressLootAdditions = builder
-					.comment("Enable/disable additions to nether fortress chest loot")
-					.worldRestart()
-					.define("enableNetherFortressLootAdditions", true);
-			
-			enablePillagerOutpostLootAdditions = builder
-					.comment("Enable/disable additions to pillager outpost chest loot")
-					.worldRestart()
-					.define("enablePillagerOutpostLootAdditions", true);
-			
-			enableSmallOceanRuinLootAdditions = builder
-					.comment("Enable/disable additions to small ocean ruin chest loot")
-					.worldRestart()
-					.define("enableSmallOceanRuinLootAdditions", true);
-			
-			enableLargeOceanRuinLootAdditions = builder
-					.comment("Enable/disable additions to large ocean ruin chest loot")
-					.worldRestart()
-					.define("enableLargeOceanRuinLootAdditions", true);
-			
-			enableWoodlandMansionLootAdditions = builder
-					.comment("Enable/disable additions to woodland mansion chest loot")
-					.worldRestart()
-					.define("enableWoodlandMansionLootAdditions", true);
-			
-			enableIglooLootAdditions = builder
-					.comment("Enable/disable additions to igloo chest loot")
-					.worldRestart()
-					.define("enableIglooLootAdditions", true);
 			
 			builder.pop();
 			

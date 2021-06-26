@@ -1,5 +1,6 @@
 package com.flashfyre.ffenchants;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -9,10 +10,11 @@ import javax.annotation.Nullable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.flashfyre.ffenchants.capability.ArrowOriginalMotionMagnitudeCapability;
+import com.flashfyre.ffenchants.capability.IArrowOriginalMotionMagnitude;
 import com.flashfyre.ffenchants.capability.IMaelstromApplied;
 import com.flashfyre.ffenchants.capability.IShooterEnchantments;
-import com.flashfyre.ffenchants.capability.MaelstromApplied;
-import com.flashfyre.ffenchants.capability.MaelstromAppliedStorage;
+import com.flashfyre.ffenchants.capability.MaelstromTridentReturningCapability;
 import com.flashfyre.ffenchants.capability.ShooterEnchantments;
 import com.flashfyre.ffenchants.capability.ShooterEnchantmentsStorage;
 import com.flashfyre.ffenchants.enchantments.AnchoringCurseEnchantment;
@@ -20,6 +22,7 @@ import com.flashfyre.ffenchants.enchantments.AquaticRejuvenationEnchantment;
 import com.flashfyre.ffenchants.enchantments.BloodlustEnchantment;
 import com.flashfyre.ffenchants.enchantments.BuoyancyHorseEnchantment;
 import com.flashfyre.ffenchants.enchantments.ButcheringEnchantment;
+import com.flashfyre.ffenchants.enchantments.InfernoEnchantment;
 import com.flashfyre.ffenchants.enchantments.LeapingHorseEnchantment;
 import com.flashfyre.ffenchants.enchantments.MaelstromEnchantment;
 import com.flashfyre.ffenchants.enchantments.ObsidianSkullEnchantment;
@@ -35,8 +38,7 @@ import com.flashfyre.ffenchants.enchantments.VampiricEnchantment;
 import com.flashfyre.ffenchants.enchantments.WeightedEnchantment;
 import com.flashfyre.ffenchants.enchantments.WitherAspectEnchantment;
 import com.flashfyre.ffenchants.loot_modifiers.EnchantSaddlesLootModifier;
-import com.flashfyre.ffenchants.misc.FFEConfig;
-import com.flashfyre.ffenchants.misc.FFELootTables;
+import com.flashfyre.ffenchants.loot_modifiers.InjectOrReplaceLootModifier;
 import com.flashfyre.ffenchants.packets.BuoyancyPacket;
 import com.flashfyre.ffenchants.packets.LeapingToClientPacket;
 import com.flashfyre.ffenchants.packets.LeapingToServerPacket;
@@ -46,6 +48,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.AxeItem;
@@ -54,6 +57,8 @@ import net.minecraft.item.SaddleItem;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IndirectEntityDamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
@@ -129,6 +134,8 @@ public class FFE
 	public static Enchantment ANCHORING_CURSE = null;
 	@ObjectHolder("ffenchants:maelstrom")
 	public static Enchantment MAELSTROM = null;
+	@ObjectHolder("ffenchants:inferno")
+	public static Enchantment INFERNO = null;
 	
 	@SubscribeEvent
 	public static void registerEnchantments(RegistryEvent.Register<Enchantment> event) 
@@ -152,11 +159,12 @@ public class FFE
 		STEADFAST = new SteadfastEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.ARMOR_CHEST, EquipmentSlotType.CHEST).setRegistryName(FFE.MOD_ID, "steadfast");
 		OUTRUSH = new OutrushEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.TRIDENT, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "outrush");
 		TORRENT = new TorrentEnchantment(Enchantment.Rarity.RARE, EnchantmentType.TRIDENT, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "torrent");
-		SHARPSHOOTER = new SharpshooterEnchantment(Enchantment.Rarity.RARE, EnchantmentType.CROSSBOW, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "sharpshooter");	
+		SHARPSHOOTER = new SharpshooterEnchantment(Enchantment.Rarity.RARE, EnchantmentType.BOW, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "sharpshooter");	
 		OBSIDIAN_SKULL = new ObsidianSkullEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.ARMOR_HEAD, EquipmentSlotType.HEAD).setRegistryName(FFE.MOD_ID, "obsidian_skull");
 		LEAPING_HORSE = new LeapingHorseEnchantment(Enchantment.Rarity.UNCOMMON, FFEEnchantmentTypes.SADDLE, emptySlots).setRegistryName(FFE.MOD_ID, "leaping_horse"); //Only on horse armour
 		QUICKNESS_HORSE = new QuicknessHorseEnchantment(Enchantment.Rarity.UNCOMMON, FFEEnchantmentTypes.SADDLE, emptySlots).setRegistryName(FFE.MOD_ID, "quickness_horse"); //Only on horse armour
 		MAELSTROM = new MaelstromEnchantment(Enchantment.Rarity.RARE, EnchantmentType.TRIDENT, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "maelstrom");
+		INFERNO = new InfernoEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.CROSSBOW, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "inferno");
 		registerEnchantment(registry, BLOODLUST);
 		registerEnchantment(registry, VAMPIRIC);
 		registerEnchantment(registry, PILLAGING);
@@ -176,6 +184,7 @@ public class FFE
 		registerEnchantment(registry, QUICKNESS_HORSE);
 		registerEnchantment(registry, ANCHORING_CURSE);
 		registerEnchantment(registry, MAELSTROM);
+		registerEnchantment(registry, INFERNO);
 	}
 	
 	public static void registerEnchantment(IForgeRegistry<Enchantment> registry, Enchantment enchantment)
@@ -187,31 +196,24 @@ public class FFE
 	@SubscribeEvent
 	public static void registerLootModifierSerializers(@Nonnull final RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) 
 	{
-		
+		LOGGER.info("Registering FFE Loot Modifiers.");
+		event.getRegistry().register(new InjectOrReplaceLootModifier.Serializer().setRegistryName(new ResourceLocation(FFE.MOD_ID, "loot_modification")));
 		event.getRegistry().register(new EnchantSaddlesLootModifier.Serializer().setRegistryName(new ResourceLocation(FFE.MOD_ID, "enchant_saddles")));	
 	}
 	
 	@SubscribeEvent
 	public static void onCommonSetup(FMLCommonSetupEvent event) {
 		
+		LOGGER.info("Registering FFE packets.");
 		int packetIndex = 0;
 		FFE.PacketHandler.INSTANCE.registerMessage(packetIndex++, LeapingToServerPacket.class, (packet, buffer) -> {}, buffer -> new LeapingToServerPacket(), LeapingToServerPacket::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		FFE.PacketHandler.INSTANCE.registerMessage(packetIndex++, LeapingToClientPacket.class, LeapingToClientPacket::encode, LeapingToClientPacket::decode, LeapingToClientPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
 		FFE.PacketHandler.INSTANCE.registerMessage(packetIndex++, BuoyancyPacket.class, BuoyancyPacket::encode, BuoyancyPacket::decode, BuoyancyPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
 		
+		LOGGER.info("Registering FFE capabilities.");
 		CapabilityManager.INSTANCE.register(IShooterEnchantments.class, new ShooterEnchantmentsStorage(), ShooterEnchantments::new);
-		CapabilityManager.INSTANCE.register(IMaelstromApplied.class, new MaelstromAppliedStorage(), MaelstromApplied::new);
-		
-		if(!FFEConfig.enableAllLootAdditions) return;
-		if(FFEConfig.enableEndCityLootAdditions) FFELootTables.CHESTS.add("end_city_treasure");
-		if(FFEConfig.enableJungleTempleLootAdditions) FFELootTables.CHESTS.add("jungle_temple");
-		if(FFEConfig.enableNetherFortressLootAdditions) FFELootTables.CHESTS.add("nether_bridge");
-		if(FFEConfig.enablePillagerOutpostLootAdditions) FFELootTables.CHESTS.add("pillager_outpost");
-		if(FFEConfig.enableSmallOceanRuinLootAdditions) FFELootTables.CHESTS.add("underwater_ruin_small");
-		if(FFEConfig.enableLargeOceanRuinLootAdditions) FFELootTables.CHESTS.add("underwater_ruin_big");
-		if(FFEConfig.enableWoodlandMansionLootAdditions) FFELootTables.CHESTS.add("woodland_mansion");
-		if(FFEConfig.enableIglooLootAdditions) FFELootTables.CHESTS.add("igloo_chest");
-		FFE.LOGGER.info("Added enabled loot additions.");
+		CapabilityManager.INSTANCE.register(IArrowOriginalMotionMagnitude.class, new ArrowOriginalMotionMagnitudeCapability(), ArrowOriginalMotionMagnitudeCapability::new);
+		CapabilityManager.INSTANCE.register(IMaelstromApplied.class, new MaelstromTridentReturningCapability(), MaelstromTridentReturningCapability::new);
 	}
 	
 	public static int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
@@ -228,7 +230,7 @@ public class FFE
 	public static class PacketHandler {
 		private static final String PROTOCOL_VERSION = "1";
 		public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-			    new ResourceLocation("ffenchants", "main"),
+				new ResourceLocation("ffenchants", "main"),
 			    () -> PROTOCOL_VERSION,
 			    PROTOCOL_VERSION::equals,
 			    PROTOCOL_VERSION::equals
@@ -252,5 +254,9 @@ public class FFE
 	    	AbstractHorseEntity horse = (AbstractHorseEntity) world.getEntityByID(packet.entityId);
 	    	horse.addVelocity(0, 0.06D, 0);
 		}
+	}
+	
+	public static List<LivingEntity> getEntitiesInAABB(World world, double size, Vector3d centrePos) {
+		return world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(centrePos.add(-size, -size, -size), centrePos.add(size, size, size)));
 	}
 }

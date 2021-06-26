@@ -1,8 +1,8 @@
 package com.flashfyre.ffenchants.enchantments;
 
 import com.flashfyre.ffenchants.FFE;
+import com.flashfyre.ffenchants.FFEConfig;
 import com.flashfyre.ffenchants.capability.ShooterEnchantmentsProvider;
-import com.flashfyre.ffenchants.misc.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -80,39 +80,60 @@ public class OutrushEnchantment extends Enchantment
 		LivingEntity target = event.getEntityLiving();
 		if(target.isImmuneToFire()) 
 		{
-			if(event.getSource().getImmediateSource() instanceof LivingEntity) //When a livingentity hits another living entity
-			{			
-				LivingEntity attacker = (LivingEntity) event.getSource().getImmediateSource();
-				int level = FFE.getEnchantmentLevel(attacker.getHeldItem(Hand.MAIN_HAND), FFE.OUTRUSH);
-				if(level > 0) 
-				{
-					event.setAmount(((float)level * 2.5F) + event.getAmount());
-					doOtherEffects(attacker, target);										
-				}			
-			}
-			else if(event.getSource().getImmediateSource() instanceof TridentEntity) //When a trident hits a living entity
+			
+		}
+		if(event.getSource().getImmediateSource() instanceof LivingEntity) //When a livingentity hits another living entity
+		{			
+			LivingEntity attacker = (LivingEntity) event.getSource().getImmediateSource();
+			int level = FFE.getEnchantmentLevel(attacker.getHeldItem(Hand.MAIN_HAND), FFE.OUTRUSH);
+			if(level > 0) 
 			{
-				TridentEntity trident = (TridentEntity) event.getSource().getImmediateSource();
-				
-				if(event.getSource().getTrueSource() instanceof LivingEntity) //If the trident has a thrower
-				{
-					LivingEntity thrower = (LivingEntity) event.getSource().getTrueSource();
-					trident.getCapability(ShooterEnchantmentsProvider.SHOOTER_INFO_CAPABILITY).ifPresent(data -> 
-					{		
-						if(data.hasEnchantment(FFE.OUTRUSH)) 
-						{
-							
-							int level = data.getEnchantments().get(FFE.OUTRUSH);
-							event.setAmount(((float)level * 2.5F) + event.getAmount());
-							if(target.isBurning()) {
-								target.extinguish();
-							}
-							doOtherEffects(thrower, target);
-						}				
-					});					
-				}									
+				if(target.isImmuneToFire()) {
+					event.setAmount(((float)level * 2.5F) + event.getAmount());
+					doOtherEffects(attacker, target);
+					if(target.isBurning()) {
+						target.extinguish();
+					}
+				}
+				else {
+					if(target.isBurning()) {
+						target.extinguish();
+						doOtherEffects(attacker, target);
+					}
+				}				
 			}
-		}				
+		}
+		else if(event.getSource().getImmediateSource() instanceof TridentEntity) //When a trident hits a living entity
+		{
+			TridentEntity trident = (TridentEntity) event.getSource().getImmediateSource();
+			
+			if(event.getSource().getTrueSource() instanceof LivingEntity) //If the trident has a thrower
+			{
+				LivingEntity thrower = (LivingEntity) event.getSource().getTrueSource();
+				trident.getCapability(ShooterEnchantmentsProvider.SHOOTER_INFO_CAPABILITY).ifPresent(data -> 
+				{		
+					if(data.hasEnchantment(FFE.OUTRUSH)) 
+					{						
+						int level = data.getEnchantments().get(FFE.OUTRUSH);
+						if(level > 0) {
+							if(target.isImmuneToFire()) {
+								event.setAmount(((float)level * 2.5F) + event.getAmount());								
+								doOtherEffects(thrower, target);
+								if(target.isBurning()) {
+									target.extinguish();
+								}
+							}
+							else {
+								if(target.isBurning()) {
+									target.extinguish();
+									doOtherEffects(thrower, target);
+								}
+							}							
+						}						
+					}				
+				});					
+			}									
+		}
 	}
 	
 	public static void doOtherEffects(LivingEntity attacker, LivingEntity target) 

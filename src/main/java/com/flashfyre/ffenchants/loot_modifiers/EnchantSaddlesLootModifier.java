@@ -6,7 +6,7 @@ import java.util.Random;
 
 import javax.annotation.Nonnull;
 
-import com.flashfyre.ffenchants.misc.FFEConfig;
+import com.flashfyre.ffenchants.FFEConfig;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 

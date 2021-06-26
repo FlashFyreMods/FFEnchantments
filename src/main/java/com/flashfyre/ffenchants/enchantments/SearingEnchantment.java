@@ -3,7 +3,7 @@ package com.flashfyre.ffenchants.enchantments;
 import java.util.Random;
 
 import com.flashfyre.ffenchants.FFE;
-import com.flashfyre.ffenchants.misc.FFEConfig;
+import com.flashfyre.ffenchants.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;

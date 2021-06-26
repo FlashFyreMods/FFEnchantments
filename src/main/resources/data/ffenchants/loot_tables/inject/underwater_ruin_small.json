@@ -7,12 +7,13 @@
                 {
                     "type": "item",
                     "name": "minecraft:book",
-                    "weight": 35,
+                    "weight": 30,
 					"functions": [
 						{
 							"function": "minecraft:enchant_randomly",
 							"enchantments": [
 								"minecraft:aqua_affinity",
+								"minecraft:channeling",
 								"minecraft:depth_strider",
 								"minecraft:impaling",
 								"minecraft:loyalty",
@@ -21,7 +22,9 @@
 								"minecraft:respiration",
 								"minecraft:riptide",
 								"ffenchants:anchoring_curse",
+								"ffenchants:aquatic_rejuvenation",
 								"ffenchants:torrent",
+								"ffenchants:maelstrom",
 								"ffenchants:outrush"
 							]
 						}
@@ -29,7 +32,7 @@
                 },
                 {
                     "type": "empty",
-                    "weight": 64
+                    "weight": 70
                 }
             ]
         }

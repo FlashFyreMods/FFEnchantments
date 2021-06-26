@@ -3,7 +3,7 @@ package com.flashfyre.ffenchants.enchantments;
 import java.util.UUID;
 
 import com.flashfyre.ffenchants.FFE;
-import com.flashfyre.ffenchants.misc.FFEConfig;
+import com.flashfyre.ffenchants.FFEConfig;
 
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.Entity;
@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
 public class SteadfastEnchantment extends FFEnchantment {
 	
-	public static final String steadfast_modifier_uuid = "c9b42190-12b8-4015-96b3-d0df6c89812c";
+	public static final String STEADFAST_MODIFIER_UUID = "c9b42190-12b8-4015-96b3-d0df6c89812c";
 	
 	public SteadfastEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType... slots) {
 		super(rarityIn, typeIn, slots);
@@ -78,11 +78,11 @@ public class SteadfastEnchantment extends FFEnchantment {
 			int levelFrom = FFE.getEnchantmentLevel(event.getFrom(), FFE.STEADFAST);
 			if(levelTo == levelFrom) return; //If the levels are the same we don't need to adjust anything
 			if(levelFrom > 0) { //If the item taken out was enchanted with steadfast, remove the modifier
-				wearer.getAttribute(Attributes.KNOCKBACK_RESISTANCE).removeModifier(UUID.fromString(steadfast_modifier_uuid));
+				wearer.getAttribute(Attributes.KNOCKBACK_RESISTANCE).removeModifier(UUID.fromString(STEADFAST_MODIFIER_UUID));
 			}
 			if(levelTo > 0) { //If the item put in is enchanted with steadfast
-				if(wearer.getAttribute(Attributes.KNOCKBACK_RESISTANCE).getModifier(UUID.fromString(steadfast_modifier_uuid)) == null) {
-					AttributeModifier modifier = new AttributeModifier(UUID.fromString(steadfast_modifier_uuid), "steadfast_enchantment", 0.2F * levelTo, AttributeModifier.Operation.ADDITION);
+				if(wearer.getAttribute(Attributes.KNOCKBACK_RESISTANCE).getModifier(UUID.fromString(STEADFAST_MODIFIER_UUID)) == null) {
+					AttributeModifier modifier = new AttributeModifier(UUID.fromString(STEADFAST_MODIFIER_UUID), "steadfast_enchantment", 0.2F * levelTo, AttributeModifier.Operation.ADDITION);
 					wearer.getAttribute(Attributes.KNOCKBACK_RESISTANCE).applyPersistentModifier(modifier);
 				}
 			}

@@ -1,22 +1,18 @@
 {
     "pools": [
         {
-            "name": "ffe_inject",
+            "name": "piglin_bartering_inject",
             "rolls": 1,
             "entries": [
                 {
                     "type": "item",
                     "name": "minecraft:book",
-                    "weight": 35,
+                    "weight": 5,
 					"functions": [
 						{
 							"function": "minecraft:enchant_randomly",
 							"enchantments": [
-								"minecraft:quick_charge",
-								"minecraft:piercing",
-								"minecraft:multishot",
-								"ffenchants:inferno",
-								"ffenchants:pillaging"
+								"ffenchants:inferno"
 							]
 						}
 					]
@@ -24,19 +20,32 @@
 				{
                     "type": "item",
                     "name": "minecraft:book",
-                    "weight": 15,
+                    "weight": 5,
 					"functions": [
 						{
 							"function": "minecraft:enchant_randomly",
 							"enchantments": [
-								"ffenchants:bloodlust"
+								"ffenchants:searing"
 							]
 						}
 					]
                 },
-                {
+				{
+                    "type": "item",
+                    "name": "minecraft:crossbow",
+                    "weight": 8,
+					"functions": [
+						{
+							"function": "minecraft:enchant_randomly",
+							"enchantments": [
+								"ffenchants:inferno"
+							]
+						}
+					]
+                },
+				{
                     "type": "empty",
-                    "weight": 50
+                    "weight": 459
                 }
             ]
         }

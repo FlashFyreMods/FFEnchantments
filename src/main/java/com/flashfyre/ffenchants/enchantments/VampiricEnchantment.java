@@ -3,7 +3,7 @@ package com.flashfyre.ffenchants.enchantments;
 import java.util.Random;
 
 import com.flashfyre.ffenchants.FFE;
-import com.flashfyre.ffenchants.misc.FFEConfig;
+import com.flashfyre.ffenchants.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -101,7 +101,12 @@ public class VampiricEnchantment extends FFEnchantment {
 					Random r = livingAttacker.getRNG();
 					if(r.nextInt(6 - level) == 0) {
 						livingAttacker.heal(2);
-						world.playSound(null, livingAttacker.getPosition(), SoundEvents.ENTITY_EVOKER_CAST_SPELL, SoundCategory.MASTER, 1.0F, 1.0F);
+						if(livingAttacker instanceof PlayerEntity) {
+							world.playSound(null, livingAttacker.getPosition(), SoundEvents.ENTITY_EVOKER_CAST_SPELL, SoundCategory.PLAYERS, 1.0F, 1.0F);
+						}
+						else {
+							world.playSound(null, livingAttacker.getPosition(), SoundEvents.ENTITY_EVOKER_CAST_SPELL, SoundCategory.HOSTILE, 1.0F, 1.0F);
+						}
 						ServerWorld serverWorld = (ServerWorld) livingAttacker.world;
 						serverWorld.spawnParticle(ParticleTypes.HEART, (double) livingAttacker.getPosition().getX() + 0.5D, (double) livingAttacker.getPosition().getY() + 1.5D, (double) livingAttacker.getPosition().getZ() + 0.5D, 1, 0, 0, 0, 0);
 					}

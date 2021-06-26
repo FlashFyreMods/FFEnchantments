@@ -1,6 +1,6 @@
 package com.flashfyre.ffenchants.capability;
 
 public interface IMaelstromApplied {	
-	boolean maelstromApplied();
+	boolean isMaelstromApplied();
 	void setMaelstromApplied(boolean maelstromApplied);
 }

@@ -1,7 +1,7 @@
 package com.flashfyre.ffenchants.enchantments;
 
 import com.flashfyre.ffenchants.FFE;
-import com.flashfyre.ffenchants.misc.FFEConfig;
+import com.flashfyre.ffenchants.FFEConfig;
 import com.flashfyre.ffenchants.packets.LeapingToServerPacket;
 
 import net.minecraft.enchantment.EnchantmentType;

@@ -17,6 +17,7 @@
 	"enchantment.ffenchants.buoyancy_horse": "Buoyancy",
 	"enchantment.ffenchants.quickness_horse": "Quickness",
 	"enchantment.ffenchants.maelstrom": "Maelstrom",
+	"enchantment.ffenchants.inferno": "Inferno",
 	"enchantment.ffenchants.anchoring_curse": "Curse of Anchoring",
 	
 	"enchantment.ffenchants.bloodlust.desc": "Gives the wielder strength when a mob is killed.",
@@ -37,7 +38,9 @@
 	"enchantment.ffenchants.buoyancy_horse.desc": "Allows horses to float in water while being ridden.",
 	"enchantment.ffenchants.quickness_horse.desc": "Increases the movement speed of horses.",
 	"enchantment.ffenchants.maelstrom.desc": "Pulls in mobs towards the trident and damages them.",
+	"enchantment.ffenchants.inferno.desc": "Sets mobs near arrows fired from a crossbow on fire.",
 	"enchantment.ffenchants.anchoring_curse.desc": "Causes mobs to sink faster in water.",
 	
-	"death.attack.ffenchants.maelstrom": "%1$s perished in %2$s's whirlpool"
+	"death.attack.ffenchants.maelstrom": "%1$s perished in %2$s's whirlpool",
+	"death.attack.ffenchants.maelstrom": "%1$s perished in %2$s's whirlpool using %3$s"
 }
