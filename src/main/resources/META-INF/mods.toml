@@ -1,9 +1,9 @@
 license="All rights reserved"
 modLoader="javafml" #mandatory
-loaderVersion="[31,)" #mandatory
+loaderVersion="[40,)" #mandatory
 #issueTrackerURL="http://my.issue.tracker/" #optional
 [[mods]] #mandatory
-modId="ffenchants" #mandatory
+modId="ffenchantments" #mandatory
 version="${file.jarVersion}" #mandatory
 displayName="FlashFyre's Enchantments"
 #updateJSONURL="http://myurl.me/" #optional
@@ -17,12 +17,12 @@ A mod adding lots of new enchantments to the game.
 [[dependencies.ffenchants]] #optional
 	modId="forge" #mandatory
 	mandatory=true #mandatory
-	versionRange="[35,)" #mandatory
+	versionRange="[40,)" #mandatory
 	ordering="NONE"
 	side="BOTH"
 [[dependencies.ffenchants]]
 	modId="minecraft"
 	mandatory=true
-	versionRange="[1.16.3]"
+	versionRange="[1.18.2,1.19)"
 	ordering="NONE"
 	side="BOTH"

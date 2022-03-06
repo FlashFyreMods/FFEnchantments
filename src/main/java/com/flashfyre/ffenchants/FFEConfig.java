@@ -1,14 +1,12 @@
-package com.flashfyre.ffenchants.misc;
+package com.flashfyre.ffenchants;
 
 import org.apache.commons.lang3.tuple.Pair;
-
-import com.flashfyre.ffenchants.FFE;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 @Mod.EventBusSubscriber(modid = FFE.MOD_ID, bus = Bus.MOD)
 public class FFEConfig
@@ -24,7 +22,7 @@ public class FFEConfig
 	}
 	
 	public static boolean canAnchoringCurseGenerateInLoot;
-	public static boolean canAnchoringAppearInTrades;
+	public static boolean canAnchoringCurseAppearInTrades;
 	
 	public static boolean canAquaticRejuvenationBeAppliedToBooks;
 	public static boolean canAquaticRejuvenationBeAppliedToItems;
@@ -45,9 +43,19 @@ public class FFEConfig
 	public static boolean canButcheringGenerateInLoot;
 	public static boolean canButcheringAppearInTrades;
 	
+	public static boolean canInfernoBeAppliedToBooks;
+	public static boolean canInfernoBeAppliedToItems;
+	public static boolean canInfernoGenerateInLoot;
+	public static boolean canInfernoAppearInTrades;
+	
 	public static boolean canLeapingBeAppliedToBooks;
 	public static boolean canLeapingGenerateInLoot;
 	public static boolean canLeapingAppearInTrades;
+	
+	public static boolean canMaelstromBeAppliedToBooks;
+	public static boolean canMaelstromBeAppliedToItems;
+	public static boolean canMaelstromGenerateInLoot;
+	public static boolean canMaelstromAppearInTrades;
 	
 	public static boolean canObsidianSkullBeAppliedToBooks;
 	public static boolean canObsidianSkullBeAppliedToItems;
@@ -63,6 +71,11 @@ public class FFEConfig
 	public static boolean canPillagingBeAppliedToItems;
 	public static boolean canPillagingGenerateInLoot;
 	public static boolean canPillagingAppearInTrades;
+	
+	public static boolean canPointedBeAppliedToBooks;
+	public static boolean canPointedBeAppliedToItems;
+	public static boolean canPointedGenerateInLoot;
+	public static boolean canPointedAppearInTrades;
 
 	public static boolean canPoisonAspectBeAppliedToBooks;
 	public static boolean canPoisonAspectBeAppliedToItems;
@@ -78,11 +91,6 @@ public class FFEConfig
 	//public static boolean isSearingApplicableOnOtherArmourAnvil;
 	public static boolean canSearingGenerateInLoot;
 	public static boolean canSearingAppearInTrades;
-	
-	public static boolean canSharpshooterBeAppliedToBooks;
-	public static boolean canSharpshooterBeAppliedToItems;
-	public static boolean canSharpshooterGenerateInLoot;
-	public static boolean canSharpshooterAppearInTrades;
 	
 	public static boolean canSteadfastBeAppliedToBooks;
 	public static boolean canSteadfastBeAppliedToItems;
@@ -127,7 +135,7 @@ public class FFEConfig
 	public static void bakeConfig() {
 		
 		canAnchoringCurseGenerateInLoot = COMMON.canAnchoringCurseGenerateInLoot.get();
-		canAnchoringAppearInTrades = COMMON.canAnchoringCurseAppearInTrades.get();
+		canAnchoringCurseAppearInTrades = COMMON.canAnchoringCurseAppearInTrades.get();
 		
 		canAquaticRejuvenationBeAppliedToBooks = COMMON.canAquaticRejuvenationBeAppliedToBooks.get();
 		canAquaticRejuvenationBeAppliedToItems = COMMON.canAquaticRejuvenationBeAppliedToItems.get();
@@ -148,9 +156,19 @@ public class FFEConfig
 		canBuoyancyGenerateInLoot = COMMON.canBuoyancyGenerateInLoot.get();
 		canBuoyancyAppearInTrades = COMMON.canBuoyancyAppearInTrades.get();
 		
+		canInfernoBeAppliedToBooks = COMMON.canInfernoBeAppliedToBooks.get();
+		canInfernoBeAppliedToItems = COMMON.canInfernoBeAppliedToItems.get();
+		canInfernoGenerateInLoot = COMMON.canInfernoGenerateInLoot.get();
+		canInfernoAppearInTrades = COMMON.canInfernoAppearInTrades.get();
+		
 		canLeapingBeAppliedToBooks = COMMON.canLeapingBeAppliedToBooks.get();
 		canLeapingGenerateInLoot = COMMON.canLeapingGenerateInLoot.get();
 		canLeapingAppearInTrades = COMMON.canLeapingAppearInTrades.get();
+		
+		canMaelstromBeAppliedToBooks = COMMON.canMaelstromBeAppliedToBooks.get();
+		canMaelstromBeAppliedToItems = COMMON.canMaelstromBeAppliedToItems.get();
+		canMaelstromGenerateInLoot = COMMON.canMaelstromGenerateInLoot.get();
+		canMaelstromAppearInTrades = COMMON.canMaelstromAppearInTrades.get();
 		
 		canObsidianSkullBeAppliedToBooks = COMMON.canObsidianSkullBeAppliedToBooks.get();
 		canObsidianSkullBeAppliedToItems = COMMON.canObsidianSkullBeAppliedToItems.get();
@@ -167,6 +185,11 @@ public class FFEConfig
 		canPillagingGenerateInLoot = COMMON.canPillagingGenerateInLoot.get();
 		canPillagingAppearInTrades = COMMON.canPillagingAppearInTrades.get();
 		
+		canPointedBeAppliedToBooks = COMMON.canPointedBeAppliedToBooks.get();
+		canPointedBeAppliedToItems = COMMON.canPointedBeAppliedToItems.get();
+		canPointedGenerateInLoot = COMMON.canPointedGenerateInLoot.get();
+		canPointedAppearInTrades = COMMON.canPointedAppearInTrades.get();
+		
 		canPoisonAspectBeAppliedToBooks = COMMON.canPoisonAspectBeAppliedToBooks.get();
 		canPoisonAspectBeAppliedToItems = COMMON.canPoisonAspectBeAppliedToItems.get();
 		canPoisonAspectGenerateInLoot = COMMON.canPoisonAspectGenerateInLoot.get();
@@ -180,11 +203,6 @@ public class FFEConfig
 		canSearingBeAppliedToItems = COMMON.canSearingBeAppliedToItems.get();
 		canSearingGenerateInLoot = COMMON.canSearingGenerateInLoot.get();
 		canSearingAppearInTrades = COMMON.canSearingAppearInTrades.get();
-		
-		canSharpshooterBeAppliedToBooks = COMMON.canSharpshooterBeAppliedToBooks.get();
-		canSharpshooterBeAppliedToItems = COMMON.canSharpshooterBeAppliedToItems.get();
-		canSharpshooterGenerateInLoot = COMMON.canSharpshooterGenerateInLoot.get();
-		canSharpshooterAppearInTrades = COMMON.canSharpshooterAppearInTrades.get();
 		
 		canSteadfastBeAppliedToBooks = COMMON.canSteadfastBeAppliedToBooks.get();
 		canSteadfastBeAppliedToItems = COMMON.canSteadfastBeAppliedToItems.get();
@@ -228,19 +246,19 @@ public class FFEConfig
 	}
 	
 	@SubscribeEvent
-	public static void onModConfigEvent(final ModConfig.ModConfigEvent configEvent) {
+	public static void onModConfigEvent(final ModConfigEvent configEvent) {
 		if (configEvent.getConfig().getSpec() == FFEConfig.COMMON_SPEC) {
 			bakeConfig();
 		}
 	}
 	
 	@SubscribeEvent
-    public static void onLoad(final ModConfig.Loading configEvent) {
+    public static void onLoad(final ModConfigEvent.Loading configEvent) {
 		FFE.LOGGER.debug("Loaded FFE config file", configEvent.getConfig().getFileName());
     }
 
     @SubscribeEvent
-    public static void onFileChange(final ModConfig.Reloading configEvent) {
+    public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
     	FFE.LOGGER.debug("FFE config just got changed on the file system!");
     }
 	
@@ -268,9 +286,19 @@ public class FFEConfig
 		public final ForgeConfigSpec.BooleanValue canButcheringGenerateInLoot;
 		public final ForgeConfigSpec.BooleanValue canButcheringAppearInTrades;
 		
+		public final ForgeConfigSpec.BooleanValue canInfernoBeAppliedToItems;
+		public final ForgeConfigSpec.BooleanValue canInfernoBeAppliedToBooks;
+		public final ForgeConfigSpec.BooleanValue canInfernoGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canInfernoAppearInTrades;
+		
 		public final ForgeConfigSpec.BooleanValue canLeapingBeAppliedToBooks;
 		public final ForgeConfigSpec.BooleanValue canLeapingGenerateInLoot;
 		public final ForgeConfigSpec.BooleanValue canLeapingAppearInTrades;
+		
+		public final ForgeConfigSpec.BooleanValue canMaelstromBeAppliedToItems;
+		public final ForgeConfigSpec.BooleanValue canMaelstromBeAppliedToBooks;
+		public final ForgeConfigSpec.BooleanValue canMaelstromGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canMaelstromAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canObsidianSkullBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canObsidianSkullBeAppliedToBooks;
@@ -287,6 +315,11 @@ public class FFEConfig
 		public final ForgeConfigSpec.BooleanValue canPillagingGenerateInLoot;
 		public final ForgeConfigSpec.BooleanValue canPillagingAppearInTrades;
 		
+		public final ForgeConfigSpec.BooleanValue canPointedBeAppliedToItems;
+		public final ForgeConfigSpec.BooleanValue canPointedBeAppliedToBooks;
+		public final ForgeConfigSpec.BooleanValue canPointedGenerateInLoot;
+		public final ForgeConfigSpec.BooleanValue canPointedAppearInTrades;
+		
 		public final ForgeConfigSpec.BooleanValue canPoisonAspectBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canPoisonAspectBeAppliedToBooks;
 		public final ForgeConfigSpec.BooleanValue canPoisonAspectGenerateInLoot;
@@ -300,11 +333,6 @@ public class FFEConfig
 		public final ForgeConfigSpec.BooleanValue canSearingBeAppliedToBooks;
 		public final ForgeConfigSpec.BooleanValue canSearingGenerateInLoot;
 		public final ForgeConfigSpec.BooleanValue canSearingAppearInTrades;
-		
-		public final ForgeConfigSpec.BooleanValue canSharpshooterBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canSharpshooterBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canSharpshooterGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canSharpshooterAppearInTrades;
 		
 		public final ForgeConfigSpec.BooleanValue canSteadfastBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canSteadfastBeAppliedToBooks;
@@ -445,6 +473,28 @@ public class FFEConfig
 					.define("canButcheringAppearInTrades", true);
 			builder.pop();
 			
+			builder.push("inferno");
+			canInfernoBeAppliedToItems = builder
+					.comment("Whether or not Inferno can be applied to possible items.")
+					.worldRestart()
+					.define("canInfernoBeAppliedToItems", true);
+			
+			canInfernoBeAppliedToBooks = builder
+					.comment("Whether or not Inferno can be applied to books.")
+					.worldRestart()
+					.define("canInfernoBeAppliedToBooks", true);			
+			
+			canInfernoGenerateInLoot = builder
+					.comment("Whether or not Inferno can be found on enchanted books in naturally generated chests.")
+					.worldRestart()
+					.define("canInfernoGenerateInLoot", true);
+			
+			canInfernoAppearInTrades = builder
+					.comment("Whether or not Inferno can be traded by villagers.")
+					.worldRestart()
+					.define("canInfernoAppearInTrades", true);
+			builder.pop();
+			
 			builder.push("leaping");
 			canLeapingBeAppliedToBooks = builder
 					.comment("Whether or not Leaping can be applied to books.")
@@ -460,6 +510,28 @@ public class FFEConfig
 					.comment("Whether or not Leaping can be traded by villagers.")
 					.worldRestart()
 					.define("canLeapingAppearInTrades", true);
+			builder.pop();
+			
+			builder.push("maelstrom");
+			canMaelstromBeAppliedToItems = builder
+					.comment("Whether or not Maelstrom can be applied to possible items.")
+					.worldRestart()
+					.define("canMaelstromBeAppliedToItems", true);
+			
+			canMaelstromBeAppliedToBooks = builder
+					.comment("Whether or not Maelstrom can be applied to books.")
+					.worldRestart()
+					.define("canMaelstromBeAppliedToBooks", true);			
+			
+			canMaelstromGenerateInLoot = builder
+					.comment("Whether or not Maelstrom can be found on enchanted books in naturally generated chests.")
+					.worldRestart()
+					.define("canMaelstromGenerateInLoot", true);
+			
+			canMaelstromAppearInTrades = builder
+					.comment("Whether or not Maelstrom can be traded by villagers.")
+					.worldRestart()
+					.define("canMaelstromAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("obsidian_skull");
@@ -528,6 +600,24 @@ public class FFEConfig
 					.define("canPillagingAppearInTrades", true);
 			builder.pop();
 			
+			builder.push("pointed");
+			canPointedBeAppliedToItems = builder
+					.worldRestart()
+					.define("canPointedBeAppliedToItems", true);
+			
+			canPointedBeAppliedToBooks = builder
+					.worldRestart()
+					.define("canPointedBeAppliedToBooks", true);			
+			
+			canPointedGenerateInLoot = builder
+					.worldRestart()
+					.define("canPointedGenerateInLoot", true);
+			
+			canPointedAppearInTrades = builder
+					.worldRestart()
+					.define("canPointedAppearInTrades", true);
+			builder.pop();
+			
 			builder.push("poison_aspect");
 			canPoisonAspectBeAppliedToItems = builder
 					.comment("Whether or not Poison Aspect can be applied to possible items.")
@@ -587,28 +677,6 @@ public class FFEConfig
 					.comment("Whether or not Searing can be traded by villagers.")
 					.worldRestart()
 					.define("canSearingAppearInTrades", true);
-			builder.pop();
-			
-			builder.push("sharpshooter");
-			canSharpshooterBeAppliedToItems = builder
-					.comment("Whether or not Sharpshooter can be applied to possible items.")
-					.worldRestart()
-					.define("canSharpshooterBeAppliedToItems", true);
-			
-			canSharpshooterBeAppliedToBooks = builder
-					.comment("Whether or not Sharpshooter can be applied to books.")
-					.worldRestart()
-					.define("canSharpshooterBeAppliedToBooks", true);			
-			
-			canSharpshooterGenerateInLoot = builder
-					.comment("Whether or not Sharpshooter can be found on enchanted books in naturally generated chests.")
-					.worldRestart()
-					.define("canSharpshooterGenerateInLoot", true);
-			
-			canSharpshooterAppearInTrades = builder
-					.comment("Whether or not Sharpshooter can be traded by villagers.")
-					.worldRestart()
-					.define("canSharpshootertAppearInTrades", true);
 			builder.pop();
 			
 			builder.push("steadfast");

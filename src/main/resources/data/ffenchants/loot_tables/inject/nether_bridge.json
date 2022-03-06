@@ -5,7 +5,7 @@
             "rolls": 1,
             "entries": [
                 {
-                    "type": "item",
+                    "type": "minecraft:item",
                     "name": "minecraft:book",
                     "weight": 40,
 					"functions": [
@@ -16,6 +16,7 @@
 								"minecraft:fire_protection",
 								"minecraft:flame",
 								"ffenchants:searing",
+								"ffenchants:inferno",
 								"ffenchants:wither_aspect"
 							]
 						}

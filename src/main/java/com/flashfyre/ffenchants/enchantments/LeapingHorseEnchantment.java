@@ -1,25 +1,26 @@
 package com.flashfyre.ffenchants.enchantments;
 
 import com.flashfyre.ffenchants.FFE;
-import com.flashfyre.ffenchants.misc.FFEConfig;
+import com.flashfyre.ffenchants.FFEConfig;
 import com.flashfyre.ffenchants.packets.LeapingToServerPacket;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.horse.AbstractHorseEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SaddleItem;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
-public class LeapingHorseEnchantment extends Enchantment {
+public class LeapingHorseEnchantment extends FFEnchantment {
 
-	public LeapingHorseEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType... slots) {
-		super(rarityIn, typeIn, slots);
+	public LeapingHorseEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
+		super(rarity, type, slots, 
+				() -> true, 
+				() -> FFEConfig.canLeapingBeAppliedToBooks, 
+				() -> FFEConfig.canLeapingGenerateInLoot, 
+				() -> FFEConfig.canLeapingAppearInTrades);
 	}
 	
 	@Override
@@ -28,58 +29,29 @@ public class LeapingHorseEnchantment extends Enchantment {
 	}
 	
 	@Override
-	public int getMinEnchantability(int level) {
+	public int getMinCost(int level) {
 		return 5 + (level - 1) * 9;
 	}
 	
 	@Override
-	public int getMaxEnchantability(int level) {
-		return this.getMinEnchantability(level) + 15;
+	public int getMaxCost(int level) {
+		return this.getMinCost(level) + 15;
 	}
 	
-	@Override
-	public boolean canApplyAtEnchantingTable(ItemStack stack) {
-		if(stack.getItem() instanceof SaddleItem) {
-			return true;
-		}
-		return false;
-	}
-	
-	@Override
-	public boolean isAllowedOnBooks() {
-		return FFEConfig.canLeapingBeAppliedToBooks;
-	}
-	
-	@Override
-	public boolean canGenerateInLoot() {
-		return FFEConfig.canLeapingGenerateInLoot;
-	}
-	
-	@Override
-	public boolean canVillagerTrade() {
-		return FFEConfig.canLeapingAppearInTrades;
-	}
-	
-	@Override
-	public boolean isTreasureEnchantment() {
-		return !FFEConfig.canLeapingBeAppliedToBooks;
-	}
-	
-	//This event is client side only in the case of horses jumping while being controlled by the player, hence we need to send a packet to the server
+	/**
+	 *  This event is client side only in the case of horses jumping while being controlled by the player.
+	 *  This is important because the horse's inventory (where we need to check for enchantments) is only stored server side.
+	 */
 	@SubscribeEvent
 	public static void onLivingJump(LivingJumpEvent event) {
 		
 		LivingEntity entity = event.getEntityLiving();
 		
-		if(!entity.world.isRemote) return;
+		if(!entity.level.isClientSide) return;
 		
-		if(entity instanceof AbstractHorseEntity) {
+		if(entity instanceof AbstractHorse) {
 			FFE.PacketHandler.INSTANCE.sendToServer(new LeapingToServerPacket());
 		}
-	}
-	
-	public static void increaseJumpHeight() {
-		
 	}
 	
 	public static double getYVelocity(int level) {

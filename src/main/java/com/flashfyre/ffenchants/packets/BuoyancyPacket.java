@@ -4,10 +4,10 @@ import java.util.function.Supplier;
 
 import com.flashfyre.ffenchants.FFE;
 
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 
 public class BuoyancyPacket {
 	
@@ -17,11 +17,11 @@ public class BuoyancyPacket {
 		entityId = id;
 	}
 	
-	public void encode(PacketBuffer buffer) {
+	public void encode(FriendlyByteBuf buffer) {
 		buffer.writeInt(entityId);
 	}
 	
-	public static BuoyancyPacket decode(PacketBuffer buffer)
+	public static BuoyancyPacket decode(FriendlyByteBuf buffer)
 	{
 	    return new BuoyancyPacket(buffer.readInt());
 	}

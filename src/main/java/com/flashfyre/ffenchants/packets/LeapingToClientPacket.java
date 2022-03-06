@@ -4,10 +4,10 @@ import java.util.function.Supplier;
 
 import com.flashfyre.ffenchants.FFE;
 
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 
 public class LeapingToClientPacket {
 	
@@ -19,12 +19,12 @@ public class LeapingToClientPacket {
 		enchantmentLevel = level;
 	}
 	
-	public void encode(PacketBuffer buffer) {
+	public void encode(FriendlyByteBuf buffer) {
 		buffer.writeInt(entityId);
 		buffer.writeInt(enchantmentLevel);
 	}
 	
-	public static LeapingToClientPacket decode(PacketBuffer buffer)
+	public static LeapingToClientPacket decode(FriendlyByteBuf buffer)
 	{
 	    return new LeapingToClientPacket(buffer.readInt(), buffer.readInt());
 	}

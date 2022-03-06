@@ -6,17 +6,17 @@ import java.util.Random;
 
 import javax.annotation.Nonnull;
 
-import com.flashfyre.ffenchants.misc.FFEConfig;
+import com.flashfyre.ffenchants.FFEConfig;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -26,7 +26,7 @@ public class EnchantSaddlesLootModifier extends LootModifier {
 	private final Item itemToCheck;
 	private final List<Enchantment> enchantments;
 
-	public EnchantSaddlesLootModifier(ILootCondition[] conditionsIn, Item itemCheck, List<Enchantment> enchantmentsList) {
+	public EnchantSaddlesLootModifier(LootItemCondition[] conditionsIn, Item itemCheck, List<Enchantment> enchantmentsList) {
 		super(conditionsIn);
 		itemToCheck = itemCheck;
 		enchantments = enchantmentsList;
@@ -43,7 +43,7 @@ public class EnchantSaddlesLootModifier extends LootModifier {
 				if(stack.getItem() == itemToCheck) {
 					if(r.nextDouble() < FFEConfig.enchantSaddleChance) {
 						Enchantment enchantment = enchantments.get(r.nextInt(enchantments.size()));
-						stack.addEnchantment(enchantment, 1 + ctx.getRandom().nextInt(enchantment.getMaxLevel()));
+						stack.enchant(enchantment, 1 + ctx.getRandom().nextInt(enchantment.getMaxLevel()));
 					}					
 				}
 			}
@@ -54,9 +54,9 @@ public class EnchantSaddlesLootModifier extends LootModifier {
 	public static class Serializer extends GlobalLootModifierSerializer<EnchantSaddlesLootModifier> {
 
         @Override
-        public EnchantSaddlesLootModifier read(ResourceLocation name, JsonObject object, ILootCondition[] conditionsIn) {
-            Item saddleItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation((JSONUtils.getString(object, "saddleItem"))));
-            JsonArray enchantmentsArray = JSONUtils.getJsonArray(object, "enchantments");          
+        public EnchantSaddlesLootModifier read(ResourceLocation name, JsonObject object, LootItemCondition[] conditionsIn) {
+            Item saddleItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation((GsonHelper.getAsString(object, "saddleItem"))));
+            JsonArray enchantmentsArray = GsonHelper.getAsJsonArray(object, "enchantments");          
             List<Enchantment> enchantments = new ArrayList<Enchantment>();
             for(int i=0; i<enchantmentsArray.size(); i++) {
             	enchantments.add(ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(enchantmentsArray.get(i).getAsString())));

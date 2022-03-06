@@ -7,7 +7,7 @@
                 {
                     "type": "item",
                     "name": "minecraft:book",
-                    "weight": 35,
+                    "weight": 40,
 					"functions": [
 						{
 							"function": "minecraft:enchant_randomly",
@@ -24,6 +24,7 @@
 								"ffenchants:anchoring_curse",
 								"ffenchants:aquatic_rejuvenation",
 								"ffenchants:torrent",
+								"ffenchants:maelstrom",
 								"ffenchants:outrush"
 							]
 						}
@@ -31,7 +32,7 @@
                 },
                 {
                     "type": "empty",
-                    "weight": 65
+                    "weight": 60
                 }
             ]
         }

@@ -1,7 +1,15 @@
 {
   "replace": false,
-  "entries": [
-    "ffenchants:enchant_saddles",
-	"ffenchants:remove_disabled_enchantments"
+  "entries": [    
+	"ffenchants:piglin_bartering_replacement",
+	"ffenchants:jungle_temple_addition",
+	"ffenchants:end_city_addition",
+	"ffenchants:igloo_addition",
+	"ffenchants:nether_bridge_addition",
+	"ffenchants:pillager_outpost_addition",
+	"ffenchants:underwater_ruin_big_addition",
+	"ffenchants:underwater_ruin_small_addition",
+	"ffenchants:woodland_mansion_addition",
+	"ffenchants:enchant_saddles"
   ]
 }
