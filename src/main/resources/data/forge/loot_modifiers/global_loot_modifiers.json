@@ -1,15 +1,15 @@
 {
   "replace": false,
   "entries": [    
-	"ffenchants:piglin_bartering_replacement",
-	"ffenchants:jungle_temple_addition",
-	"ffenchants:end_city_addition",
-	"ffenchants:igloo_addition",
-	"ffenchants:nether_bridge_addition",
-	"ffenchants:pillager_outpost_addition",
-	"ffenchants:underwater_ruin_big_addition",
-	"ffenchants:underwater_ruin_small_addition",
-	"ffenchants:woodland_mansion_addition",
-	"ffenchants:enchant_saddles"
+	"ffenchantments:piglin_bartering_replacement",
+	"ffenchantments:jungle_temple_addition",
+	"ffenchantments:end_city_addition",
+	"ffenchantments:igloo_addition",
+	"ffenchantments:nether_bridge_addition",
+	"ffenchantments:pillager_outpost_addition",
+	"ffenchantments:underwater_ruin_big_addition",
+	"ffenchantments:underwater_ruin_small_addition",
+	"ffenchantments:woodland_mansion_addition",
+	"ffenchantments:enchant_saddles"
   ]
 }

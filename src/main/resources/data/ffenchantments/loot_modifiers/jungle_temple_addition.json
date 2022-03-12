@@ -1,0 +1,11 @@
+{
+	"conditions": [
+		{
+			"condition": "forge:loot_table_id",
+			"loot_table_id": "minecraft:chests/jungle_temple"
+		}
+	],
+	"table": "ffenchantments:inject/jungle_temple",
+	"replace": false,
+	"type": "ffenchantments:loot_modification"
+}

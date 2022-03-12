@@ -8,19 +8,19 @@ version="${file.jarVersion}" #mandatory
 displayName="FlashFyre's Enchantments"
 #updateJSONURL="http://myurl.me/" #optional
 #displayURL="http://example.com/" #optional
-logoFile="ffenchants.png" #optional
+logoFile="ffenchantments.png" #optional
 #credits="" #optional
 authors="FlashFyre" #optional
 description='''
 A mod adding lots of new enchantments to the game.
 '''
-[[dependencies.ffenchants]] #optional
+[[dependencies.ffenchantments]] #optional
 	modId="forge" #mandatory
 	mandatory=true #mandatory
 	versionRange="[40,)" #mandatory
 	ordering="NONE"
 	side="BOTH"
-[[dependencies.ffenchants]]
+[[dependencies.ffenchantments]]
 	modId="minecraft"
 	mandatory=true
 	versionRange="[1.18.2,1.19)"

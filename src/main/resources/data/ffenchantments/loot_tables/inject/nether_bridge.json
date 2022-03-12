@@ -1,0 +1,32 @@
+{
+    "pools": [
+        {
+            "name": "ffe_inject",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:book",
+                    "weight": 40,
+					"functions": [
+						{
+							"function": "minecraft:enchant_randomly",
+							"enchantments": [
+								"minecraft:fire_aspect",
+								"minecraft:fire_protection",
+								"minecraft:flame",
+								"ffenchantments:searing",
+								"ffenchantments:inferno",
+								"ffenchantments:wither_aspect"
+							]
+						}
+					]
+                },
+                {
+                    "type": "empty",
+                    "weight": 60
+                }
+            ]
+        }
+    ]
+}

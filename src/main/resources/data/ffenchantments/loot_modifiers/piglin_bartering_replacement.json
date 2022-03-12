@@ -1,0 +1,11 @@
+{
+	"conditions": [
+		{
+			"condition": "forge:loot_table_id",
+			"loot_table_id": "minecraft:gameplay/piglin_bartering"
+		}
+	],
+	"table": "ffenchantments:inject/piglin_bartering",
+	"replace": true,
+	"type": "ffenchantments:loot_modification"
+}

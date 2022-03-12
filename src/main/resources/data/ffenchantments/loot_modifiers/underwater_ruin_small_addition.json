@@ -1,0 +1,11 @@
+{
+	"conditions": [
+		{
+			"condition": "forge:loot_table_id",
+			"loot_table_id": "minecraft:chests/underwater_ruin_small"
+		}
+	],
+	"table": "ffenchantments:inject/underwater_ruin_small",
+	"replace": false,
+	"type": "ffenchantments:loot_modification"
+}
