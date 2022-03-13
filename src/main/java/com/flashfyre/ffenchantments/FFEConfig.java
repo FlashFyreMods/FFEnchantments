@@ -115,19 +115,7 @@ public class FFEConfig
 	public static boolean canWitherAspectBeAppliedToBooks;
 	public static boolean canWitherAspectBeAppliedToItems;
 	public static boolean canWitherAspectGenerateInLoot;
-	public static boolean canWitherAspectAppearInTrades;
-	
-	
-	public static boolean enableEndCityLootAdditions;
-	public static boolean enableJungleTempleLootAdditions;
-	public static boolean enableNetherFortressLootAdditions;
-	public static boolean enablePillagerOutpostLootAdditions;
-	public static boolean enableSmallOceanRuinLootAdditions;
-	public static boolean enableLargeOceanRuinLootAdditions;
-	public static boolean enableWoodlandMansionLootAdditions;
-	public static boolean enableIglooLootAdditions;			
-	public static boolean enableAllLootAdditions;
-	
+	public static boolean canWitherAspectAppearInTrades;	
 	
 	public static boolean enableSaddlesRandomlyEnchanted;
 	public static double enchantSaddleChance;
@@ -228,16 +216,6 @@ public class FFEConfig
 		canWitherAspectBeAppliedToItems = COMMON.canWitherAspectBeAppliedToItems.get();
 		canWitherAspectGenerateInLoot = COMMON.canWitherAspectGenerateInLoot.get();
 		canWitherAspectAppearInTrades = COMMON.canWitherAspectAppearInTrades.get();
-		
-		enableEndCityLootAdditions = COMMON.enableEndCityLootAdditions.get();
-		enableJungleTempleLootAdditions = COMMON.enableJungleTempleLootAdditions.get();
-		enableNetherFortressLootAdditions = COMMON.enableNetherFortressLootAdditions.get();
-		enablePillagerOutpostLootAdditions = COMMON.enablePillagerOutpostLootAdditions.get();
-		enableSmallOceanRuinLootAdditions = COMMON.enableSmallOceanRuinLootAdditions.get();
-		enableLargeOceanRuinLootAdditions = COMMON.enableLargeOceanRuinLootAdditions.get();
-		enableWoodlandMansionLootAdditions = COMMON.enableWoodlandMansionLootAdditions.get();
-		enableIglooLootAdditions = COMMON.enableIglooLootAdditions.get();
-		enableAllLootAdditions = COMMON.enableAllLootAdditions.get();
 		
 		enableSaddlesRandomlyEnchanted = COMMON.enableSaddlesRandomlyEnchanted.get();
 		enchantSaddleChance = COMMON.enchantSaddleChance.get();
@@ -357,19 +335,7 @@ public class FFEConfig
 		public final ForgeConfigSpec.BooleanValue canWitherAspectBeAppliedToItems;
 		public final ForgeConfigSpec.BooleanValue canWitherAspectBeAppliedToBooks;
 		public final ForgeConfigSpec.BooleanValue canWitherAspectGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canWitherAspectAppearInTrades;
-
-		//Loot configs
-		public final ForgeConfigSpec.BooleanValue enableEndCityLootAdditions;
-		public final ForgeConfigSpec.BooleanValue enableJungleTempleLootAdditions;
-		public final ForgeConfigSpec.BooleanValue enableNetherFortressLootAdditions;
-		public final ForgeConfigSpec.BooleanValue enablePillagerOutpostLootAdditions;
-		public final ForgeConfigSpec.BooleanValue enableSmallOceanRuinLootAdditions;
-		public final ForgeConfigSpec.BooleanValue enableLargeOceanRuinLootAdditions;
-		public final ForgeConfigSpec.BooleanValue enableWoodlandMansionLootAdditions;
-		public final ForgeConfigSpec.BooleanValue enableIglooLootAdditions;		
-		
-		public final ForgeConfigSpec.BooleanValue enableAllLootAdditions;
+		public final ForgeConfigSpec.BooleanValue canWitherAspectAppearInTrades;	
 		
 		public final ForgeConfigSpec.BooleanValue enableSaddlesRandomlyEnchanted;
 		public final ForgeConfigSpec.DoubleValue enchantSaddleChance;
@@ -791,56 +757,6 @@ public class FFEConfig
 			
 			builder.pop();
 			
-			builder.comment("Loot Table Additions Configuration")
-			.push("loot_tables");
-
-			enableAllLootAdditions = builder
-					.comment("Enable/disable all chest loot additions")
-					.worldRestart()
-					.define("enableLootAdditions", true);
-			
-			enableEndCityLootAdditions = builder
-					.comment("Enable/disable additions to end city chest loot")
-					.worldRestart()
-					.define("enableEndCityLootAdditions", true);
-			
-			enableJungleTempleLootAdditions = builder
-					.comment("Enable/disable additions to jungle temple chest loot")
-					.worldRestart()
-					.define("enableJungleTempleLootAdditions", true);
-			
-			enableNetherFortressLootAdditions = builder
-					.comment("Enable/disable additions to nether fortress chest loot")
-					.worldRestart()
-					.define("enableNetherFortressLootAdditions", true);
-			
-			enablePillagerOutpostLootAdditions = builder
-					.comment("Enable/disable additions to pillager outpost chest loot")
-					.worldRestart()
-					.define("enablePillagerOutpostLootAdditions", true);
-			
-			enableSmallOceanRuinLootAdditions = builder
-					.comment("Enable/disable additions to small ocean ruin chest loot")
-					.worldRestart()
-					.define("enableSmallOceanRuinLootAdditions", true);
-			
-			enableLargeOceanRuinLootAdditions = builder
-					.comment("Enable/disable additions to large ocean ruin chest loot")
-					.worldRestart()
-					.define("enableLargeOceanRuinLootAdditions", true);
-			
-			enableWoodlandMansionLootAdditions = builder
-					.comment("Enable/disable additions to woodland mansion chest loot")
-					.worldRestart()
-					.define("enableWoodlandMansionLootAdditions", true);
-			
-			enableIglooLootAdditions = builder
-					.comment("Enable/disable additions to igloo chest loot")
-					.worldRestart()
-					.define("enableIglooLootAdditions", true);
-			
-			builder.pop();
-			
 			builder.comment("Loot Modifier Configuration")
 			.push("loot_modifiers");
 			
@@ -852,7 +768,7 @@ public class FFEConfig
 			enchantSaddleChance = builder
 					.comment("The chance for a saddle to be enchanted with a random saddle enchantment. 1.0 means it will be guaranteed to be enchanted.")
 					.worldRestart()
-					.defineInRange("enchantSaddleChance", 0.5F, 0.0F, 1.0F);
+					.defineInRange("enchantSaddleChance", 0.4F, 0.0F, 1.0F);
 			
 			builder.pop();
 		}
