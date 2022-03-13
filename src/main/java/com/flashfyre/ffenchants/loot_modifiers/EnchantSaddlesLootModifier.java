@@ -10,20 +10,15 @@ import com.flashfyre.ffenchants.FFEConfig;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameters;
 import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class EnchantSaddlesLootModifier extends LootModifier {
@@ -40,7 +35,7 @@ public class EnchantSaddlesLootModifier extends LootModifier {
 	@Nonnull
 	@Override
 	public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext ctx) {
-		if(FFEConfig.enableSaddlesRandomlyEnchanted && ctx.hasParam(LootParameters.ORIGIN)) {
+		/*if(FFEConfig.enableSaddlesRandomlyEnchanted && ctx.hasParam(LootParameters.ORIGIN)) {
 			BlockPos pos = new BlockPos(ctx.getParamOrNull(LootParameters.ORIGIN));
 			BlockState state = ctx.getLevel().getBlockState(pos);
 			
@@ -60,7 +55,19 @@ public class EnchantSaddlesLootModifier extends LootModifier {
 				});
 			}
 			
+		}*/
+		
+		for(ItemStack stack : generatedLoot) {
+			if(stack.isEmpty()) continue;
+			if(stack.getItem() == itemToCheck) {
+				Random r = ctx.getRandom();		
+				if(r.nextDouble() < FFEConfig.enchantSaddleChance) {
+					Enchantment enchantment = enchantments.get(r.nextInt(enchantments.size()));
+					stack.enchant(enchantment, 1 + r.nextInt(enchantment.getMaxLevel()));
+				}					
+			}
 		}
+		
 		return generatedLoot;
 	}
 	
