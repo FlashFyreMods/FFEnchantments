@@ -30,7 +30,8 @@
 						{
 							"function": "minecraft:enchant_randomly",
 							"enchantments": [
-								"ffenchantments:bloodlust"
+								"ffenchantments:bloodlust",
+								"ffenchantments:butchering"
 							]
 						}
 					]
