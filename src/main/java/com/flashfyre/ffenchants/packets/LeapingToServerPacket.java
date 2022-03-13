@@ -15,15 +15,15 @@ public class LeapingToServerPacket {
 	
 	public static void handle(LeapingToServerPacket packet, Supplier<NetworkEvent.Context> ctx) {
 	    ctx.get().enqueueWork(() -> {
-	        ServerPlayerEntity sender = ctx.get().getSender(); //the client that sent this packet
-	        Entity ridingEntity = sender.getLowestRidingEntity();
+	        ServerPlayerEntity sender = ctx.get().getSender(); // the client that sent this packet
+	        Entity ridingEntity = sender.getRootVehicle();
 	        if(ridingEntity instanceof AbstractHorseEntity) {
 	        	AbstractHorseEntity horse = (AbstractHorseEntity) ridingEntity;
-	        	ItemStack saddle = horse.horseChest.getStackInSlot(0);			
+	        	ItemStack saddle = horse.inventory.getItem(0);			
 				int level = FFE.getEnchantmentLevel(saddle, FFE.LEAPING_HORSE);
 				if(level > 0) {
-					int id = horse.getEntityId();
-					FFE.PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> horse.getEntityWorld().getChunkAt(horse.getPosition())), new LeapingToClientPacket(id, level));
+					int id = horse.getId();
+					FFE.PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> horse.getCommandSenderWorld().getChunkAt(horse.blockPosition())), new LeapingToClientPacket(id, level));
 				}
 	        }
 	        

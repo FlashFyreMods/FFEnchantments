@@ -10,8 +10,6 @@ import javax.annotation.Nullable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.flashfyre.ffenchants.capability.ArrowOriginalMotionMagnitudeCapability;
-import com.flashfyre.ffenchants.capability.IArrowOriginalMotionMagnitude;
 import com.flashfyre.ffenchants.capability.IMaelstromApplied;
 import com.flashfyre.ffenchants.capability.IShooterEnchantments;
 import com.flashfyre.ffenchants.capability.MaelstromTridentReturningCapability;
@@ -28,14 +26,14 @@ import com.flashfyre.ffenchants.enchantments.MaelstromEnchantment;
 import com.flashfyre.ffenchants.enchantments.ObsidianSkullEnchantment;
 import com.flashfyre.ffenchants.enchantments.OutrushEnchantment;
 import com.flashfyre.ffenchants.enchantments.PillagingEnchantment;
+import com.flashfyre.ffenchants.enchantments.PointedEnchantment;
 import com.flashfyre.ffenchants.enchantments.PoisonAspectEnchantment;
 import com.flashfyre.ffenchants.enchantments.QuicknessHorseEnchantment;
 import com.flashfyre.ffenchants.enchantments.SearingEnchantment;
-import com.flashfyre.ffenchants.enchantments.SharpshooterEnchantment;
 import com.flashfyre.ffenchants.enchantments.SteadfastEnchantment;
 import com.flashfyre.ffenchants.enchantments.TorrentEnchantment;
 import com.flashfyre.ffenchants.enchantments.VampiricEnchantment;
-import com.flashfyre.ffenchants.enchantments.WeightedEnchantment;
+import com.flashfyre.ffenchants.enchantments.WeightedBladeEnchantment;
 import com.flashfyre.ffenchants.enchantments.WitherAspectEnchantment;
 import com.flashfyre.ffenchants.loot_modifiers.EnchantSaddlesLootModifier;
 import com.flashfyre.ffenchants.loot_modifiers.InjectOrReplaceLootModifier;
@@ -83,8 +81,7 @@ public class FFE
 	public static final String MOD_ID = "ffenchants";
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 	
-	public FFE()
-	{
+	public FFE() {
 		instance = this;
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FFEConfig.COMMON_SPEC, "ffenchants-common.toml");
 	}
@@ -101,7 +98,7 @@ public class FFE
 	@ObjectHolder("ffenchants:vampiric")
 	public static Enchantment VAMPIRIC = null;
 	@ObjectHolder("ffenchants:weighted")
-	public static Enchantment WEIGHTED = null;
+	public static Enchantment WEIGHTED_BLADE = null;
 	@ObjectHolder("ffenchants:poison_aspect")
 	public static Enchantment POISON_ASPECT = null;
 	@ObjectHolder("ffenchants:wither_aspect")
@@ -116,8 +113,6 @@ public class FFE
 	public static Enchantment OUTRUSH = null;
 	@ObjectHolder("ffenchants:torrent")
 	public static Enchantment TORRENT = null;
-	@ObjectHolder("ffenchants:sharpshooter")
-	public static Enchantment SHARPSHOOTER = null;
 	@ObjectHolder("ffenchants:aquatic_rejuvenation")
 	public static Enchantment AQUATIC_REJUVENATION = null;
 	@ObjectHolder("ffenchants:obsidian_skull")
@@ -136,6 +131,8 @@ public class FFE
 	public static Enchantment MAELSTROM = null;
 	@ObjectHolder("ffenchants:inferno")
 	public static Enchantment INFERNO = null;
+	@ObjectHolder("ffenchants:pointed")
+	public static Enchantment POINTED = null;
 	
 	@SubscribeEvent
 	public static void registerEnchantments(RegistryEvent.Register<Enchantment> event) 
@@ -145,37 +142,116 @@ public class FFE
 		
 		EquipmentSlotType[] emptySlots = {};
 		
-		ANCHORING_CURSE = new AnchoringCurseEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.ARMOR_FEET, EquipmentSlotType.FEET).setRegistryName(FFE.MOD_ID, "anchoring_curse");
-		AQUATIC_REJUVENATION = new AquaticRejuvenationEnchantment(Enchantment.Rarity.COMMON, EnchantmentType.TRIDENT, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "aquatic_rejuvenation");
-		BLOODLUST = new BloodlustEnchantment(Enchantment.Rarity.RARE, FFEEnchantmentTypes.AXE, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "bloodlust"); //Only on Axes
-		BUOYANCY_HORSE = new BuoyancyHorseEnchantment(Enchantment.Rarity.RARE, FFEEnchantmentTypes.SADDLE, emptySlots).setRegistryName(FFE.MOD_ID, "buoyancy_horse"); //Only on horse armour
-		BUTCHERING = new ButcheringEnchantment(Enchantment.Rarity.RARE, FFEEnchantmentTypes.AXE, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "butchering"); //Only on Axes
-		VAMPIRIC = new VampiricEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.WEAPON, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "vampiric");
-		WEIGHTED = new WeightedEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.WEAPON, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "weighted");
-		POISON_ASPECT = new PoisonAspectEnchantment(Enchantment.Rarity.RARE, EnchantmentType.WEAPON, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "poison_aspect");
-		WITHER_ASPECT = new WitherAspectEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.WEAPON, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "wither_aspect");
-		PILLAGING = new PillagingEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.CROSSBOW, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "pillaging");
-		SEARING = new SearingEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.ARMOR_CHEST, ARMOUR_SLOTS).setRegistryName(FFE.MOD_ID, "searing");
-		STEADFAST = new SteadfastEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.ARMOR_CHEST, EquipmentSlotType.CHEST).setRegistryName(FFE.MOD_ID, "steadfast");
-		OUTRUSH = new OutrushEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.TRIDENT, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "outrush");
-		TORRENT = new TorrentEnchantment(Enchantment.Rarity.RARE, EnchantmentType.TRIDENT, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "torrent");
-		SHARPSHOOTER = new SharpshooterEnchantment(Enchantment.Rarity.RARE, EnchantmentType.BOW, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "sharpshooter");	
-		OBSIDIAN_SKULL = new ObsidianSkullEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.ARMOR_HEAD, EquipmentSlotType.HEAD).setRegistryName(FFE.MOD_ID, "obsidian_skull");
-		LEAPING_HORSE = new LeapingHorseEnchantment(Enchantment.Rarity.UNCOMMON, FFEEnchantmentTypes.SADDLE, emptySlots).setRegistryName(FFE.MOD_ID, "leaping_horse"); //Only on horse armour
-		QUICKNESS_HORSE = new QuicknessHorseEnchantment(Enchantment.Rarity.UNCOMMON, FFEEnchantmentTypes.SADDLE, emptySlots).setRegistryName(FFE.MOD_ID, "quickness_horse"); //Only on horse armour
-		MAELSTROM = new MaelstromEnchantment(Enchantment.Rarity.RARE, EnchantmentType.TRIDENT, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "maelstrom");
-		INFERNO = new InfernoEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentType.CROSSBOW, EquipmentSlotType.MAINHAND).setRegistryName(FFE.MOD_ID, "inferno");
+		ANCHORING_CURSE = new AnchoringCurseEnchantment(
+				Enchantment.Rarity.VERY_RARE, 
+				EnchantmentType.ARMOR_FEET, 
+				EquipmentSlotType.FEET)
+				.setRegistryName(FFE.MOD_ID, "anchoring_curse");
+		AQUATIC_REJUVENATION = new AquaticRejuvenationEnchantment(
+				Enchantment.Rarity.COMMON, 
+				EnchantmentType.TRIDENT, 
+				EquipmentSlotType.MAINHAND)
+				.setRegistryName(FFE.MOD_ID, "aquatic_rejuvenation");
+		BLOODLUST = new BloodlustEnchantment(
+				Enchantment.Rarity.RARE, 
+				FFEEnchantmentTypes.AXE, 
+				EquipmentSlotType.MAINHAND)
+				.setRegistryName(FFE.MOD_ID, "bloodlust"); //Only on Axes
+		BUOYANCY_HORSE = new BuoyancyHorseEnchantment(
+				Enchantment.Rarity.RARE, 
+				FFEEnchantmentTypes.SADDLE, 
+				emptySlots)
+				.setRegistryName(FFE.MOD_ID, "buoyancy_horse"); //Only on horse armour
+		BUTCHERING = new ButcheringEnchantment(
+				Enchantment.Rarity.RARE, 
+				FFEEnchantmentTypes.AXE, 
+				EquipmentSlotType.MAINHAND)
+				.setRegistryName(FFE.MOD_ID, "butchering"); //Only on Axes
+		VAMPIRIC = new VampiricEnchantment(
+				Enchantment.Rarity.VERY_RARE, 
+				EnchantmentType.WEAPON, 
+				EquipmentSlotType.MAINHAND)
+				.setRegistryName(FFE.MOD_ID, "vampiric");
+		WEIGHTED_BLADE = new WeightedBladeEnchantment(
+				Enchantment.Rarity.UNCOMMON, 
+				EnchantmentType.WEAPON, 
+				EquipmentSlotType.MAINHAND)
+				.setRegistryName(FFE.MOD_ID, "weighted");
+		POINTED = new PointedEnchantment( 
+				Enchantment.Rarity.COMMON,
+				EnchantmentType.CROSSBOW,
+				EquipmentSlotType.MAINHAND)
+				.setRegistryName(FFE.MOD_ID, "pointed");
+		POISON_ASPECT = new PoisonAspectEnchantment(
+				Enchantment.Rarity.RARE, 
+				EnchantmentType.WEAPON, 
+				EquipmentSlotType.MAINHAND)
+				.setRegistryName(FFE.MOD_ID, "poison_aspect");
+		WITHER_ASPECT = new WitherAspectEnchantment(
+				Enchantment.Rarity.VERY_RARE, 
+				EnchantmentType.WEAPON, 
+				EquipmentSlotType.MAINHAND)
+				.setRegistryName(FFE.MOD_ID, "wither_aspect");
+		PILLAGING = new PillagingEnchantment(
+				Enchantment.Rarity.UNCOMMON, 
+				EnchantmentType.CROSSBOW, 
+				EquipmentSlotType.MAINHAND
+				).setRegistryName(FFE.MOD_ID, "pillaging");
+		SEARING = new SearingEnchantment(
+				Enchantment.Rarity.UNCOMMON, 
+				EnchantmentType.ARMOR_CHEST, 
+				ARMOUR_SLOTS)
+				.setRegistryName(FFE.MOD_ID, "searing");
+		STEADFAST = new SteadfastEnchantment(
+				Enchantment.Rarity.UNCOMMON, 
+				EnchantmentType.ARMOR_CHEST, 
+				EquipmentSlotType.CHEST)
+				.setRegistryName(FFE.MOD_ID, "steadfast");
+		OUTRUSH = new OutrushEnchantment(
+				Enchantment.Rarity.UNCOMMON, 
+				EnchantmentType.TRIDENT, 
+				EquipmentSlotType.MAINHAND)
+				.setRegistryName(FFE.MOD_ID, "outrush");
+		TORRENT = new TorrentEnchantment(
+				Enchantment.Rarity.RARE, 
+				EnchantmentType.TRIDENT, 
+				EquipmentSlotType.MAINHAND)
+				.setRegistryName(FFE.MOD_ID, "torrent");
+		OBSIDIAN_SKULL = new ObsidianSkullEnchantment(
+				Enchantment.Rarity.VERY_RARE, 
+				EnchantmentType.ARMOR_HEAD, 
+				EquipmentSlotType.HEAD)
+				.setRegistryName(FFE.MOD_ID, "obsidian_skull");
+		LEAPING_HORSE = new LeapingHorseEnchantment(
+				Enchantment.Rarity.UNCOMMON, 
+				FFEEnchantmentTypes.SADDLE, 
+				emptySlots)
+				.setRegistryName(FFE.MOD_ID, "leaping_horse"); //Only on horse armour
+		QUICKNESS_HORSE = new QuicknessHorseEnchantment(
+				Enchantment.Rarity.UNCOMMON, 
+				FFEEnchantmentTypes.SADDLE, 
+				emptySlots)
+				.setRegistryName(FFE.MOD_ID, "quickness_horse"); //Only on horse armour
+		MAELSTROM = new MaelstromEnchantment(
+				Enchantment.Rarity.RARE, 
+				EnchantmentType.TRIDENT, 
+				EquipmentSlotType.MAINHAND)
+				.setRegistryName(FFE.MOD_ID, "maelstrom");
+		INFERNO = new InfernoEnchantment(
+				Enchantment.Rarity.VERY_RARE, 
+				EnchantmentType.CROSSBOW, 
+				EquipmentSlotType.MAINHAND)
+				.setRegistryName(FFE.MOD_ID, "inferno");
 		registerEnchantment(registry, BLOODLUST);
 		registerEnchantment(registry, VAMPIRIC);
 		registerEnchantment(registry, PILLAGING);
-		registerEnchantment(registry, WEIGHTED);
+		registerEnchantment(registry, WEIGHTED_BLADE);
 		registerEnchantment(registry, POISON_ASPECT);
 		registerEnchantment(registry, WITHER_ASPECT);
 		registerEnchantment(registry, SEARING);
 		registerEnchantment(registry, STEADFAST);
 		registerEnchantment(registry, OUTRUSH);
 		registerEnchantment(registry, TORRENT);
-		registerEnchantment(registry, SHARPSHOOTER);
 		registerEnchantment(registry, AQUATIC_REJUVENATION);
 		registerEnchantment(registry, OBSIDIAN_SKULL);
 		registerEnchantment(registry, BUTCHERING);
@@ -185,6 +261,7 @@ public class FFE
 		registerEnchantment(registry, ANCHORING_CURSE);
 		registerEnchantment(registry, MAELSTROM);
 		registerEnchantment(registry, INFERNO);
+		registerEnchantment(registry, POINTED);
 	}
 	
 	public static void registerEnchantment(IForgeRegistry<Enchantment> registry, Enchantment enchantment)
@@ -212,19 +289,18 @@ public class FFE
 		
 		LOGGER.info("Registering FFE capabilities.");
 		CapabilityManager.INSTANCE.register(IShooterEnchantments.class, new ShooterEnchantmentsStorage(), ShooterEnchantments::new);
-		CapabilityManager.INSTANCE.register(IArrowOriginalMotionMagnitude.class, new ArrowOriginalMotionMagnitudeCapability(), ArrowOriginalMotionMagnitudeCapability::new);
 		CapabilityManager.INSTANCE.register(IMaelstromApplied.class, new MaelstromTridentReturningCapability(), MaelstromTridentReturningCapability::new);
 	}
 	
 	public static int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
 		if(stack.isEmpty()) return 0;
-		int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
+		int level = EnchantmentHelper.getItemEnchantmentLevel(enchantment, stack);
 		if(level < 0) level = 0;
 		return level;
 	}
 	
 	public static DamageSource causeMaelstromDamage(Entity source, @Nullable Entity indirectEntityIn) {
-		return (new IndirectEntityDamageSource(FFE.MOD_ID+":maelstrom", source, indirectEntityIn));
+		return new IndirectEntityDamageSource(FFE.MOD_ID+":maelstrom", source, indirectEntityIn).setMagic();
 	}
 	
 	public static class PacketHandler {
@@ -241,22 +317,22 @@ public class FFE
 		
 		public static void handleLeapingPacket(LeapingToClientPacket packet, Supplier<NetworkEvent.Context> ctx) {
 			Minecraft instance = Minecraft.getInstance();
-	    	World world = instance.world;
+	    	World world = instance.level;
 	    	if(world == null) return;
-	    	AbstractHorseEntity horse = (AbstractHorseEntity) world.getEntityByID(packet.entityId);
+	    	AbstractHorseEntity horse = (AbstractHorseEntity) world.getEntity(packet.entityId);
 	    	double velocity = LeapingHorseEnchantment.getYVelocity(packet.enchantmentLevel);
-	    	horse.addVelocity(0, velocity, 0);
+	    	horse.push(0, velocity, 0);
 		}
 		
 		public static void handleBuoyancyPacket(BuoyancyPacket packet, Supplier<NetworkEvent.Context> ctx) {
-			@SuppressWarnings("resource")
-			World world = Minecraft.getInstance().world;
-	    	AbstractHorseEntity horse = (AbstractHorseEntity) world.getEntityByID(packet.entityId);
-	    	horse.addVelocity(0, 0.06D, 0);
+			Minecraft instance = Minecraft.getInstance();
+			World world = instance.level;
+	    	AbstractHorseEntity horse = (AbstractHorseEntity) world.getEntity(packet.entityId);
+	    	horse.push(0, 0.06D, 0);
 		}
 	}
 	
 	public static List<LivingEntity> getEntitiesInAABB(World world, double size, Vector3d centrePos) {
-		return world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(centrePos.add(-size, -size, -size), centrePos.add(size, size, size)));
+		return world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(centrePos.add(-size, -size, -size), centrePos.add(size, size, size)));
 	}
 }

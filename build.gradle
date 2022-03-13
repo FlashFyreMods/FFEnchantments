@@ -5,13 +5,15 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7.+'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
 
 version = "${mc_version}-${mod_version}"
 group = "${base_package}"
@@ -21,21 +23,20 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 minecraft {
 
-	mappings channel: 'snapshot', version: "${forge_mappings}".toString()
+	mappings channel: 'official', version: mc_version
     
-   accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')	
+	accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')	
 	
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
     runs {
         client {
             workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
+            
+            property 'mixin.env.remapRefMap', 'true'
+			property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 ffenchants {
@@ -52,6 +53,9 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
+            
+            property 'mixin.env.remapRefMap', 'true'
+			property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 ffenchants {
@@ -68,6 +72,9 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
+            
+            property 'mixin.env.remapRefMap', 'true'
+			property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             args '--mod', 'ffenchants', '--all', '--output', file('src/generated/resources/')
 
@@ -81,9 +88,22 @@ minecraft {
 }
 
 dependencies {
-
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
-	
+    runtimeOnly fg.deobf("mezz.jei:jei-$project.jei_version")
+	runtimeOnly fg.deobf("curse.maven:betterendforge-428877:3467948")
+
+}
+
+repositories {
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+    maven {
+        url "https://dvs1.progwml6.com/files/maven"
+    }
 }
     
 // Example for how to get properties into the manifest for reading by the runtime..

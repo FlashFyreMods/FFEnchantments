@@ -7,7 +7,7 @@
                 {
                     "type": "item",
                     "name": "minecraft:book",
-                    "weight": 35,
+                    "weight": 50,
 					"functions": [
 						{
 							"function": "minecraft:enchant_randomly",
@@ -16,22 +16,7 @@
 								"minecraft:piercing",
 								"minecraft:multishot",
 								"ffenchants:inferno",
-								"ffenchants:pillaging",
 								"ffenchants:pointed"
-							]
-						}
-					]
-                },
-				{
-                    "type": "item",
-                    "name": "minecraft:book",
-                    "weight": 15,
-					"functions": [
-						{
-							"function": "minecraft:enchant_randomly",
-							"enchantments": [
-								"ffenchants:bloodlust",
-								"ffenchants:butchering"
 							]
 						}
 					]

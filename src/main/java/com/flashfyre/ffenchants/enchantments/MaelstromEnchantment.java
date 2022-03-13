@@ -1,18 +1,13 @@
 package com.flashfyre.ffenchants.enchantments;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.flashfyre.ffenchants.FFE;
-import com.flashfyre.ffenchants.capability.MaelstromTridentReturningCapability;
-import com.flashfyre.ffenchants.capability.ShooterEnchantmentsProvider;
+import com.flashfyre.ffenchants.FFEConfig;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
@@ -20,20 +15,20 @@ import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.event.TickEvent.WorldTickEvent;
-import net.minecraftforge.event.entity.ProjectileImpactEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid=FFE.MOD_ID)
 public class MaelstromEnchantment extends FFEnchantment {
 	
-	public static List<AbstractArrowEntity> loadedTridentEntities = new ArrayList<>(); //A list of all trident entities enchanted with maelstrom. They are removed from this list when they are in the ground.
-
-	public MaelstromEnchantment(Rarity rarityIn, EnchantmentType typeIn, EquipmentSlotType... slots) {
-		super(rarityIn, typeIn, slots);
+	public MaelstromEnchantment(Rarity rarity, EnchantmentType type, EquipmentSlotType... slots) {
+		super(rarity, type, slots, 
+				() -> FFEConfig.canMaelstromBeAppliedToItems, 
+				() -> FFEConfig.canMaelstromBeAppliedToBooks, 
+				() -> FFEConfig.canMaelstromGenerateInLoot, 
+				() -> FFEConfig.canMaelstromAppearInTrades);
 	}
 	
 	@Override
@@ -43,90 +38,48 @@ public class MaelstromEnchantment extends FFEnchantment {
 	}
 	
 	@Override
-	public int getMinEnchantability(int enchantmentLevel) {
+	public int getMinCost(int enchantmentLevel) {
 		return 5 + (enchantmentLevel - 1) * 6;
 	}
 	
 	@Override
-	public int getMaxEnchantability(int enchantmentLevel) {
-		return this.getMinEnchantability(enchantmentLevel) + 6;
-	}
-	
-	@SubscribeEvent
-	public static void maelstromWorldTick(WorldTickEvent event) {
-		World world = event.world;		
-		Set<AbstractArrowEntity> tridentsToRemove = new HashSet<AbstractArrowEntity>();		
-		for(AbstractArrowEntity trident : loadedTridentEntities) {			
-			if(!trident.isAlive() || trident.inGround || trident == null) {
-				tridentsToRemove.add(trident);
-			}
-			else {
-				if(!trident.isInWaterOrBubbleColumn()) return;
-				trident.getCapability(ShooterEnchantmentsProvider.SHOOTER_INFO_CAPABILITY).ifPresent(data -> {
-					if(data.hasEnchantment(FFE.MAELSTROM)) {						
-						trident.getCapability(MaelstromTridentReturningCapability.MAELSTROM_APPLIED_CAPABILITY).ifPresent(maelstromData ->
-						{
-							if(maelstromData.isMaelstromApplied() == true) {
-								return;
-							}
-							else {
-								List<LivingEntity> entitiesInAoE = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(trident.getPosition().add(-2, -2, -2), trident.getPosition().add(2, 2, 2)));
-								int level = data.getEnchantments().get(FFE.MAELSTROM);
-								if(level > 0) {
-									entitiesInAoE.forEach((e) -> {
-										if(e == trident.func_234616_v_()) return; // Return if entity is the trident's shooter
-										if(e instanceof TameableEntity) {
-											TameableEntity pet = (TameableEntity) e;
-											if(pet.getOwner() == trident.func_234616_v_()) return; // Return if entity is a pet of the trident's shooter
-										}
-										e.attackEntityFrom(FFE.causeMaelstromDamage(trident, trident.func_234616_v_()), 2.0F * level);
-										e.addVelocity((trident.getPosX()-e.getPosX()) / 15, (trident.getPosY()-e.getPosY()) / 15, (trident.getPosZ()-e.getPosZ()) / 15);
-										e.addVelocity(trident.getMotion().getX() / 15, trident.getMotion().getY() / 15, trident.getMotion().getZ() / 15);
-										e.velocityChanged = true;
-									});
-									spawnParticles(world, trident);
-								}								
-							}
-						});						
-					}
-				});		
-			}
-		}
-		loadedTridentEntities.removeAll(tridentsToRemove);
-		tridentsToRemove.clear();
-	}
-	
-	@SubscribeEvent
-	public static void maelstromImpactEvent(ProjectileImpactEvent event) { // Sets maelstrom applied capability to true, so that mobs aren't moved or damaged when a trident with loyalty comes back
-		Entity entity = event.getEntity();
-		if(entity instanceof TridentEntity) {
-			TridentEntity trident = (TridentEntity) entity;
-			if(trident.func_234616_v_() instanceof LivingEntity) {				
-				trident.getCapability(ShooterEnchantmentsProvider.SHOOTER_INFO_CAPABILITY).ifPresent(enchantmentData ->
-				{
-					if(enchantmentData.hasEnchantment(FFE.MAELSTROM)) {
-						trident.getCapability(MaelstromTridentReturningCapability.MAELSTROM_APPLIED_CAPABILITY).ifPresent(maelstromData ->
-						{
-							maelstromData.setMaelstromApplied(true);
-						});
-					}
-				});
-			}
-		}
+	public int getMaxCost(int enchantmentLevel) {
+		return this.getMinCost(enchantmentLevel) + 6;
 	}
 	
 	public static void spawnParticles(World world, AbstractArrowEntity trident) {
-		if(!world.isRemote()) {
+		if(!world.isClientSide()) {
 			ServerWorld serverWorld = (ServerWorld) world;
-			double x = trident.getPositionVec().getX() + 0.5*Math.cos(trident.ticksExisted)*Math.cos(trident.rotationYaw * Math.PI/180) + Math.sin(trident.rotationYaw * Math.PI/180);
-			double y = trident.getPositionVec().getY() + 0.5*Math.sin(trident.ticksExisted);
-			//double y = trident.getPositionVec().getY() - 0.5*Math.sin(trident.ticksExisted)*Math.sin(trident.rotationPitch * Math.PI/180) + Math.cos(trident.rotationPitch * Math.PI/180);
-			double z = trident.getPositionVec().getZ() - 0.5*Math.cos(trident.ticksExisted)*Math.sin(trident.rotationYaw * Math.PI/180) + Math.cos(trident.rotationYaw * Math.PI/180);
-			serverWorld.spawnParticle(ParticleTypes.BUBBLE, x, y, z, 1, 0, 0, 0, 0);				
+			double x = trident.position().x() + 0.5*Math.cos(trident.tickCount)*Math.cos(trident.yRot * Math.PI/180) + Math.sin(trident.yRot * Math.PI/180);
+			double y = trident.position().y() + 0.5*Math.sin(trident.tickCount);
+			//double y = trident.position().y() - 0.5*Math.sin(trident.ticksExisted)*Math.sin(trident.rotationPitch * Math.PI/180) + Math.cos(trident.rotationPitch * Math.PI/180);
+			double z = trident.position().z() - 0.5*Math.cos(trident.tickCount)*Math.sin(trident.yRot * Math.PI/180) + Math.cos(trident.yRot * Math.PI/180);
+			serverWorld.sendParticles(ParticleTypes.BUBBLE, x, y, z, 1, 0, 0, 0, 0);				
 		}
 	}
 	
-	public boolean canApplyTogether(Enchantment ench) {
-		return super.canApplyTogether(ench) && ench != Enchantments.RIPTIDE;
+	public boolean checkCompatibility(Enchantment ench) {
+		return super.checkCompatibility(ench) && ench != Enchantments.RIPTIDE;
 	}
+	
+	public static void apply(ServerWorld sWorld, TridentEntity trident, int level) {
+		double radius = 2.5D;
+		List<LivingEntity> entitiesInAoE = sWorld.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(trident.position().add(radius, radius, radius), trident.position().add(-radius, -radius, -radius)));
+		entitiesInAoE.forEach((e) -> {
+			if(e == trident.getOwner()) return; // Skip if entity is the trident's shooter
+			if(e instanceof TameableEntity) {
+				TameableEntity pet = (TameableEntity) e;
+				if(pet.getOwner() == trident.getOwner()) return; // Skip if entity is a pet of the trident's shooter
+			}
+			float moveStrength = 0.10F;
+			Vector3d entityPos = e.getBoundingBox().getCenter();
+			Vector3d tridentPos = trident.position();
+			e.push((tridentPos.x()-entityPos.x())*moveStrength, (tridentPos.y()-entityPos.y())*moveStrength, (tridentPos.z()-entityPos.z())*moveStrength);
+			//e.push(trident.getDeltaMovement().x() / 15, trident.getDeltaMovement().y() / 15, trident.getDeltaMovement().z() / 15);
+			e.hurt(FFE.causeMaelstromDamage(trident, trident.getOwner()), 2.0F * level);
+			e.hurtMarked = true;
+		});
+	}
+	
+	
 }

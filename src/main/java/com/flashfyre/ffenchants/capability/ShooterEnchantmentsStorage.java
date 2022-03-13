@@ -29,7 +29,7 @@ public class ShooterEnchantmentsStorage implements IStorage<IShooterEnchantments
 	public void readNBT(Capability<IShooterEnchantments> capability, IShooterEnchantments instance, Direction side, INBT nbt)
 	{
 		CompoundNBT tag = (CompoundNBT) nbt;
-		Set<String> set = (tag).keySet();
+		Set<String> set = (tag).getAllKeys();
 		set.forEach(key ->
 		{
 			Enchantment ench = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(key));

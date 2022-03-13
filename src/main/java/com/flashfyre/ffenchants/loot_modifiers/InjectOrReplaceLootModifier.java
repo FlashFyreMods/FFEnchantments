@@ -32,9 +32,9 @@ public class InjectOrReplaceLootModifier extends LootModifier {
 	protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
 		List<ItemStack> newLoot = new ArrayList<ItemStack>();
 		LootTable lootTable = context.getLootTable(this.injectTableLocation);
-
-		if (lootTable != LootTable.EMPTY_LOOT_TABLE) {
-			lootTable.recursiveGenerate(context, newLoot::add);
+		
+		if (lootTable != LootTable.EMPTY) {
+			lootTable.getRandomItemsRaw(context, newLoot::add);
 		}
 		return shouldReplace ? (newLoot.isEmpty() ? generatedLoot : newLoot) : Stream.concat(generatedLoot.stream(), newLoot.stream()).collect(Collectors.toList());	
 	}
@@ -43,8 +43,8 @@ public class InjectOrReplaceLootModifier extends LootModifier {
 		
 		@Override
         public InjectOrReplaceLootModifier read(ResourceLocation name, JsonObject object, ILootCondition[] conditionsIn) {
-            ResourceLocation injectTableLocation  = new ResourceLocation(JSONUtils.getString(object, "table"));
-            boolean shouldReplace = JSONUtils.getBoolean(object, "replace");
+            ResourceLocation injectTableLocation  = new ResourceLocation(JSONUtils.getAsString(object, "table"));
+            boolean shouldReplace = JSONUtils.getAsBoolean(object, "replace");
             return new InjectOrReplaceLootModifier(conditionsIn, injectTableLocation, shouldReplace);
         }
 		

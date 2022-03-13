@@ -1,0 +1,29 @@
+{
+	"conditions": [
+		{
+			"condition": "minecraft:alternative",
+			"terms": [
+				{
+					"condition": "forge:loot_table_id",
+					"loot_table_id": "minecraft:chests/bastion_treasure"
+				},
+				{
+					"condition": "forge:loot_table_id",
+					"loot_table_id": "minecraft:chests/bastion_hoglin_stable"
+				},
+				{
+					"condition": "forge:loot_table_id",
+					"loot_table_id": "minecraft:chests/bastion_bridge"
+				},
+				{
+					"condition": "forge:loot_table_id",
+					"loot_table_id": "minecraft:chests/bastion_other"
+				}
+			]
+		}
+		
+	],
+	"table": "ffenchants:inject/bastion",
+	"replace": false,
+	"type": "ffenchants:loot_modification"
+}
