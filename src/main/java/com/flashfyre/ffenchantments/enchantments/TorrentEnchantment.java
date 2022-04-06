@@ -48,9 +48,8 @@ public class TorrentEnchantment extends FFEnchantment {
 	@SubscribeEvent
 	public static void increaseSpeed(LivingUpdateEvent event) {
 		LivingEntity entity = event.getEntityLiving();
-		if(entity.level.isClientSide) return;
 		ItemStack heldItem = entity.getItemInHand(InteractionHand.MAIN_HAND);
-		int level = FFE.getEnchantmentLevel(heldItem, FFE.TORRENT);
+		int level = FFE.getEnchantmentLevel(heldItem, FFE.Enchantments.TORRENT.get());
 		if(!entity.isInWater()) {
 			if(entity.getAttribute(ForgeMod.SWIM_SPEED.get()).getModifier(UUID.fromString(torrent_modifier_uuid)) != null) {
 				entity.getAttribute(ForgeMod.SWIM_SPEED.get()).removeModifier(UUID.fromString(torrent_modifier_uuid));

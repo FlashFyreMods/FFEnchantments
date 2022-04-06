@@ -23,7 +23,7 @@ public class FFEnchantment extends Enchantment {
 		this.canAppearInTrades = canAppearInTrades;
 	}
 	
-	/*
+	/**
 	 * Calls Enchantment#canApplyAtEnchantingTable for vanilla enchantments
 	 * Used in:
 	 *  Anvils
@@ -74,13 +74,9 @@ public class FFEnchantment extends Enchantment {
 		return this.canAppearInTrades.getAsBoolean();
 	}
 	
-	/**
-	 * If true:
-	 * - Prevents enchantment from appearing in enchantment table on both books and items
-	 * - Prevents villagers from selling items enchanted with this enchantment
-	 * - Prevents all other instances of items being enchanted with this item aside from the EnchantWithLevels loot function IF treasure is enabled, which is set in the loot table.
-	 * - Increases price of enchanted book in villager trades
-	 */	
+	/** Checks if the enchantment should be considered a treasure enchantment. These enchantments can not be obtained using the enchantment table.
+	 *  @return Whether or not the enchantment is a treasure enchantment.
+	 */
 	@Override
 	public boolean isTreasureOnly() {
 		return !(this.canBeAppliedToBooks.getAsBoolean() || this.canBeAppliedToItems.getAsBoolean());

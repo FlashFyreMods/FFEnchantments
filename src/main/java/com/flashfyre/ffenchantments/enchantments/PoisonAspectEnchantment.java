@@ -40,7 +40,7 @@ public class PoisonAspectEnchantment extends FFEnchantment {
 	
 	@Override
 	public boolean checkCompatibility(Enchantment ench) {
-		return super.checkCompatibility(ench) && ench != Enchantments.FIRE_ASPECT && ench != FFE.WITHER_ASPECT;
+		return super.checkCompatibility(ench) && ench != Enchantments.FIRE_ASPECT && ench != FFE.Enchantments.WITHER_ASPECT.get();
 	}
 	
 	@Override

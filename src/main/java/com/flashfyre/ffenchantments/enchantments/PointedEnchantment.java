@@ -30,6 +30,6 @@ public class PointedEnchantment extends FFEnchantment {
 	
 	@Override
 	public boolean checkCompatibility(Enchantment ench) {
-		return super.checkCompatibility(ench) && ench != FFE.PILLAGING;
+		return super.checkCompatibility(ench) && ench != FFE.Enchantments.PILLAGING.get();
 	}
 }

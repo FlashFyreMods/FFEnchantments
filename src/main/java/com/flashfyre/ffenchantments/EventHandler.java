@@ -9,6 +9,10 @@ import com.flashfyre.ffenchantments.capability.MaelstromTridentReturningProvider
 import com.flashfyre.ffenchantments.capability.ShooterEnchantmentsProvider;
 import com.flashfyre.ffenchantments.enchantments.InfernoEnchantment;
 import com.flashfyre.ffenchantments.enchantments.MaelstromEnchantment;
+import com.flashfyre.ffenchantments.enchantments.OutrushEnchantment;
+import com.flashfyre.ffenchantments.enchantments.QuicknessHorseEnchantment;
+import com.flashfyre.ffenchantments.enchantments.SearingEnchantment;
+import com.flashfyre.ffenchantments.enchantments.SteadfastEnchantment;
 import com.flashfyre.ffenchantments.packets.BuoyancyPacket;
 
 import net.minecraft.resources.ResourceLocation;
@@ -20,6 +24,11 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -33,8 +42,11 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.TickEvent.WorldTickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -69,37 +81,34 @@ public class EventHandler {
 					
 					FFESavedData savedData = FFESavedData.getOrCreate((ServerLevel) event.getWorld());
 					
-					
-					
-					int pillagingLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.PILLAGING, item);
-					if(pillagingLevel > 0 && !cap.hasEnchantment(FFE.PILLAGING)) {
-						cap.addEnchantment(FFE.PILLAGING, pillagingLevel);
+					int pillagingLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.Enchantments.PILLAGING.get(), item);
+					if(pillagingLevel > 0 && !cap.hasEnchantment(FFE.Enchantments.PILLAGING.get())) {
+						cap.addEnchantment(FFE.Enchantments.PILLAGING.get(), pillagingLevel);
 					}
 					
-					int outrushLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.OUTRUSH, item);
-					if(outrushLevel > 0 && !cap.hasEnchantment(FFE.OUTRUSH)) {
-						cap.addEnchantment(FFE.OUTRUSH, outrushLevel);		
+					int outrushLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.Enchantments.OUTRUSH.get(), item);
+					if(outrushLevel > 0 && !cap.hasEnchantment(FFE.Enchantments.OUTRUSH.get())) {
+						cap.addEnchantment(FFE.Enchantments.OUTRUSH.get(), outrushLevel);		
 					}
 
-					int infernoLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.INFERNO, item);
-					if(infernoLevel > 0 && !cap.hasEnchantment(FFE.INFERNO)) {
-						cap.addEnchantment(FFE.INFERNO, infernoLevel);
+					int infernoLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.Enchantments.INFERNO.get(), item);
+					if(infernoLevel > 0 && !cap.hasEnchantment(FFE.Enchantments.INFERNO.get())) {
+						cap.addEnchantment(FFE.Enchantments.INFERNO.get(), infernoLevel);
 						projectile.setSecondsOnFire(100);
 						savedData.addInfernoArrowUUID(projectile);
 					}
 					
-					int maelstromLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.MAELSTROM, item);
-					if(maelstromLevel > 0 && !cap.hasEnchantment(FFE.MAELSTROM) && projectile instanceof ThrownTrident) {
-						cap.addEnchantment(FFE.MAELSTROM, maelstromLevel);
+					int maelstromLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.Enchantments.MAELSTROM.get(), item);
+					if(maelstromLevel > 0 && !cap.hasEnchantment(FFE.Enchantments.MAELSTROM.get()) && projectile instanceof ThrownTrident) {
+						cap.addEnchantment(FFE.Enchantments.MAELSTROM.get(), maelstromLevel);
 						savedData.addMaelstromTridentUUID((ThrownTrident) projectile);
 					}
-				});	
-				
-				int pointedLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.POINTED, item);
-				if(pointedLevel > 0) {
-					projectile.setBaseDamage(projectile.getBaseDamage() + (double)pointedLevel * 0.5D + 0.5D);
-				}
-				
+					
+					int pointedLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.Enchantments.POINTED.get(), item);
+					if(pointedLevel > 0) {
+						projectile.setBaseDamage(projectile.getBaseDamage() + (double)pointedLevel * 0.5D + 0.5D);
+					}
+				});					
 			}						
 		}
 	}
@@ -107,46 +116,59 @@ public class EventHandler {
 	@SubscribeEvent
 	public static void onLivingUpdate(LivingUpdateEvent event) {
 		LivingEntity entity = event.getEntityLiving();
-		if(FFE.getEnchantmentLevel(entity.getItemBySlot(EquipmentSlot.FEET), FFE.ANCHORING_CURSE) > 0) {
+		if(FFE.getEnchantmentLevel(entity.getItemBySlot(EquipmentSlot.FEET), FFE.Enchantments.ANCHORING_CURSE.get()) > 0) {
 			if(entity.isInWater()) {
 				if(entity instanceof Player) {
 					Player player = (Player) entity;
-					if(player.getAbilities().flying) {
-						return;
+					if(!player.getAbilities().flying) {
+						entity.onInsideBubbleColumn(true);
 					}
-				}
-				entity.onInsideBubbleColumn(true);
+				} else {
+					entity.onInsideBubbleColumn(true);
+				}				
 			}
 		}
 		if(entity.isInWaterRainOrBubble()) {
 			ItemStack stack = entity.getItemInHand(InteractionHand.MAIN_HAND);
-			if(!stack.isDamaged()) return;
-			int level = FFE.getEnchantmentLevel(stack, FFE.AQUATIC_REJUVENATION);
-			if(level > 0) {
-				if(entity.level.getGameTime() % (140 - (level * 40)) == 0) {
-					stack.setDamageValue(stack.getDamageValue() - 1);
+			if(stack.isDamaged()) {
+				int level = FFE.getEnchantmentLevel(stack, FFE.Enchantments.AQUATIC_REJUVENATION.get());
+				if(level > 0) {
+					if(entity.level.getGameTime() % (140 - (level * 40)) == 0) {
+						stack.setDamageValue(stack.getDamageValue() - 1);
+					}	
 				}	
-			}				
+			}						
 		}
 		if(entity instanceof AbstractHorse) {
 			AbstractHorse horse = (AbstractHorse) entity;
-			if(!horse.isInWater()) return;
-			if(horse.isVehicle()) {
-				ItemStack saddle = ItemStack.EMPTY;
-				if(!horse.level.isClientSide) { //We can only get the saddle server side
-					saddle = horse.inventory.getItem(0);
-					if(!saddle.isEmpty()) {
-						int level = FFE.getEnchantmentLevel(saddle, FFE.BUOYANCY_HORSE);
-						if(level > 0) {
-							Entity rider = horse.getControllingPassenger();
-							if(rider instanceof Player) {
-								int id = horse.getId();
-								FFE.PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> horse.getCommandSenderWorld().getChunkAt(horse.blockPosition())), new BuoyancyPacket(id));
-							}							
-						}						
+			if(!horse.level.isClientSide) {
+				ItemStack stack = horse.inventory.getItem(0);
+				int buoyancyLevel = FFE.getEnchantmentLevel(stack, FFE.Enchantments.BUOYANCY_HORSE.get());
+				if(buoyancyLevel > 0) {
+					if(horse.isInWater() && horse.isVehicle() && !stack.isEmpty()) {
+						Entity rider = horse.getControllingPassenger();
+						if(rider instanceof Player) {
+							int id = horse.getId();
+							FFE.PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> horse.getCommandSenderWorld().getChunkAt(horse.blockPosition())), new BuoyancyPacket(id));
+						}
 					}
-				}			
-			}
+				}
+				int quicknessLevel = FFE.getEnchantmentLevel(stack, FFE.Enchantments.QUICKNESS_HORSE.get());
+				AttributeInstance moveSpeed = horse.getAttribute(Attributes.MOVEMENT_SPEED);
+				UUID uuid = UUID.fromString(QuicknessHorseEnchantment.QUICKNESS_MODIFIER_UUID);
+				AttributeModifier modifier = new AttributeModifier(uuid, "quickness_horse_enchantment", 0.045F * quicknessLevel, AttributeModifier.Operation.ADDITION);
+				
+				if(quicknessLevel > 0) {
+					if(!moveSpeed.hasModifier(modifier)) { // if the horse doesn't have the modifier, add it			
+						moveSpeed.addPermanentModifier(modifier);
+					}
+				}
+				else {
+					if(moveSpeed.hasModifier(modifier)) { // if the horse still has the modifier, remove it
+						moveSpeed.removeModifier(UUID.fromString(QuicknessHorseEnchantment.QUICKNESS_MODIFIER_UUID));
+					}
+				}
+			}			
 		}
 	}
 	
@@ -157,7 +179,7 @@ public class EventHandler {
 		if(source.getEntity() instanceof LivingEntity) {
 			LivingEntity user = (LivingEntity) source.getEntity();
 			if(user instanceof FakePlayer) return;
-			int level = FFE.getEnchantmentLevel(user.getItemBySlot(EquipmentSlot.MAINHAND), FFE.BLOODLUST);
+			int level = FFE.getEnchantmentLevel(user.getItemBySlot(EquipmentSlot.MAINHAND), FFE.Enchantments.BLOODLUST.get());
 			if(level > 0) {
 				int strength = 0;
 				if (user.hasEffect(MobEffects.DAMAGE_BOOST)) {
@@ -177,12 +199,12 @@ public class EventHandler {
 				ThrownTrident trident = (ThrownTrident) entity;
 				if(trident.getOwner() instanceof LivingEntity) {				
 					trident.getCapability(ShooterEnchantmentsProvider.SHOOTER_ENCHANTMENTS).ifPresent(enchantmentData -> {
-						if(enchantmentData.hasEnchantment(FFE.MAELSTROM)) {
+						if(enchantmentData.hasEnchantment(FFE.Enchantments.MAELSTROM.get())) {
 							trident.getCapability(MaelstromTridentReturningProvider.MAELSTROM_TRIDENT_RETURNING).ifPresent(maelstromData -> {								
 								Level world = event.getEntity().getCommandSenderWorld();
 								if(world instanceof ServerLevel) {
 									if(trident.isInWaterOrBubble()) {
-										MaelstromEnchantment.apply((ServerLevel) world, trident, enchantmentData.getEnchantments().get(FFE.MAELSTROM));
+										MaelstromEnchantment.apply((ServerLevel) world, trident, enchantmentData.getEnchantments().get(FFE.Enchantments.MAELSTROM.get()));
 									}									
 								}
 								//aelstromData.setMaelstromApplied(true);			
@@ -192,24 +214,25 @@ public class EventHandler {
 					});
 				}
 			} else {
-				if(entity.isUnderWater()) return;
-				AbstractArrow arrow = (AbstractArrow) entity;
-				if(arrow.getOwner() instanceof LivingEntity) {				
-					arrow.getCapability(ShooterEnchantmentsProvider.SHOOTER_ENCHANTMENTS).ifPresent(data ->
-					{
-						if(data.hasEnchantment(FFE.INFERNO)) {
-							int level = data.getEnchantments().get(FFE.INFERNO);
-							if(level > 0) {
-								List<LivingEntity> entitiesInAoE = FFE.getEntitiesInAABB(arrow.level, level*1.5, arrow.position());
-								for(LivingEntity e : entitiesInAoE) {
-									if(!InfernoEnchantment.isEntityValidForIgnition(e, arrow)) continue;						
-									e.setSecondsOnFire(10);
-									InfernoEnchantment.spawnParticles(arrow.level, e.position(), 3);
+				if(!entity.isUnderWater()) {
+					AbstractArrow arrow = (AbstractArrow) entity;
+					if(arrow.getOwner() instanceof LivingEntity) {				
+						arrow.getCapability(ShooterEnchantmentsProvider.SHOOTER_ENCHANTMENTS).ifPresent(data ->
+						{
+							if(data.hasEnchantment(FFE.Enchantments.INFERNO.get())) {
+								int level = data.getEnchantments().get(FFE.Enchantments.INFERNO.get());
+								if(level > 0) {
+									List<LivingEntity> entitiesInAoE = FFE.getEntitiesInAABB(arrow.level, level*1.5, arrow.position());
+									for(LivingEntity e : entitiesInAoE) {
+										if(!InfernoEnchantment.isEntityValidForIgnition(e, arrow)) continue;						
+										e.setSecondsOnFire(10);
+										InfernoEnchantment.spawnParticles(arrow.level, e.position(), 3);
+									}
 								}
 							}
-						}
-					});
-				}
+						});
+					}
+				}				
 			}			
 		}
 	}
@@ -233,11 +256,11 @@ public class EventHandler {
 					tridentsToRemove.add(id);
 				} else {
 					trident.getCapability(ShooterEnchantmentsProvider.SHOOTER_ENCHANTMENTS).ifPresent(data -> {
-						if(data.hasEnchantment(FFE.MAELSTROM)) {
+						if(data.hasEnchantment(FFE.Enchantments.MAELSTROM.get())) {
 							trident.getCapability(MaelstromTridentReturningProvider.MAELSTROM_TRIDENT_RETURNING).ifPresent(maelstromData -> {
 								if(!maelstromData.isTridentReturning()) { // return if the trident is not on its way back to the player
 									
-									int level = data.getEnchantments().get(FFE.MAELSTROM);
+									int level = data.getEnchantments().get(FFE.Enchantments.MAELSTROM.get());
 									if(level > 0) {
 										MaelstromEnchantment.apply(sWorld, trident, level);
 									}
@@ -264,8 +287,8 @@ public class EventHandler {
 					arrowsToRemove.add(id);
 				} else {
 					arrow.getCapability(ShooterEnchantmentsProvider.SHOOTER_ENCHANTMENTS).ifPresent(data -> {
-						if(data.hasEnchantment(FFE.INFERNO)) {
-							int level = data.getEnchantments().get(FFE.INFERNO);
+						if(data.hasEnchantment(FFE.Enchantments.INFERNO.get())) {
+							int level = data.getEnchantments().get(FFE.Enchantments.INFERNO.get());
 							if(level > 0) {
 								List<LivingEntity> entitiesInAoE = FFE.getEntitiesInAABB(sWorld, level*0.75, arrow.position());
 								for(LivingEntity e : entitiesInAoE) {
@@ -285,9 +308,9 @@ public class EventHandler {
 	}
 	
 	@SubscribeEvent
-	public static void applyWeaknessOnCrit(CriticalHitEvent event) {
+	public static void onCrit(CriticalHitEvent event) {
 		if(event.isVanillaCritical()) {
-			int level = FFE.getEnchantmentLevel(event.getEntityLiving().getItemBySlot(EquipmentSlot.MAINHAND), FFE.WEIGHTED_BLADE);
+			int level = FFE.getEnchantmentLevel(event.getEntityLiving().getItemBySlot(EquipmentSlot.MAINHAND), FFE.Enchantments.WEIGHTED_BLADE.get());
 			if(level > 0) {
 				if(event.getTarget() instanceof LivingEntity) {
 					LivingEntity target = (LivingEntity) event.getTarget();
@@ -299,5 +322,116 @@ public class EventHandler {
 			}
 		}				
 	}
-
+	
+	@SubscribeEvent
+	public static void onLivingHurt(LivingHurtEvent event) {
+		if(event.getSource().getDirectEntity() instanceof LivingEntity) { // if direct attacker is living
+			LivingEntity attacker = (LivingEntity) event.getSource().getDirectEntity();
+			LivingEntity target = event.getEntityLiving();
+			int butcheringLevel = FFE.getEnchantmentLevel(attacker.getItemBySlot(EquipmentSlot.MAINHAND), FFE.Enchantments.BUTCHERING.get());
+			if(butcheringLevel > 0) {
+				if(event.getEntityLiving() instanceof Animal) {
+					event.setAmount(event.getAmount() + butcheringLevel);
+				}
+			}
+			int outrushLevel = FFE.getEnchantmentLevel(attacker.getItemInHand(InteractionHand.MAIN_HAND), FFE.Enchantments.OUTRUSH.get());
+			if(outrushLevel > 0) {
+				
+				if(target.fireImmune()) {
+					event.setAmount(((float)outrushLevel * 2.5F) + event.getAmount());
+					OutrushEnchantment.doExtraEffects(attacker, target);
+					if(target.isOnFire()) {
+						target.clearFire();
+					}
+				}
+				else {
+					if(target.isOnFire()) {
+						target.clearFire();
+						OutrushEnchantment.doExtraEffects(attacker, target);
+					}
+				}				
+			}
+			
+			if(!attacker.fireImmune() && !target.isInWaterOrBubble()) {
+				attacker.setSecondsOnFire(SearingEnchantment.calculateBurnDuration(target));
+			}
+		}
+		else if(event.getSource().getDirectEntity() instanceof ThrownTrident) // When a thrown trident hits a living entity
+		{
+			ThrownTrident trident = (ThrownTrident) event.getSource().getDirectEntity();
+			
+			if(event.getSource().getEntity() instanceof LivingEntity) //If the trident has a thrower
+			{
+				LivingEntity thrower = (LivingEntity) event.getSource().getEntity();
+				trident.getCapability(ShooterEnchantmentsProvider.SHOOTER_ENCHANTMENTS).ifPresent(data -> 
+				{		
+					if(data.hasEnchantment(FFE.Enchantments.OUTRUSH.get()))
+					{						
+						int level = data.getEnchantments().get(FFE.Enchantments.OUTRUSH.get());
+						if(level > 0) {
+							LivingEntity target = event.getEntityLiving();
+							if(target.fireImmune()) {
+								event.setAmount(((float)level * 2.5F) + event.getAmount());								
+								OutrushEnchantment.doExtraEffects(thrower, target);
+								if(target.isOnFire()) {
+									target.clearFire();
+								}
+							}
+							else {
+								if(target.isOnFire()) {
+									target.clearFire();
+									OutrushEnchantment.doExtraEffects(thrower, target);
+								}
+							}							
+						}						
+					}				
+				});					
+			}									
+		} else if(event.getSource().getDirectEntity() instanceof AbstractArrow) {			
+			AbstractArrow arrow = (AbstractArrow) event.getSource().getDirectEntity();
+			arrow.getCapability(ShooterEnchantmentsProvider.SHOOTER_ENCHANTMENTS).ifPresent(data -> {				
+				if(data.hasEnchantment(FFE.Enchantments.PILLAGING.get())) {
+					if(event.getEntityLiving().getMobType() == MobType.ILLAGER)	{
+						int level = data.getEnchantments().get(FFE.Enchantments.PILLAGING.get());
+						event.setAmount(event.getAmount() + (2.5F * level));
+					}					
+				}				
+			});			
+		}
+	}
+	
+	@SubscribeEvent
+	public static void applyKnockbackResistance(LivingEquipmentChangeEvent event) {
+		LivingEntity wearer = event.getEntityLiving();
+		if(event.getSlot() == EquipmentSlot.CHEST) { // If chestplate is put in armour slot
+			int levelTo = FFE.getEnchantmentLevel(event.getTo(), FFE.Enchantments.STEADFAST.get());
+			int levelFrom = FFE.getEnchantmentLevel(event.getFrom(), FFE.Enchantments.STEADFAST.get());
+			if(levelTo == levelFrom) return; //If the levels are the same we don't need to adjust anything
+			UUID uuid = UUID.fromString(SteadfastEnchantment.STEADFAST_MODIFIER_ID);
+			AttributeInstance knockbackResistance = wearer.getAttribute(Attributes.KNOCKBACK_RESISTANCE);
+			if(levelFrom > 0) { // If the item taken out was enchanted with steadfast, remove the modifier
+				knockbackResistance.removeModifier(uuid);
+			}
+			if(levelTo > 0) { // If the item put in is enchanted with steadfast, add the modifier
+				AttributeModifier modifier = new AttributeModifier(uuid, "steadfast_enchantment", 0.2F * levelTo, AttributeModifier.Operation.ADDITION);
+				if(!knockbackResistance.hasModifier(modifier)) {					
+					knockbackResistance.addPermanentModifier(modifier);
+				}
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public static void knockBackAttacker(LivingAttackEvent event) {
+		LivingEntity target = event.getEntityLiving();
+		if(target instanceof FakePlayer) return;
+		int level = FFE.getEnchantmentLevel(target.getItemBySlot(EquipmentSlot.CHEST), FFE.Enchantments.STEADFAST.get());
+		if(level > 0) {
+			Entity source = event.getSource().getDirectEntity();
+			if(source instanceof LivingEntity) {
+				LivingEntity attacker = (LivingEntity) source;				
+				attacker.knockback(0.15F * level, target.getX() - attacker.getX(), target.getZ() - attacker.getZ());
+			}
+		}
+	}
 }

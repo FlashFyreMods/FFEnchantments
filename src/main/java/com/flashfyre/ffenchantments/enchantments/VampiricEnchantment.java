@@ -68,7 +68,7 @@ public class VampiricEnchantment extends FFEnchantment {
 			LivingEntity livingTarget = (LivingEntity) target;
 			LivingEntity livingAttacker = (LivingEntity) attacker;
 			if(livingTarget.isInvertedHealAndHarm()) return;
-			int level = FFE.getEnchantmentLevel(livingAttacker.getItemBySlot(EquipmentSlot.MAINHAND), FFE.VAMPIRIC);
+			int level = FFE.getEnchantmentLevel(livingAttacker.getItemBySlot(EquipmentSlot.MAINHAND), FFE.Enchantments.VAMPIRIC.get());
 			if(level > 0) {
 				Level world = livingAttacker.level;
 				if(!world.isClientSide() && world instanceof ServerLevel) {

@@ -20,7 +20,7 @@ public class LeapingToServerPacket {
 	        if(ridingEntity instanceof AbstractHorse) {
 	        	AbstractHorse horse = (AbstractHorse) ridingEntity;
 	        	ItemStack saddle = horse.inventory.getItem(0);			
-				int level = FFE.getEnchantmentLevel(saddle, FFE.LEAPING_HORSE);
+				int level = FFE.getEnchantmentLevel(saddle, FFE.Enchantments.LEAPING_HORSE.get());
 				if(level > 0) {
 					int id = horse.getId();
 					FFE.PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> horse.getCommandSenderWorld().getChunkAt(horse.blockPosition())), new LeapingToClientPacket(id, level));

@@ -17,8 +17,7 @@ public class AquaticRejuvenationEnchantment extends FFEnchantment {
 	}
 	
 	@Override
-	public int getMaxLevel() 
-	{
+	public int getMaxLevel() {
 		return 2;
 	}
 	
