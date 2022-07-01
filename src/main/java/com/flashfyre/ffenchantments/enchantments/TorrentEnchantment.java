@@ -13,10 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid=FFE.MOD_ID)
 public class TorrentEnchantment extends FFEnchantment {
 	
 	public static final String torrent_modifier_uuid = "6ec63b9e-3854-4d1a-9b4f-1b9a568a8905";
@@ -45,11 +42,8 @@ public class TorrentEnchantment extends FFEnchantment {
 		return this.getMinCost(enchantmentLevel) + 6;
 	}
 	
-	@SubscribeEvent
-	public static void increaseSpeed(LivingUpdateEvent event) {
-		LivingEntity entity = event.getEntityLiving();
-		ItemStack heldItem = entity.getItemInHand(InteractionHand.MAIN_HAND);
-		int level = FFE.getEnchantmentLevel(heldItem, FFE.Enchantments.TORRENT.get());
+	public static void increaseSpeed(LivingEntity entity) {
+		int level = entity.getItemInHand(InteractionHand.MAIN_HAND).getEnchantmentLevel( FFE.Enchantments.TORRENT.get());
 		if(!entity.isInWater()) {
 			if(entity.getAttribute(ForgeMod.SWIM_SPEED.get()).getModifier(UUID.fromString(torrent_modifier_uuid)) != null) {
 				entity.getAttribute(ForgeMod.SWIM_SPEED.get()).removeModifier(UUID.fromString(torrent_modifier_uuid));
@@ -58,7 +52,7 @@ public class TorrentEnchantment extends FFEnchantment {
 		}
 		if(level > 0) {
 			if(entity.getAttribute(ForgeMod.SWIM_SPEED.get()).getModifier(UUID.fromString(torrent_modifier_uuid)) == null) {
-				AttributeModifier modifier = new AttributeModifier(UUID.fromString(torrent_modifier_uuid), "torrent_enchantment", 0.2F + (level * 0.3), AttributeModifier.Operation.ADDITION);
+				AttributeModifier modifier = new AttributeModifier(UUID.fromString(torrent_modifier_uuid), "torrent_enchantment", (level * 0.3333333333333F), AttributeModifier.Operation.ADDITION);
 				entity.getAttribute(ForgeMod.SWIM_SPEED.get()).addPermanentModifier(modifier);
 			}
 			

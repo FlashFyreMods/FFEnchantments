@@ -15,22 +15,22 @@ public class AnchoringCurseEnchantment extends FFEnchantment {
 				() -> FFEConfig.canAnchoringCurseAppearInTrades);
 	}
 	
-	public int getMinEnchantability(int enchantmentLevel) {
+	@Override
+	public int getMinCost(int enchantmentLevel) {
 		return 25;
 	}
-
-	public int getMaxEnchantability(int enchantmentLevel) {
+	
+	@Override
+	public int getMaxCost(int enchantmentLevel) {
 		return 50;
 	}
 	
+	@Override
 	public int getMaxLevel() {
 		return 1;
 	}
 	
-	public boolean isTreasureEnchantment() {
-		return true;
-	}
-	
+	@Override
 	public boolean isCurse() {
 		return true;
 	}

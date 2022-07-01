@@ -7,5 +7,5 @@
 	],
 	"table": "ffenchantments:inject/jungle_temple",
 	"replace": false,
-	"type": "ffenchantments:loot_modification"
+	"type": "ffenchantments:loot_table_inject"
 }

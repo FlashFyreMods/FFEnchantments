@@ -38,7 +38,7 @@ public class ShooterEnchantments {
 		ListTag list = new ListTag();
 		this.enchantments.forEach((enchantment, level) -> {
 			CompoundTag innerTag = new CompoundTag();
-			innerTag.putString("Name", enchantment.getRegistryName().toString());
+			innerTag.putString("Name", ForgeRegistries.ENCHANTMENTS.getKey(enchantment).toString());
 			innerTag.putInt("Level", level);
 			list.add(innerTag);
 		});

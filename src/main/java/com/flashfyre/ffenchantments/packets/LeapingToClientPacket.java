@@ -24,8 +24,7 @@ public class LeapingToClientPacket {
 		buffer.writeInt(enchantmentLevel);
 	}
 	
-	public static LeapingToClientPacket decode(FriendlyByteBuf buffer)
-	{
+	public static LeapingToClientPacket decode(FriendlyByteBuf buffer) {
 	    return new LeapingToClientPacket(buffer.readInt(), buffer.readInt());
 	}
 	

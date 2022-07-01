@@ -2,21 +2,24 @@ package com.flashfyre.ffenchantments;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 import com.flashfyre.ffenchantments.capability.MaelstromTridentReturningProvider;
 import com.flashfyre.ffenchantments.capability.ShooterEnchantmentsProvider;
+import com.flashfyre.ffenchantments.enchantments.EndCurseEnchantment;
 import com.flashfyre.ffenchantments.enchantments.InfernoEnchantment;
 import com.flashfyre.ffenchantments.enchantments.MaelstromEnchantment;
 import com.flashfyre.ffenchantments.enchantments.OutrushEnchantment;
 import com.flashfyre.ffenchantments.enchantments.QuicknessHorseEnchantment;
 import com.flashfyre.ffenchantments.enchantments.SearingEnchantment;
 import com.flashfyre.ffenchantments.enchantments.SteadfastEnchantment;
+import com.flashfyre.ffenchantments.enchantments.TorrentEnchantment;
 import com.flashfyre.ffenchantments.packets.BuoyancyPacket;
+import com.google.common.collect.Iterables;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -34,7 +37,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -43,6 +45,7 @@ import net.minecraftforge.event.TickEvent.WorldTickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -74,37 +77,37 @@ public class EventHandler {
 			AbstractArrow projectile = (AbstractArrow) event.getEntity();
 			if(projectile.getOwner() instanceof LivingEntity) {				
 				LivingEntity shooter = (LivingEntity)projectile.getOwner();
-				ItemStack item = shooter.getItemInHand(shooter.getUsedItemHand());
+				ItemStack stack = shooter.getItemInHand(shooter.getUsedItemHand());
 				
 				projectile.getCapability(ShooterEnchantmentsProvider.SHOOTER_ENCHANTMENTS).ifPresent(cap -> { // If the capability is present, which it should always be
 					if(!(event.getWorld() instanceof ServerLevel)) return;
 					
 					FFESavedData savedData = FFESavedData.getOrCreate((ServerLevel) event.getWorld());
 					
-					int pillagingLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.Enchantments.PILLAGING.get(), item);
+					int pillagingLevel = stack.getEnchantmentLevel(FFE.Enchantments.PILLAGING.get());
 					if(pillagingLevel > 0 && !cap.hasEnchantment(FFE.Enchantments.PILLAGING.get())) {
 						cap.addEnchantment(FFE.Enchantments.PILLAGING.get(), pillagingLevel);
 					}
 					
-					int outrushLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.Enchantments.OUTRUSH.get(), item);
+					int outrushLevel = stack.getEnchantmentLevel(FFE.Enchantments.OUTRUSH.get());
 					if(outrushLevel > 0 && !cap.hasEnchantment(FFE.Enchantments.OUTRUSH.get())) {
 						cap.addEnchantment(FFE.Enchantments.OUTRUSH.get(), outrushLevel);		
 					}
 
-					int infernoLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.Enchantments.INFERNO.get(), item);
+					int infernoLevel = stack.getEnchantmentLevel(FFE.Enchantments.INFERNO.get());
 					if(infernoLevel > 0 && !cap.hasEnchantment(FFE.Enchantments.INFERNO.get())) {
 						cap.addEnchantment(FFE.Enchantments.INFERNO.get(), infernoLevel);
 						projectile.setSecondsOnFire(100);
 						savedData.addInfernoArrowUUID(projectile);
 					}
 					
-					int maelstromLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.Enchantments.MAELSTROM.get(), item);
+					int maelstromLevel = stack.getEnchantmentLevel(FFE.Enchantments.MAELSTROM.get());
 					if(maelstromLevel > 0 && !cap.hasEnchantment(FFE.Enchantments.MAELSTROM.get()) && projectile instanceof ThrownTrident) {
 						cap.addEnchantment(FFE.Enchantments.MAELSTROM.get(), maelstromLevel);
 						savedData.addMaelstromTridentUUID((ThrownTrident) projectile);
 					}
 					
-					int pointedLevel = EnchantmentHelper.getItemEnchantmentLevel(FFE.Enchantments.POINTED.get(), item);
+					int pointedLevel = stack.getEnchantmentLevel(FFE.Enchantments.POINTED.get());
 					if(pointedLevel > 0) {
 						projectile.setBaseDamage(projectile.getBaseDamage() + (double)pointedLevel * 0.5D + 0.5D);
 					}
@@ -116,7 +119,8 @@ public class EventHandler {
 	@SubscribeEvent
 	public static void onLivingUpdate(LivingUpdateEvent event) {
 		LivingEntity entity = event.getEntityLiving();
-		if(FFE.getEnchantmentLevel(entity.getItemBySlot(EquipmentSlot.FEET), FFE.Enchantments.ANCHORING_CURSE.get()) > 0) {
+		TorrentEnchantment.increaseSpeed(entity);
+		if(entity.getItemBySlot(EquipmentSlot.FEET).getEnchantmentLevel(FFE.Enchantments.ANCHORING_CURSE.get()) > 0) {
 			if(entity.isInWater()) {
 				if(entity instanceof Player) {
 					Player player = (Player) entity;
@@ -131,7 +135,7 @@ public class EventHandler {
 		if(entity.isInWaterRainOrBubble()) {
 			ItemStack stack = entity.getItemInHand(InteractionHand.MAIN_HAND);
 			if(stack.isDamaged()) {
-				int level = FFE.getEnchantmentLevel(stack, FFE.Enchantments.AQUATIC_REJUVENATION.get());
+				int level = stack.getEnchantmentLevel(FFE.Enchantments.AQUATIC_REJUVENATION.get());
 				if(level > 0) {
 					if(entity.level.getGameTime() % (140 - (level * 40)) == 0) {
 						stack.setDamageValue(stack.getDamageValue() - 1);
@@ -143,7 +147,7 @@ public class EventHandler {
 			AbstractHorse horse = (AbstractHorse) entity;
 			if(!horse.level.isClientSide) {
 				ItemStack stack = horse.inventory.getItem(0);
-				int buoyancyLevel = FFE.getEnchantmentLevel(stack, FFE.Enchantments.BUOYANCY_HORSE.get());
+				int buoyancyLevel = stack.getEnchantmentLevel(FFE.Enchantments.BUOYANCY_HORSE.get());
 				if(buoyancyLevel > 0) {
 					if(horse.isInWater() && horse.isVehicle() && !stack.isEmpty()) {
 						Entity rider = horse.getControllingPassenger();
@@ -153,7 +157,7 @@ public class EventHandler {
 						}
 					}
 				}
-				int quicknessLevel = FFE.getEnchantmentLevel(stack, FFE.Enchantments.QUICKNESS_HORSE.get());
+				int quicknessLevel = stack.getEnchantmentLevel(FFE.Enchantments.QUICKNESS_HORSE.get());
 				AttributeInstance moveSpeed = horse.getAttribute(Attributes.MOVEMENT_SPEED);
 				UUID uuid = UUID.fromString(QuicknessHorseEnchantment.QUICKNESS_MODIFIER_UUID);
 				AttributeModifier modifier = new AttributeModifier(uuid, "quickness_horse_enchantment", 0.045F * quicknessLevel, AttributeModifier.Operation.ADDITION);
@@ -179,7 +183,7 @@ public class EventHandler {
 		if(source.getEntity() instanceof LivingEntity) {
 			LivingEntity user = (LivingEntity) source.getEntity();
 			if(user instanceof FakePlayer) return;
-			int level = FFE.getEnchantmentLevel(user.getItemBySlot(EquipmentSlot.MAINHAND), FFE.Enchantments.BLOODLUST.get());
+			int level = user.getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(FFE.Enchantments.BLOODLUST.get());
 			if(level > 0) {
 				int strength = 0;
 				if (user.hasEffect(MobEffects.DAMAGE_BOOST)) {
@@ -310,11 +314,11 @@ public class EventHandler {
 	@SubscribeEvent
 	public static void onCrit(CriticalHitEvent event) {
 		if(event.isVanillaCritical()) {
-			int level = FFE.getEnchantmentLevel(event.getEntityLiving().getItemBySlot(EquipmentSlot.MAINHAND), FFE.Enchantments.WEIGHTED_BLADE.get());
+			int level = event.getEntityLiving().getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(FFE.Enchantments.WEIGHTED_BLADE.get());
 			if(level > 0) {
 				if(event.getTarget() instanceof LivingEntity) {
 					LivingEntity target = (LivingEntity) event.getTarget();
-					Random r = event.getPlayer().getRandom();
+					RandomSource r = event.getPlayer().getRandom();
 					if(r.nextInt(5 - level) == 0) {
 						target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 80 * level, level - 1, false, true));
 					}					
@@ -324,19 +328,39 @@ public class EventHandler {
 	}
 	
 	@SubscribeEvent
+	public static void onLivingDamage(LivingDamageEvent event) {
+		LivingEntity livingEntity = event.getEntityLiving();
+		int teleportAttempts = 0;
+		Iterable<ItemStack> armorItems = livingEntity.getArmorSlots();
+    	if (armorItems != null && Iterables.size(armorItems) > 0) {
+    		for(ItemStack stack : armorItems) {
+    			if(stack.getEnchantmentLevel(FFE.Enchantments.END_CURSE.get()) > 0) {
+    				teleportAttempts += 1;
+    				System.out.println();
+    			}
+    		}
+        }
+    	if(teleportAttempts > 0) {
+    		for(int attempt = 1; attempt <= teleportAttempts; attempt++) {
+    			boolean success = EndCurseEnchantment.attemptTeleport(livingEntity);
+    			if (success == true) break;
+    		}
+    	}    	
+	}
+	
+	@SubscribeEvent
 	public static void onLivingHurt(LivingHurtEvent event) {
 		if(event.getSource().getDirectEntity() instanceof LivingEntity) { // if direct attacker is living
 			LivingEntity attacker = (LivingEntity) event.getSource().getDirectEntity();
 			LivingEntity target = event.getEntityLiving();
-			int butcheringLevel = FFE.getEnchantmentLevel(attacker.getItemBySlot(EquipmentSlot.MAINHAND), FFE.Enchantments.BUTCHERING.get());
+			int butcheringLevel = attacker.getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(FFE.Enchantments.BUTCHERING.get());
 			if(butcheringLevel > 0) {
 				if(event.getEntityLiving() instanceof Animal) {
 					event.setAmount(event.getAmount() + butcheringLevel);
 				}
 			}
-			int outrushLevel = FFE.getEnchantmentLevel(attacker.getItemInHand(InteractionHand.MAIN_HAND), FFE.Enchantments.OUTRUSH.get());
-			if(outrushLevel > 0) {
-				
+			int outrushLevel = attacker.getItemInHand(InteractionHand.MAIN_HAND).getEnchantmentLevel(FFE.Enchantments.OUTRUSH.get());
+			if(outrushLevel > 0) {				
 				if(target.fireImmune()) {
 					event.setAmount(((float)outrushLevel * 2.5F) + event.getAmount());
 					OutrushEnchantment.doExtraEffects(attacker, target);
@@ -352,8 +376,11 @@ public class EventHandler {
 				}				
 			}
 			
-			if(!attacker.fireImmune() && !target.isInWaterOrBubble()) {
-				attacker.setSecondsOnFire(SearingEnchantment.calculateBurnDuration(target));
+			if(!(attacker.fireImmune() || target.isInWaterOrBubble())) {
+				int burnDuration = SearingEnchantment.calculateBurnDuration(target);
+				if (burnDuration > 0) {
+					attacker.setSecondsOnFire(burnDuration);
+				}				
 			}
 		}
 		else if(event.getSource().getDirectEntity() instanceof ThrownTrident) // When a thrown trident hits a living entity
@@ -404,8 +431,8 @@ public class EventHandler {
 	public static void applyKnockbackResistance(LivingEquipmentChangeEvent event) {
 		LivingEntity wearer = event.getEntityLiving();
 		if(event.getSlot() == EquipmentSlot.CHEST) { // If chestplate is put in armour slot
-			int levelTo = FFE.getEnchantmentLevel(event.getTo(), FFE.Enchantments.STEADFAST.get());
-			int levelFrom = FFE.getEnchantmentLevel(event.getFrom(), FFE.Enchantments.STEADFAST.get());
+			int levelTo = event.getTo().getEnchantmentLevel(FFE.Enchantments.STEADFAST.get());
+			int levelFrom = event.getFrom().getEnchantmentLevel(FFE.Enchantments.STEADFAST.get());
 			if(levelTo == levelFrom) return; //If the levels are the same we don't need to adjust anything
 			UUID uuid = UUID.fromString(SteadfastEnchantment.STEADFAST_MODIFIER_ID);
 			AttributeInstance knockbackResistance = wearer.getAttribute(Attributes.KNOCKBACK_RESISTANCE);
@@ -425,7 +452,7 @@ public class EventHandler {
 	public static void knockBackAttacker(LivingAttackEvent event) {
 		LivingEntity target = event.getEntityLiving();
 		if(target instanceof FakePlayer) return;
-		int level = FFE.getEnchantmentLevel(target.getItemBySlot(EquipmentSlot.CHEST), FFE.Enchantments.STEADFAST.get());
+		int level = target.getItemBySlot(EquipmentSlot.CHEST).getEnchantmentLevel(FFE.Enchantments.STEADFAST.get());
 		if(level > 0) {
 			Entity source = event.getSource().getDirectEntity();
 			if(source instanceof LivingEntity) {

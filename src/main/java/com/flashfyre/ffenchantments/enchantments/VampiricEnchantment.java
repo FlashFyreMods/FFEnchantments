@@ -1,7 +1,5 @@
 package com.flashfyre.ffenchantments.enchantments;
 
-import java.util.Random;
-
 import com.flashfyre.ffenchantments.FFE;
 import com.flashfyre.ffenchantments.FFEConfig;
 
@@ -9,6 +7,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -68,11 +67,11 @@ public class VampiricEnchantment extends FFEnchantment {
 			LivingEntity livingTarget = (LivingEntity) target;
 			LivingEntity livingAttacker = (LivingEntity) attacker;
 			if(livingTarget.isInvertedHealAndHarm()) return;
-			int level = FFE.getEnchantmentLevel(livingAttacker.getItemBySlot(EquipmentSlot.MAINHAND), FFE.Enchantments.VAMPIRIC.get());
+			int level = livingAttacker.getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(FFE.Enchantments.VAMPIRIC.get());
 			if(level > 0) {
 				Level world = livingAttacker.level;
 				if(!world.isClientSide() && world instanceof ServerLevel) {
-					Random r = livingAttacker.getRandom();
+					RandomSource r = livingAttacker.getRandom();
 					if(r.nextInt(6 - level) == 0) {
 						livingAttacker.heal(2);
 						if(livingAttacker instanceof Player) {

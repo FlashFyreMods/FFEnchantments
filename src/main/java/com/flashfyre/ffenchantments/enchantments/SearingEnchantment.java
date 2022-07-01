@@ -1,10 +1,11 @@
 package com.flashfyre.ffenchantments.enchantments;
 
-import java.util.Random;
+import java.util.Map.Entry;
 
 import com.flashfyre.ffenchantments.FFE;
 import com.flashfyre.ffenchantments.FFEConfig;
 
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
@@ -52,15 +53,27 @@ public class SearingEnchantment extends FFEnchantment {
 		return super.checkCompatibility(ench) && ench != Enchantments.FROST_WALKER && ench != Enchantments.DEPTH_STRIDER;
 	}
 	
+	@Override
+	public void doPostAttack(LivingEntity p_44686_, Entity p_44687_, int p_44688_) {
+		super.doPostAttack(p_44686_, p_44687_, p_44688_);
+	}
+	
 	public static int calculateBurnDuration(LivingEntity wearer) {
 		Iterable<ItemStack> armour = wearer.getArmorSlots();
 		int burnDuration = 0;
 		for(ItemStack stack : armour) {
-			int level = EnchantmentHelper.getItemEnchantmentLevel(FFE.Enchantments.SEARING.get(), stack);
-			if(level < 1) continue; //Reset loop iteration and check next piece of armour			
-			Random r = wearer.getRandom();
-			if (r.nextInt(5 - level) == 0) {
-				burnDuration += (2 * level);
+			int level = stack.getEnchantmentLevel(FFE.Enchantments.SEARING.get());
+			if (level > 0 && wearer.getRandom().nextFloat() < level * 0.225F) {
+				burnDuration += 2;				
+			}
+		}
+		
+		if(burnDuration > 0) {
+			Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.getRandomItemWith(Enchantments.THORNS, wearer);
+			if(entry != null) {
+				entry.getValue().hurtAndBreak(2, wearer, (livingEntity) -> {
+					livingEntity.broadcastBreakEvent(entry.getKey());
+		        });
 			}
 		}
 		

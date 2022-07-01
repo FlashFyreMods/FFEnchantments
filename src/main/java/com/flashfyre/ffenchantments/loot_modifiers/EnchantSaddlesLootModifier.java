@@ -2,7 +2,6 @@ package com.flashfyre.ffenchantments.loot_modifiers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Nonnull;
 
@@ -10,8 +9,10 @@ import com.flashfyre.ffenchantments.FFEConfig;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -34,9 +35,9 @@ public class EnchantSaddlesLootModifier extends LootModifier {
 	
 	@Nonnull
 	@Override
-	public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext ctx) {
+	public ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext ctx) {
 		if(FFEConfig.enableSaddlesRandomlyEnchanted) {
-			Random r = ctx.getRandom();
+			RandomSource r = ctx.getRandom();
 			
 			for(ItemStack stack : generatedLoot) {
 				if(stack.isEmpty()) continue;
@@ -69,5 +70,4 @@ public class EnchantSaddlesLootModifier extends LootModifier {
 			throw new UnsupportedOperationException("datagen not supported omegalul");
 		}
     }
-
 }

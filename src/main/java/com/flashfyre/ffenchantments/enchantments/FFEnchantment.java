@@ -74,7 +74,7 @@ public class FFEnchantment extends Enchantment {
 		return this.canAppearInTrades.getAsBoolean();
 	}
 	
-	/** Checks if the enchantment should be considered a treasure enchantment. These enchantments can not be obtained using the enchantment table.
+	/** Checks if the enchantment should be considered a treasure enchantment. These enchantments cannot be obtained using the enchantment table.
 	 *  @return Whether or not the enchantment is a treasure enchantment.
 	 */
 	@Override

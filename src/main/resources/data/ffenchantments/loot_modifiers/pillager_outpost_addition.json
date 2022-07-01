@@ -7,5 +7,5 @@
 	],
 	"table": "ffenchantments:inject/pillager_outpost",
 	"replace": false,
-	"type": "ffenchantments:loot_modification"
+	"type": "ffenchantments:loot_table_inject"
 }

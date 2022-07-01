@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,6 +16,7 @@ import com.flashfyre.ffenchantments.enchantments.AquaticRejuvenationEnchantment;
 import com.flashfyre.ffenchantments.enchantments.BloodlustEnchantment;
 import com.flashfyre.ffenchantments.enchantments.BuoyancyHorseEnchantment;
 import com.flashfyre.ffenchantments.enchantments.ButcheringEnchantment;
+import com.flashfyre.ffenchantments.enchantments.EndCurseEnchantment;
 import com.flashfyre.ffenchantments.enchantments.InfernoEnchantment;
 import com.flashfyre.ffenchantments.enchantments.LeapingHorseEnchantment;
 import com.flashfyre.ffenchantments.enchantments.MaelstromEnchantment;
@@ -32,13 +32,13 @@ import com.flashfyre.ffenchantments.enchantments.TorrentEnchantment;
 import com.flashfyre.ffenchantments.enchantments.VampiricEnchantment;
 import com.flashfyre.ffenchantments.enchantments.WeightedBladeEnchantment;
 import com.flashfyre.ffenchantments.enchantments.WitherAspectEnchantment;
-import com.flashfyre.ffenchantments.loot_modifiers.EnchantSaddlesLootModifier;
-import com.flashfyre.ffenchantments.loot_modifiers.InjectOrReplaceLootModifier;
+import com.flashfyre.ffenchantments.loot_modifiers.FFELootModifierSerializers;
 import com.flashfyre.ffenchantments.packets.BuoyancyPacket;
 import com.flashfyre.ffenchantments.packets.LeapingToClientPacket;
 import com.flashfyre.ffenchantments.packets.LeapingToServerPacket;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.IndirectEntityDamageSource;
@@ -47,17 +47,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SaddleItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -71,7 +67,6 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
@@ -83,6 +78,7 @@ public class FFE {
 	public FFE() {
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		FFE.Enchantments.ENCHANTMENTS.register(modBus);
+		FFELootModifierSerializers.LOOT_MODIFIER_SERIALIZERS.register(modBus);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FFEConfig.COMMON_SPEC, "ffenchantments-common.toml");
 	}
 	
@@ -96,10 +92,8 @@ public class FFE {
 	public static class Enchantments {
 		public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, FFE.MOD_ID);
 		private static final EquipmentSlot[] EMPTY_SLOTS = {};
-		private static RegistryObject<Enchantment> register(String id, Enchantment enchantment) {
-			RegistryObject<Enchantment> regObject = ENCHANTMENTS.register(id, () -> enchantment);			
-			return regObject;		
-		}
+		private static final EquipmentSlot[] ARMOR_SLOTS = new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
+		
 		
 		public static final RegistryObject<Enchantment> ANCHORING_CURSE = register("anchoring_curse", new AnchoringCurseEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET));
 		public static final RegistryObject<Enchantment> AQUATIC_REJUVENATION = register("aquatic_rejuvenation", new AquaticRejuvenationEnchantment(Enchantment.Rarity.COMMON, EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND));
@@ -121,41 +115,33 @@ public class FFE {
 		public static final RegistryObject<Enchantment> QUICKNESS_HORSE = register("quickness_horse", new QuicknessHorseEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategories.SADDLE, EMPTY_SLOTS));
 		public static final RegistryObject<Enchantment> MAELSTROM = register("maelstrom", new MaelstromEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND));
 		public static final RegistryObject<Enchantment> INFERNO = register("inferno", new InfernoEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.CROSSBOW, EquipmentSlot.MAINHAND));
-	}	
+		public static final RegistryObject<Enchantment> END_CURSE = register("end_curse", new EndCurseEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.ARMOR, EquipmentSlot.values()));
 	
-	public static void registerEnchantment(IForgeRegistry<Enchantment> registry, Enchantment enchantment)
-	{
-		registry.register(enchantment);
-		LOGGER.info("Registered enchantment " + enchantment.getRegistryName() + ".");
-	}
-	
-	@SubscribeEvent
-	public static void registerLootModifierSerializers(@Nonnull final RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {		
-		event.getRegistry().register(new EnchantSaddlesLootModifier.Serializer().setRegistryName(new ResourceLocation(FFE.MOD_ID, "enchant_saddles")));
-		event.getRegistry().register(new InjectOrReplaceLootModifier.Serializer().setRegistryName(new ResourceLocation(FFE.MOD_ID, "loot_modification")));	
+		private static RegistryObject<Enchantment> register(String id, Enchantment enchantment) {
+			RegistryObject<Enchantment> regObject = ENCHANTMENTS.register(id, () -> enchantment);			
+			return regObject;		
+		}
 	}
 	
 	@SubscribeEvent
 	public static void onCommonSetup(FMLCommonSetupEvent event) {
 		
+		if(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS.get().getValue(new ResourceLocation(MOD_ID, "loot_table_inject")) != null) {
+			LOGGER.info("Pog pog pog pog pog pog pog");
+		} else {
+			LOGGER.info("not pog not pog not pog not pog");
+		}
+		
 		int packetIndex = 0;
 		FFE.PacketHandler.INSTANCE.registerMessage(packetIndex++, LeapingToServerPacket.class, (packet, buffer) -> {}, buffer -> new LeapingToServerPacket(), LeapingToServerPacket::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		FFE.PacketHandler.INSTANCE.registerMessage(packetIndex++, LeapingToClientPacket.class, LeapingToClientPacket::encode, LeapingToClientPacket::decode, LeapingToClientPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
 		FFE.PacketHandler.INSTANCE.registerMessage(packetIndex++, BuoyancyPacket.class, BuoyancyPacket::encode, BuoyancyPacket::decode, BuoyancyPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		
-		LOGGER.info("Registering FFE capabilities.");
-		//CapabilityManager.INSTANCE.register(IShooterEnchantments.class, new ShooterEnchantmentsStorage(), ShooterEnchantments::new);
-		//CapabilityManager.INSTANCE.register(IMaelstromApplied.class, new MaelstromTridentReturningCapability(), MaelstromTridentReturningCapability::new);
 	}
 	
 	@SubscribeEvent
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.register(MaelstromTridentReturning.class);
 		event.register(ShooterEnchantments.class);
-	}
-	
-	public static int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
-		return EnchantmentHelper.getItemEnchantmentLevel(enchantment, stack);
 	}
 	
 	public static DamageSource causeMaelstromDamage(Entity source, @Nullable Entity indirectEntityIn) {
@@ -185,7 +171,7 @@ public class FFE {
 		
 		public static void handleBuoyancyPacket(BuoyancyPacket packet, Supplier<NetworkEvent.Context> ctx) {
 			Minecraft instance = Minecraft.getInstance();
-			Level level = instance.level;
+			ClientLevel level = instance.level;
 			AbstractHorse horse = (AbstractHorse) level.getEntity(packet.entityId);
 	    	horse.push(0, 0.04D, 0);	
 		}
