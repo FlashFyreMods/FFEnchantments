@@ -15,6 +15,7 @@ import com.flashfyre.ffenchantments.enchantments.SearingEnchantment;
 import com.flashfyre.ffenchantments.enchantments.SteadfastEnchantment;
 import com.flashfyre.ffenchantments.enchantments.TorrentEnchantment;
 import com.flashfyre.ffenchantments.packets.BuoyancyPacket;
+import com.flashfyre.ffenchantments.packets.LeapingToServerPacket;
 import com.google.common.collect.Iterables;
 
 import net.minecraft.resources.ResourceLocation;
@@ -48,6 +49,7 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
@@ -176,7 +178,7 @@ public class EventHandler {
 		}
 	}
 	
-	@SubscribeEvent
+	/*@SubscribeEvent
 	public static void applyStrengthOnKill(LivingDeathEvent event) {
 		DamageSource source = event.getSource();
 		if(source == null || source.getEntity() == null) return;
@@ -193,7 +195,7 @@ public class EventHandler {
 				user.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 80 + (40 * (level - 1)), strength, false, true));
 			}					
 		}
-	}
+	}*/
 	
 	@SubscribeEvent
 	public static void onProjectileImpact(ProjectileImpactEvent event) {
@@ -459,6 +461,22 @@ public class EventHandler {
 				LivingEntity attacker = (LivingEntity) source;				
 				attacker.knockback(0.15F * level, target.getX() - attacker.getX(), target.getZ() - attacker.getZ());
 			}
+		}
+	}
+	
+	/**
+	 *  This event is client side only in the case of horses jumping while being controlled by the player.
+	 *  This is important because the horse's inventory (where we need to check for enchantments) is only stored server side.
+	 */
+	@SubscribeEvent
+	public static void onLivingJump(LivingJumpEvent event) {
+		
+		LivingEntity entity = event.getEntityLiving();
+		
+		if(!entity.level.isClientSide) return;
+		
+		if(entity instanceof AbstractHorse) {
+			FFE.PacketHandler.INSTANCE.sendToServer(new LeapingToServerPacket());
 		}
 	}
 }

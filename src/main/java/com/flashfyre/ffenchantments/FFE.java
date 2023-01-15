@@ -82,9 +82,10 @@ public class FFE {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FFEConfig.COMMON_SPEC, "ffenchantments-common.toml");
 	}
 	
-	private static final EquipmentSlot[] ARMOUR_SLOTS = new EquipmentSlot[] {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
+	
 	
 	private static class EnchantmentCategories {
+		
 		private static final EnchantmentCategory AXE = EnchantmentCategory.create("AXE",  item -> item instanceof AxeItem);
 		private static final EnchantmentCategory SADDLE = EnchantmentCategory.create("SADDLE", item -> item instanceof SaddleItem);
 	}
@@ -92,30 +93,29 @@ public class FFE {
 	public static class Enchantments {
 		public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, FFE.MOD_ID);
 		private static final EquipmentSlot[] EMPTY_SLOTS = {};
-		private static final EquipmentSlot[] ARMOR_SLOTS = new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
-		
+		private static final EquipmentSlot[] ARMOUR_SLOTS = new EquipmentSlot[] {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};		
 		
 		public static final RegistryObject<Enchantment> ANCHORING_CURSE = register("anchoring_curse", new AnchoringCurseEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET));
 		public static final RegistryObject<Enchantment> AQUATIC_REJUVENATION = register("aquatic_rejuvenation", new AquaticRejuvenationEnchantment(Enchantment.Rarity.COMMON, EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND));
 		public static final RegistryObject<Enchantment> BLOODLUST = register("bloodlust", new BloodlustEnchantment(Enchantment.Rarity.RARE, EnchantmentCategories.AXE, EquipmentSlot.MAINHAND));
 		public static final RegistryObject<Enchantment> BUOYANCY_HORSE = register("buoyancy_horse", new BuoyancyHorseEnchantment(Enchantment.Rarity.RARE, EnchantmentCategories.SADDLE, EMPTY_SLOTS));
 		public static final RegistryObject<Enchantment> BUTCHERING = register("butchering", new ButcheringEnchantment(Enchantment.Rarity.RARE, EnchantmentCategories.AXE, EquipmentSlot.MAINHAND));
-		public static final RegistryObject<Enchantment> VAMPIRIC = register("vampiric", new VampiricEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
-		public static final RegistryObject<Enchantment> WEIGHTED_BLADE = register("weighted_blade", new WeightedBladeEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
+		public static final RegistryObject<Enchantment> END_CURSE = register("end_curse", new EndCurseEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.ARMOR, ARMOUR_SLOTS));
+		public static final RegistryObject<Enchantment> INFERNO = register("inferno", new InfernoEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.CROSSBOW, EquipmentSlot.MAINHAND));
+		public static final RegistryObject<Enchantment> LEAPING_HORSE = register("leaping_horse", new LeapingHorseEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategories.SADDLE, EMPTY_SLOTS));
+		public static final RegistryObject<Enchantment> MAELSTROM = register("maelstrom", new MaelstromEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND));
+		public static final RegistryObject<Enchantment> OBSIDIAN_SKULL = register("obsidian_skull", new ObsidianSkullEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD));
+		public static final RegistryObject<Enchantment> OUTRUSH = register("outrush", new OutrushEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND));
+		public static final RegistryObject<Enchantment> PILLAGING = register("pillaging", new PillagingEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.CROSSBOW, EquipmentSlot.MAINHAND));
 		public static final RegistryObject<Enchantment> POINTED = register("pointed", new PointedEnchantment(Enchantment.Rarity.COMMON, EnchantmentCategory.CROSSBOW, EquipmentSlot.MAINHAND));
 		public static final RegistryObject<Enchantment> POISON_ASPECT = register("poison_aspect", new PoisonAspectEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
-		public static final RegistryObject<Enchantment> WITHER_ASPECT = register("wither_aspect", new WitherAspectEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
-		public static final RegistryObject<Enchantment> PILLAGING = register("pillaging", new PillagingEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.CROSSBOW, EquipmentSlot.MAINHAND));
+		public static final RegistryObject<Enchantment> QUICKNESS_HORSE = register("quickness_horse", new QuicknessHorseEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategories.SADDLE, EMPTY_SLOTS));
 		public static final RegistryObject<Enchantment> SEARING = register("searing", new SearingEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, ARMOUR_SLOTS));
 		public static final RegistryObject<Enchantment> STEADFAST = register("steadfast", new SteadfastEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
-		public static final RegistryObject<Enchantment> OUTRUSH = register("outrush", new OutrushEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND));
 		public static final RegistryObject<Enchantment> TORRENT = register("torrent", new TorrentEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND));
-		public static final RegistryObject<Enchantment> OBSIDIAN_SKULL = register("obsidian_skull", new ObsidianSkullEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD));
-		public static final RegistryObject<Enchantment> LEAPING_HORSE = register("leaping_horse", new LeapingHorseEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategories.SADDLE, EMPTY_SLOTS));
-		public static final RegistryObject<Enchantment> QUICKNESS_HORSE = register("quickness_horse", new QuicknessHorseEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategories.SADDLE, EMPTY_SLOTS));
-		public static final RegistryObject<Enchantment> MAELSTROM = register("maelstrom", new MaelstromEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND));
-		public static final RegistryObject<Enchantment> INFERNO = register("inferno", new InfernoEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.CROSSBOW, EquipmentSlot.MAINHAND));
-		public static final RegistryObject<Enchantment> END_CURSE = register("end_curse", new EndCurseEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.ARMOR, EquipmentSlot.values()));
+		public static final RegistryObject<Enchantment> VAMPIRIC = register("vampiric", new VampiricEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
+		public static final RegistryObject<Enchantment> WEIGHTED_BLADE = register("weighted_blade", new WeightedBladeEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
+		public static final RegistryObject<Enchantment> WITHER_ASPECT = register("wither_aspect", new WitherAspectEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
 	
 		private static RegistryObject<Enchantment> register(String id, Enchantment enchantment) {
 			RegistryObject<Enchantment> regObject = ENCHANTMENTS.register(id, () -> enchantment);			
@@ -124,14 +124,7 @@ public class FFE {
 	}
 	
 	@SubscribeEvent
-	public static void onCommonSetup(FMLCommonSetupEvent event) {
-		
-		if(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS.get().getValue(new ResourceLocation(MOD_ID, "loot_table_inject")) != null) {
-			LOGGER.info("Pog pog pog pog pog pog pog");
-		} else {
-			LOGGER.info("not pog not pog not pog not pog");
-		}
-		
+	public static void onCommonSetup(FMLCommonSetupEvent event) {		
 		int packetIndex = 0;
 		FFE.PacketHandler.INSTANCE.registerMessage(packetIndex++, LeapingToServerPacket.class, (packet, buffer) -> {}, buffer -> new LeapingToServerPacket(), LeapingToServerPacket::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
 		FFE.PacketHandler.INSTANCE.registerMessage(packetIndex++, LeapingToClientPacket.class, LeapingToClientPacket::encode, LeapingToClientPacket::decode, LeapingToClientPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
@@ -146,6 +139,10 @@ public class FFE {
 	
 	public static DamageSource causeMaelstromDamage(Entity source, @Nullable Entity indirectEntityIn) {
 		return new IndirectEntityDamageSource(FFE.MOD_ID+":maelstrom", source, indirectEntityIn).setMagic();
+	}
+	
+	public static DamageSource causeShockwaveDamage(Entity source, @Nullable Entity indirectEntityIn) {
+		return new IndirectEntityDamageSource(FFE.MOD_ID+":shockwave", source, indirectEntityIn).setMagic().setExplosion();
 	}
 	
 	public static class PacketHandler {
