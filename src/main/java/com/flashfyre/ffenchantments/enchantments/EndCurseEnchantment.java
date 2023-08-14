@@ -15,9 +15,8 @@ import net.minecraft.world.phys.Vec3;
 public class EndCurseEnchantment extends FFEnchantment {
 	
 	public EndCurseEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> false, 
-				() -> false, 
+		super(1, rarity, type, slots, 
+				() -> true, 
 				() -> true, 
 				() -> true);
 	}
@@ -30,11 +29,6 @@ public class EndCurseEnchantment extends FFEnchantment {
 	@Override
 	public int getMaxCost(int enchantmentLevel) {
 		return 50;
-	}
-	
-	@Override
-	public int getMaxLevel() {
-		return 1;
 	}
 	
 	@Override

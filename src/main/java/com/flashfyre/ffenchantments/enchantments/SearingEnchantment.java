@@ -2,7 +2,7 @@ package com.flashfyre.ffenchantments.enchantments;
 
 import java.util.Map.Entry;
 
-import com.flashfyre.ffenchantments.FFE;
+import com.flashfyre.ffenchantments.FFECore;
 import com.flashfyre.ffenchantments.FFEConfig;
 
 import net.minecraft.world.entity.Entity;
@@ -18,16 +18,10 @@ import net.minecraft.world.item.enchantment.Enchantments;
 public class SearingEnchantment extends FFEnchantment {
 	
 	public SearingEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> FFEConfig.canSearingBeAppliedToItems, 
-				() -> FFEConfig.canSearingBeAppliedToBooks, 
-				() -> FFEConfig.canSearingGenerateInLoot, 
-				() -> FFEConfig.canSearingAppearInTrades);
-	}
-	
-	@Override
-	public int getMaxLevel() {
-		return 2;
+		super(2, rarity, type, slots,
+				() -> FFEConfig.isSearingDiscoverable,
+				() -> FFEConfig.isSearingTradeable,
+				() -> FFEConfig.isSearingTreasure);
 	}
 	
 	@Override
@@ -42,10 +36,7 @@ public class SearingEnchantment extends FFEnchantment {
 	
 	@Override
 	public boolean canEnchant(ItemStack stack) {
-		if(FFEConfig.canSearingBeAppliedToItems) {
-			return stack.getItem() instanceof ArmorItem ? true : super.canEnchant(stack);
-		}		
-		return false;
+		return stack.getItem() instanceof ArmorItem ? true : super.canEnchant(stack);
 	}
 	
 	@Override
@@ -62,7 +53,7 @@ public class SearingEnchantment extends FFEnchantment {
 		Iterable<ItemStack> armour = wearer.getArmorSlots();
 		int burnDuration = 0;
 		for(ItemStack stack : armour) {
-			int level = stack.getEnchantmentLevel(FFE.Enchantments.SEARING.get());
+			int level = stack.getEnchantmentLevel(FFECore.Enchantments.SEARING.get());
 			if (level > 0 && wearer.getRandom().nextFloat() < level * 0.225F) {
 				burnDuration += 2;				
 			}

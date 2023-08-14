@@ -16,7 +16,7 @@ import net.minecraft.world.level.saveddata.SavedData;
 
 public class FFESavedData extends SavedData {
 	
-	private static final String DATA_NAME = FFE.MOD_ID + "_specialprojectiles";
+	private static final String DATA_NAME = FFECore.MOD_ID + "_specialprojectiles";
 	
 	private List<UUID> infernoArrows = new ArrayList<UUID>(); // A list of all arrow entity uuids that are enchanted with inferno.
 	private List<UUID> maelstromTridents = new ArrayList<UUID>(); // A list of all trident entity uuids that are enchanted with maelstrom.

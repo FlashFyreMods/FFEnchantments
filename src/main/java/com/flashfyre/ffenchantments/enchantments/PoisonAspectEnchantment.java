@@ -1,6 +1,6 @@
 package com.flashfyre.ffenchantments.enchantments;
 
-import com.flashfyre.ffenchantments.FFE;
+import com.flashfyre.ffenchantments.FFECore;
 import com.flashfyre.ffenchantments.FFEConfig;
 
 import net.minecraft.world.effect.MobEffectInstance;
@@ -15,12 +15,11 @@ import net.minecraftforge.common.util.FakePlayer;
 
 public class PoisonAspectEnchantment extends FFEnchantment {
 	
-	public PoisonAspectEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> FFEConfig.canPoisonAspectBeAppliedToItems, 
-				() -> FFEConfig.canPoisonAspectBeAppliedToBooks, 
-				() -> FFEConfig.canPoisonAspectGenerateInLoot, 
-				() -> FFEConfig.canPoisonAspectAppearInTrades);
+	public PoisonAspectEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... slots) {
+		super(2, rarity, category, slots, 
+				() -> FFEConfig.isPoisonAspectDiscoverable, 
+				() -> FFEConfig.isPoisonAspectTradeable, 
+				() -> FFEConfig.isPoisonAspectTreasure);
 	}
 	
 	@Override
@@ -34,13 +33,8 @@ public class PoisonAspectEnchantment extends FFEnchantment {
 	}
 	
 	@Override
-	public int getMaxLevel() {
-	      return 2;
-	}
-	
-	@Override
 	public boolean checkCompatibility(Enchantment ench) {
-		return super.checkCompatibility(ench) && ench != Enchantments.FIRE_ASPECT && ench != FFE.Enchantments.WITHER_ASPECT.get();
+		return super.checkCompatibility(ench) && ench != Enchantments.FIRE_ASPECT && ench != FFECore.Enchantments.WITHER_ASPECT.get();
 	}
 	
 	@Override

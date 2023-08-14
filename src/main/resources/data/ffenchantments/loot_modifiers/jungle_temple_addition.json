@@ -6,6 +6,5 @@
 		}
 	],
 	"table": "ffenchantments:inject/jungle_temple",
-	"replace": false,
-	"type": "ffenchantments:loot_table_inject"
+	"type": "ffenchantments:add_from_extra_table"
 }

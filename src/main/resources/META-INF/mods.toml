@@ -1,6 +1,6 @@
 license="All rights reserved"
 modLoader="javafml" #mandatory
-loaderVersion="[41,)" #mandatory
+loaderVersion="[45,)" #mandatory
 #issueTrackerURL="http://my.issue.tracker/" #optional
 [[mods]] #mandatory
 modId="ffenchantments" #mandatory
@@ -17,7 +17,7 @@ A mod adding lots of new enchantments to the game.
 [[dependencies.ffenchantments]] #optional
 	modId="forge" #mandatory
 	mandatory=true #mandatory
-	versionRange="[41,)" #mandatory
+	versionRange="[45,)" #mandatory
 	ordering="NONE"
 	side="BOTH"
 [[dependencies.ffenchantments]]

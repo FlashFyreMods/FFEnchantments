@@ -3,9 +3,12 @@
 		{
 			"condition": "forge:loot_table_id",
 			"loot_table_id": "minecraft:gameplay/piglin_bartering"
+		},
+		{
+			"condition": "minecraft:random_chance",
+			"chance": 0.00217864923
 		}
 	],
 	"table": "ffenchantments:inject/piglin_bartering",
-	"replace": true,
-	"type": "ffenchantments:loot_table_inject"
+	"type": "ffenchantments:replace_with_table"
 }

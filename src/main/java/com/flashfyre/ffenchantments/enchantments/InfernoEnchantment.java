@@ -15,11 +15,10 @@ import net.minecraft.world.phys.Vec3;
 public class InfernoEnchantment extends FFEnchantment {
 	
 	public InfernoEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> FFEConfig.canInfernoBeAppliedToItems, 
-				() -> FFEConfig.canInfernoBeAppliedToBooks, 
-				() -> FFEConfig.canInfernoGenerateInLoot, 
-				() -> FFEConfig.canInfernoAppearInTrades);
+		super(2, rarity, type, slots, 
+				() -> FFEConfig.isInfernoDiscoverable, 
+				() -> FFEConfig.isInfernoTradeable, 
+				() -> FFEConfig.isInfernoTreasure);
 	}
 	
 	public static boolean isEntityValidForIgnition(LivingEntity livingEntity, AbstractArrow arrow) {
@@ -38,11 +37,6 @@ public class InfernoEnchantment extends FFEnchantment {
 			ServerLevel serverWorld = (ServerLevel) world;			
 			serverWorld.sendParticles(ParticleTypes.LAVA, pos.x(), pos.y(), pos.z(), count, 0, 0, 0, 0);				
 		}
-	}
-	
-	@Override
-	public int getMaxLevel() {
-		return 2;
 	}
 	
 	@Override

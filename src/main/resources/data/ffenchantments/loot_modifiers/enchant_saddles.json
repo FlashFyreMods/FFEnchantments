@@ -1,11 +1,11 @@
 {
 	"conditions": [	
 	],
-	"saddleItem": "minecraft:saddle",
+	"item_to_enchant": "minecraft:saddle",
 	"enchantments":[
 		"ffenchantments:quickness_horse",
 		"ffenchantments:leaping_horse",
 		"ffenchantments:buoyancy_horse"
 	],
-	"type": "ffenchantments:enchant_saddles"
+	"type": "ffenchantments:enchant_item"
 }

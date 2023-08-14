@@ -8,11 +8,10 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 public class AnchoringCurseEnchantment extends FFEnchantment {
 
 	public AnchoringCurseEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> false, 
-				() -> false, 
-				() -> FFEConfig.canAnchoringCurseGenerateInLoot, 
-				() -> FFEConfig.canAnchoringCurseAppearInTrades);
+		super(1, rarity, type, slots, 
+				() -> FFEConfig.isAnchoringCurseDiscoverable, 
+				() -> FFEConfig.isAnchoringCurseTradeable, 
+				() -> true);
 	}
 	
 	@Override
@@ -23,11 +22,6 @@ public class AnchoringCurseEnchantment extends FFEnchantment {
 	@Override
 	public int getMaxCost(int enchantmentLevel) {
 		return 50;
-	}
-	
-	@Override
-	public int getMaxLevel() {
-		return 1;
 	}
 	
 	@Override

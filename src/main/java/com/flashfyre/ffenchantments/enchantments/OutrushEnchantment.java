@@ -12,41 +12,29 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
 
-public class OutrushEnchantment extends FFEnchantment 
-{
-	public OutrushEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> FFEConfig.canOutrushBeAppliedToItems, 
-				() -> FFEConfig.canOutrushBeAppliedToBooks, 
-				() -> FFEConfig.canOutrushGenerateInLoot, 
-				() -> FFEConfig.canOutrushAppearInTrades);
+public class OutrushEnchantment extends FFEnchantment {
+	
+	public OutrushEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... slots) {
+		super(5, rarity, category, slots, 
+				() -> FFEConfig.isOutrushDiscoverable, 
+				() -> FFEConfig.isOutrushTradeable, 
+				() -> FFEConfig.isOutrushTreasure);
 	}
 	
 	@Override
-	public int getMaxLevel() 
-	{
-		return 5;
-	}
-	
-	@Override
-	public int getMinCost(int enchantmentLevel) 
-	{
+	public int getMinCost(int enchantmentLevel) {
 		return 1 + (enchantmentLevel - 1) * 8;
 	}
 	
 	@Override
-	public int getMaxCost(int enchantmentLevel) 
-	{
+	public int getMaxCost(int enchantmentLevel) {
 		return this.getMinCost(enchantmentLevel) + 20;
 	}
 	
-	public static void doExtraEffects(LivingEntity attacker, LivingEntity target) 
-	{		
+	public static void doExtraEffects(LivingEntity attacker, LivingEntity target) {		
 		Level world = attacker.level;
-		if(!world.isClientSide()) 
-		{
-			if(attacker instanceof Player)
-			{
+		if(!world.isClientSide()) {
+			if(attacker instanceof Player) {
 				world.playSound(null, target.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.MASTER, 1.0F, 1.0F);
 			}
 			ServerLevel serverWorld = (ServerLevel) world;

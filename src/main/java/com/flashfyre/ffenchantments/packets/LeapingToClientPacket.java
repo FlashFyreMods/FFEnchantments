@@ -2,7 +2,7 @@ package com.flashfyre.ffenchantments.packets;
 
 import java.util.function.Supplier;
 
-import com.flashfyre.ffenchantments.FFE;
+import com.flashfyre.ffenchantments.FFECore;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
@@ -30,7 +30,7 @@ public class LeapingToClientPacket {
 	
 	public static void handle(LeapingToClientPacket packet, Supplier<NetworkEvent.Context> ctx) {
 		if (FMLEnvironment.dist == Dist.CLIENT) {
-			ctx.get().enqueueWork(() -> FFE.ClientPacketHandler.handleLeapingPacket(packet, ctx));
+			ctx.get().enqueueWork(() -> FFECore.ClientPacketHandler.handleLeapingPacket(packet, ctx));
 		}
 	    ctx.get().setPacketHandled(true);
 	}

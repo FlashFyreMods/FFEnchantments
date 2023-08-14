@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import javax.annotation.Nullable;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,7 +30,7 @@ import com.flashfyre.ffenchantments.enchantments.TorrentEnchantment;
 import com.flashfyre.ffenchantments.enchantments.VampiricEnchantment;
 import com.flashfyre.ffenchantments.enchantments.WeightedBladeEnchantment;
 import com.flashfyre.ffenchantments.enchantments.WitherAspectEnchantment;
-import com.flashfyre.ffenchantments.loot_modifiers.FFELootModifierSerializers;
+import com.flashfyre.ffenchantments.loot_modifiers.FFELootModifiers;
 import com.flashfyre.ffenchantments.packets.BuoyancyPacket;
 import com.flashfyre.ffenchantments.packets.LeapingToClientPacket;
 import com.flashfyre.ffenchantments.packets.LeapingToServerPacket;
@@ -40,14 +38,12 @@ import com.flashfyre.ffenchantments.packets.LeapingToServerPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.IndirectEntityDamageSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.SaddleItem;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
@@ -71,14 +67,14 @@ import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 @Mod("ffenchantments")
-public class FFE {
+public class FFECore {
 	public static final String MOD_ID = "ffenchantments";
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 	
-	public FFE() {
+	public FFECore() {
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-		FFE.Enchantments.ENCHANTMENTS.register(modBus);
-		FFELootModifierSerializers.LOOT_MODIFIER_SERIALIZERS.register(modBus);
+		FFECore.Enchantments.ENCHANTMENTS.register(modBus);
+		FFELootModifiers.GLM_CODECS.register(modBus);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FFEConfig.COMMON_SPEC, "ffenchantments-common.toml");
 	}
 	
@@ -87,11 +83,12 @@ public class FFE {
 	private static class EnchantmentCategories {
 		
 		private static final EnchantmentCategory AXE = EnchantmentCategory.create("AXE",  item -> item instanceof AxeItem);
+		private static final EnchantmentCategory SWORD_AND_AXE = EnchantmentCategory.create("SWORD_AND_AXE",  item -> item instanceof AxeItem || item instanceof SwordItem);
 		private static final EnchantmentCategory SADDLE = EnchantmentCategory.create("SADDLE", item -> item instanceof SaddleItem);
 	}
 	
 	public static class Enchantments {
-		public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, FFE.MOD_ID);
+		public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, FFECore.MOD_ID);
 		private static final EquipmentSlot[] EMPTY_SLOTS = {};
 		private static final EquipmentSlot[] ARMOUR_SLOTS = new EquipmentSlot[] {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};		
 		
@@ -114,7 +111,7 @@ public class FFE {
 		public static final RegistryObject<Enchantment> STEADFAST = register("steadfast", new SteadfastEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
 		public static final RegistryObject<Enchantment> TORRENT = register("torrent", new TorrentEnchantment(Enchantment.Rarity.RARE, EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND));
 		public static final RegistryObject<Enchantment> VAMPIRIC = register("vampiric", new VampiricEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
-		public static final RegistryObject<Enchantment> WEIGHTED_BLADE = register("weighted_blade", new WeightedBladeEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
+		public static final RegistryObject<Enchantment> WEIGHTED_BLADE = register("weighted_blade", new WeightedBladeEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentCategories.SWORD_AND_AXE, EquipmentSlot.MAINHAND));
 		public static final RegistryObject<Enchantment> WITHER_ASPECT = register("wither_aspect", new WitherAspectEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
 	
 		private static RegistryObject<Enchantment> register(String id, Enchantment enchantment) {
@@ -126,23 +123,15 @@ public class FFE {
 	@SubscribeEvent
 	public static void onCommonSetup(FMLCommonSetupEvent event) {		
 		int packetIndex = 0;
-		FFE.PacketHandler.INSTANCE.registerMessage(packetIndex++, LeapingToServerPacket.class, (packet, buffer) -> {}, buffer -> new LeapingToServerPacket(), LeapingToServerPacket::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
-		FFE.PacketHandler.INSTANCE.registerMessage(packetIndex++, LeapingToClientPacket.class, LeapingToClientPacket::encode, LeapingToClientPacket::decode, LeapingToClientPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		FFE.PacketHandler.INSTANCE.registerMessage(packetIndex++, BuoyancyPacket.class, BuoyancyPacket::encode, BuoyancyPacket::decode, BuoyancyPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+		FFECore.PacketHandler.INSTANCE.registerMessage(packetIndex++, LeapingToServerPacket.class, (packet, buffer) -> {}, buffer -> new LeapingToServerPacket(), LeapingToServerPacket::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+		FFECore.PacketHandler.INSTANCE.registerMessage(packetIndex++, LeapingToClientPacket.class, LeapingToClientPacket::encode, LeapingToClientPacket::decode, LeapingToClientPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+		FFECore.PacketHandler.INSTANCE.registerMessage(packetIndex++, BuoyancyPacket.class, BuoyancyPacket::encode, BuoyancyPacket::decode, BuoyancyPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
 	}
 	
 	@SubscribeEvent
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.register(MaelstromTridentReturning.class);
 		event.register(ShooterEnchantments.class);
-	}
-	
-	public static DamageSource causeMaelstromDamage(Entity source, @Nullable Entity indirectEntityIn) {
-		return new IndirectEntityDamageSource(FFE.MOD_ID+":maelstrom", source, indirectEntityIn).setMagic();
-	}
-	
-	public static DamageSource causeShockwaveDamage(Entity source, @Nullable Entity indirectEntityIn) {
-		return new IndirectEntityDamageSource(FFE.MOD_ID+":shockwave", source, indirectEntityIn).setMagic().setExplosion();
 	}
 	
 	public static class PacketHandler {

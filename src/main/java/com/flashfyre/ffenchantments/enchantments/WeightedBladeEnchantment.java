@@ -10,16 +10,10 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 public class WeightedBladeEnchantment extends FFEnchantment {
 	
 	public WeightedBladeEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> FFEConfig.canWeightedBeAppliedToItems, 
-				() -> FFEConfig.canWeightedBeAppliedToBooks, 
-				() -> FFEConfig.canWeightedGenerateInLoot, 
-				() -> FFEConfig.canWeightedAppearInTrades);
-	}
-	
-	@Override
-	public int getMaxLevel() {
-		return 2;
+		super(2, rarity, type, slots, 
+				() -> FFEConfig.isWeightedBladeDiscoverable,
+				() -> FFEConfig.isWeightedBladeTradeable, 
+				() -> FFEConfig.isWeightedBladeTreasure);
 	}
 	
 	@Override
@@ -34,10 +28,7 @@ public class WeightedBladeEnchantment extends FFEnchantment {
 	
 	@Override
 	public boolean canEnchant(ItemStack stack) {
-		if(this.canBeAppliedToItems.getAsBoolean()) {
-			return stack.getItem() instanceof AxeItem ? true : super.canEnchant(stack);
-		}
-		return false;
+		return stack.getItem() instanceof AxeItem ? true : super.canEnchant(stack);
 	}
 
 }

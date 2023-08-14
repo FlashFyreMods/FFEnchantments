@@ -6,6 +6,5 @@
 		}
 	],
 	"table": "ffenchantments:inject/underwater_ruin_big",
-	"replace": false,
-	"type": "ffenchantments:loot_table_inject"
+	"type": "ffenchantments:add_from_extra_table"
 }

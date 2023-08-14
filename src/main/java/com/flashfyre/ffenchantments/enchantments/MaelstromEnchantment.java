@@ -2,11 +2,13 @@ package com.flashfyre.ffenchantments.enchantments;
 
 import java.util.List;
 
-import com.flashfyre.ffenchantments.FFE;
+import com.flashfyre.ffenchantments.FFEDamageTypes;
 import com.flashfyre.ffenchantments.FFEConfig;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
@@ -18,23 +20,14 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid=FFE.MOD_ID)
 public class MaelstromEnchantment extends FFEnchantment {
 	
-	public MaelstromEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> FFEConfig.canMaelstromBeAppliedToItems, 
-				() -> FFEConfig.canMaelstromBeAppliedToBooks, 
-				() -> FFEConfig.canMaelstromGenerateInLoot, 
-				() -> FFEConfig.canMaelstromAppearInTrades);
-	}
-	
-	@Override
-	public int getMaxLevel() 
-	{
-		return 3;
+	public MaelstromEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... slots) {
+		super(3, rarity, category, slots, 
+				() -> FFEConfig.isMaelstromDiscoverable, 
+				() -> FFEConfig.isMaelstromTradeable, 
+				() -> FFEConfig.isMaelstromTreasure);
 	}
 	
 	@Override
@@ -67,16 +60,13 @@ public class MaelstromEnchantment extends FFEnchantment {
 		List<LivingEntity> entitiesInAoE = sWorld.getEntitiesOfClass(LivingEntity.class, new AABB(trident.position().add(radius, radius, radius), trident.position().add(-radius, -radius, -radius)));
 		entitiesInAoE.forEach((e) -> {
 			if(e == trident.getOwner()) return; // Skip if entity is the trident's shooter
-			if(e instanceof TamableAnimal) {
-				TamableAnimal pet = (TamableAnimal) e;
-				if(pet.getOwner() == trident.getOwner()) return; // Skip if entity is a pet of the trident's shooter
-			}
+			if(e instanceof TamableAnimal pet && pet.getOwner() == trident.getOwner()) return; // Skip if entity is a pet of the trident's shooter
 			float moveStrength = 0.10F;
 			Vec3 entityPos = e.getBoundingBox().getCenter();
 			Vec3 tridentPos = trident.position();
 			e.push((tridentPos.x()-entityPos.x())*moveStrength, (tridentPos.y()-entityPos.y())*moveStrength, (tridentPos.z()-entityPos.z())*moveStrength);
 			//e.push(trident.getDeltaMovement().x() / 15, trident.getDeltaMovement().y() / 15, trident.getDeltaMovement().z() / 15);
-			e.hurt(FFE.causeMaelstromDamage(trident, trident.getOwner()), 2.0F * level);
+			e.hurt(new DamageSource(e.level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(FFEDamageTypes.MAELSTROM), trident.getOwner(), null), 2.0F * level);
 			e.hurtMarked = true;
 		});
 	}

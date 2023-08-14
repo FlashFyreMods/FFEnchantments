@@ -9,16 +9,10 @@ import net.minecraft.world.item.enchantment.Enchantments;
 
 public class AquaticRejuvenationEnchantment extends FFEnchantment {
 	public AquaticRejuvenationEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> FFEConfig.canAquaticRejuvenationBeAppliedToItems, 
-				() -> FFEConfig.canAquaticRejuvenationBeAppliedToBooks, 
-				() -> FFEConfig.canAquaticRejuvenationGenerateInLoot, 
-				() -> FFEConfig.canAquaticRejuvenationAppearInTrades);
-	}
-	
-	@Override
-	public int getMaxLevel() {
-		return 2;
+		super(2, rarity, type, slots, 
+				() -> FFEConfig.isAquaticRejuvenationDiscoverable, 
+				() -> FFEConfig.isAquaticRejuvenationTradeable, 
+				() -> FFEConfig.isAquaticRejuvenationTreasure);
 	}
 	
 	@Override

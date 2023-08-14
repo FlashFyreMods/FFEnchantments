@@ -2,7 +2,7 @@ package com.flashfyre.ffenchantments.packets;
 
 import java.util.function.Supplier;
 
-import com.flashfyre.ffenchantments.FFE;
+import com.flashfyre.ffenchantments.FFECore;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
@@ -29,7 +29,7 @@ public class BuoyancyPacket {
 	public static void handle(BuoyancyPacket packet, Supplier<NetworkEvent.Context> ctx) {
 		if (FMLEnvironment.dist == Dist.CLIENT) {
 			ctx.get().enqueueWork(() ->
-			FFE.ClientPacketHandler.handleBuoyancyPacket(packet, ctx));
+			FFECore.ClientPacketHandler.handleBuoyancyPacket(packet, ctx));
 		}
 	    ctx.get().setPacketHandled(true);
 	}

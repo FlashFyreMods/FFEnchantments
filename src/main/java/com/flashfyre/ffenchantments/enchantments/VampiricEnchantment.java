@@ -1,6 +1,6 @@
 package com.flashfyre.ffenchantments.enchantments;
 
-import com.flashfyre.ffenchantments.FFE;
+import com.flashfyre.ffenchantments.FFECore;
 import com.flashfyre.ffenchantments.FFEConfig;
 
 import net.minecraft.core.particles.ParticleTypes;
@@ -19,21 +19,14 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid=FFE.MOD_ID)
+@Mod.EventBusSubscriber(modid=FFECore.MOD_ID)
 public class VampiricEnchantment extends FFEnchantment {
 
 	public VampiricEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> FFEConfig.canVampiricBeAppliedToItems, 
-				() -> FFEConfig.canVampiricBeAppliedToBooks, 
-				() -> FFEConfig.canVampiricGenerateInLoot, 
-				() -> FFEConfig.canVampiricAppearInTrades);
-	}
-	
-	@Override
-	public int getMaxLevel()
-	{
-		return 2;
+		super(2, rarity, type, slots, 
+				() -> FFEConfig.isVampiricDiscoverable, 
+				() -> FFEConfig.isVampiricTradeable,
+				() -> FFEConfig.isVampiricTreasure);
 	}
 	
 	@Override
@@ -48,7 +41,7 @@ public class VampiricEnchantment extends FFEnchantment {
 	public static void mobHealOnHit(LivingDamageEvent event) {		
 		Entity attacker = event.getSource().getDirectEntity();		
 		if(attacker instanceof Player) return;
-		heal(attacker, event.getEntityLiving());
+		heal(attacker, event.getEntity());
 	}
 	
 	/*
@@ -56,7 +49,7 @@ public class VampiricEnchantment extends FFEnchantment {
 	 */
 	@SubscribeEvent
 	public static void playerHealOnHit(AttackEntityEvent event) {
-		Player wielder = event.getPlayer();
+		Player wielder = event.getEntity();
 		if(!wielder.isHurt()) return;
 		if(wielder.getAttackStrengthScale(0) < 1.0F) return;
 		heal(wielder, event.getTarget());
@@ -67,7 +60,7 @@ public class VampiricEnchantment extends FFEnchantment {
 			LivingEntity livingTarget = (LivingEntity) target;
 			LivingEntity livingAttacker = (LivingEntity) attacker;
 			if(livingTarget.isInvertedHealAndHarm()) return;
-			int level = livingAttacker.getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(FFE.Enchantments.VAMPIRIC.get());
+			int level = livingAttacker.getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(FFECore.Enchantments.VAMPIRIC.get());
 			if(level > 0) {
 				Level world = livingAttacker.level;
 				if(!world.isClientSide() && world instanceof ServerLevel) {

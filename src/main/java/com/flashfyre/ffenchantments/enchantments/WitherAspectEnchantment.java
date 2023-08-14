@@ -1,6 +1,6 @@
 package com.flashfyre.ffenchantments.enchantments;
 
-import com.flashfyre.ffenchantments.FFE;
+import com.flashfyre.ffenchantments.FFECore;
 import com.flashfyre.ffenchantments.FFEConfig;
 
 import net.minecraft.world.effect.MobEffectInstance;
@@ -16,11 +16,10 @@ import net.minecraftforge.common.util.FakePlayer;
 public class WitherAspectEnchantment extends FFEnchantment {
 
 	public WitherAspectEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> FFEConfig.canWitherAspectBeAppliedToItems, 
-				() -> FFEConfig.canWitherAspectBeAppliedToBooks, 
-				() -> FFEConfig.canWitherAspectGenerateInLoot, 
-				() -> FFEConfig.canWitherAspectAppearInTrades);
+		super(2, rarity, type, slots, 
+				() -> FFEConfig.isWitherAspectDiscoverable,
+				() -> FFEConfig.isWitherAspectTradeable,
+				() -> FFEConfig.isWitherAspectTreasure);
 	}
 
 	public int getMinCost(int enchantmentLevel) {
@@ -33,13 +32,8 @@ public class WitherAspectEnchantment extends FFEnchantment {
 	}
 	
 	@Override
-	public int getMaxLevel() {
-	      return 2;
-	}
-	
-	@Override
 	public boolean checkCompatibility(Enchantment ench) {
-		return super.checkCompatibility(ench) && ench != Enchantments.FIRE_ASPECT && ench != FFE.Enchantments.POISON_ASPECT.get();
+		return super.checkCompatibility(ench) && ench != Enchantments.FIRE_ASPECT && ench != FFECore.Enchantments.POISON_ASPECT.get();
 	}
 	
 	@Override

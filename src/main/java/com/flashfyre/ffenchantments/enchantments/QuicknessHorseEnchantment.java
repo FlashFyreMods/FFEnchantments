@@ -10,16 +10,10 @@ public class QuicknessHorseEnchantment extends FFEnchantment {
 	public static final String QUICKNESS_MODIFIER_UUID = "340345c6-41e4-4e9f-ada2-b6f7161871fb";
 
 	public QuicknessHorseEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> true, 
-				() -> FFEConfig.canQuicknessBeAppliedToBooks, 
-				() -> FFEConfig.canQuicknessGenerateInLoot, 
-				() -> FFEConfig.canQuicknessAppearInTrades);
-	}
-	
-	@Override
-	public int getMaxLevel() {
-		return 3;
+		super(3, rarity, type, slots, 
+				() -> FFEConfig.isQuicknessDiscoverable,
+				() -> FFEConfig.isQuicknessTradeable,
+				() -> FFEConfig.isQuicknessTreasure);
 	}
 	
 	@Override

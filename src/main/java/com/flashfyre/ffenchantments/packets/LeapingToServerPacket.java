@@ -2,7 +2,7 @@ package com.flashfyre.ffenchantments.packets;
 
 import java.util.function.Supplier;
 
-import com.flashfyre.ffenchantments.FFE;
+import com.flashfyre.ffenchantments.FFECore;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -20,10 +20,10 @@ public class LeapingToServerPacket {
 	        if(ridingEntity instanceof AbstractHorse) {
 	        	AbstractHorse horse = (AbstractHorse) ridingEntity;
 	        	ItemStack saddle = horse.inventory.getItem(0);			
-				int level = saddle.getEnchantmentLevel(FFE.Enchantments.LEAPING_HORSE.get());
+				int level = saddle.getEnchantmentLevel(FFECore.Enchantments.LEAPING_HORSE.get());
 				if(level > 0) {
 					int id = horse.getId();
-					FFE.PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> horse.getCommandSenderWorld().getChunkAt(horse.blockPosition())), new LeapingToClientPacket(id, level));
+					FFECore.PacketHandler.INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> horse.getCommandSenderWorld().getChunkAt(horse.blockPosition())), new LeapingToClientPacket(id, level));
 				}
 	        }
 	        

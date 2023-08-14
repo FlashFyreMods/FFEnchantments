@@ -7,17 +7,11 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class ButcheringEnchantment extends FFEnchantment {
 	
-	public ButcheringEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> FFEConfig.canButcheringBeAppliedToItems, 
-				() -> FFEConfig.canButcheringBeAppliedToBooks, 
-				() -> FFEConfig.canButcheringGenerateInLoot, 
-				() -> FFEConfig.canButcheringAppearInTrades);
-	}
-	
-	@Override
-	public int getMaxLevel() {
-		return 3;
+	public ButcheringEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... slots) {
+		super(3, rarity, category, slots, 
+				() -> FFEConfig.isButcheringDiscoverable, 
+				() -> FFEConfig.isButcheringTradeable, 
+				() -> FFEConfig.isButcheringTreasure);
 	}
 	
 	@Override

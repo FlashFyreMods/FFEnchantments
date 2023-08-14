@@ -6,18 +6,12 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class LeapingHorseEnchantment extends FFEnchantment {
-
-	public LeapingHorseEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> true, 
-				() -> FFEConfig.canLeapingBeAppliedToBooks, 
-				() -> FFEConfig.canLeapingGenerateInLoot, 
-				() -> FFEConfig.canLeapingAppearInTrades);
-	}
 	
-	@Override
-	public int getMaxLevel() {
-		return 2;
+	public LeapingHorseEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
+		super(2, rarity, type, slots, 
+				() -> FFEConfig.isLeapingDiscoverable, 
+				() -> FFEConfig.isLeapingTradeable, 
+				() -> FFEConfig.isLeapingTreasure);
 	}
 	
 	@Override

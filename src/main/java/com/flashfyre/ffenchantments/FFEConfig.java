@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 
-@Mod.EventBusSubscriber(modid = FFE.MOD_ID, bus = Bus.MOD)
+@Mod.EventBusSubscriber(modid = FFECore.MOD_ID, bus = Bus.MOD)
 public class FFEConfig
 {
 	
@@ -21,206 +21,168 @@ public class FFEConfig
 		COMMON = specPair.getLeft();
 	}
 	
-	public static boolean canAnchoringCurseGenerateInLoot;
-	public static boolean canAnchoringCurseAppearInTrades;
+	public static boolean isAnchoringCurseDiscoverable;
+	public static boolean isAnchoringCurseTradeable;
 	
-	public static boolean canAquaticRejuvenationBeAppliedToBooks;
-	public static boolean canAquaticRejuvenationBeAppliedToItems;
-	public static boolean canAquaticRejuvenationGenerateInLoot;
-	public static boolean canAquaticRejuvenationAppearInTrades;
+	public static boolean isAquaticRejuvenationDiscoverable;
+	public static boolean isAquaticRejuvenationTradeable;
+	public static boolean isAquaticRejuvenationTreasure;
 
-	public static boolean canBloodlustBeAppliedToBooks;
-	public static boolean canBloodlustBeAppliedToItems;
-	public static boolean canBloodlustGenerateInLoot;
-	public static boolean canBloodlustAppearInTrades;
+	public static boolean isBloodlustDiscoverable;
+	public static boolean isBloodlustTradeable;
+	public static boolean isBloodlustTreasure;
 	
-	public static boolean canBuoyancyBeAppliedToBooks;
-	public static boolean canBuoyancyGenerateInLoot;
-	public static boolean canBuoyancyAppearInTrades;
+	public static boolean isBuoyancyDiscoverable;
+	public static boolean isBuoyancyTradeable;
+	public static boolean isBuoyancyTreasure;
 	
-	public static boolean canButcheringBeAppliedToBooks;
-	public static boolean canButcheringBeAppliedToItems;
-	public static boolean canButcheringGenerateInLoot;
-	public static boolean canButcheringAppearInTrades;
+	public static boolean isButcheringDiscoverable;
+	public static boolean isButcheringTradeable;
+	public static boolean isButcheringTreasure;
 	
-	public static boolean canInfernoBeAppliedToBooks;
-	public static boolean canInfernoBeAppliedToItems;
-	public static boolean canInfernoGenerateInLoot;
-	public static boolean canInfernoAppearInTrades;
+	public static boolean isInfernoDiscoverable;
+	public static boolean isInfernoTradeable;
+	public static boolean isInfernoTreasure;
 	
-	public static boolean canLeapingBeAppliedToBooks;
-	public static boolean canLeapingGenerateInLoot;
-	public static boolean canLeapingAppearInTrades;
+	public static boolean isLeapingDiscoverable;
+	public static boolean isLeapingTradeable;
+	public static boolean isLeapingTreasure;
 	
-	public static boolean canMaelstromBeAppliedToBooks;
-	public static boolean canMaelstromBeAppliedToItems;
-	public static boolean canMaelstromGenerateInLoot;
-	public static boolean canMaelstromAppearInTrades;
+	public static boolean isMaelstromDiscoverable;
+	public static boolean isMaelstromTradeable;
+	public static boolean isMaelstromTreasure;
 	
-	public static boolean canObsidianSkullBeAppliedToBooks;
-	public static boolean canObsidianSkullBeAppliedToItems;
-	public static boolean canObsidianSkullGenerateInLoot;
-	public static boolean canObsidianSkullAppearInTrades;
+	public static boolean isObsidianSkullDiscoverable;
+	public static boolean isObsidianSkullTradeable;
+	public static boolean isObsidianSkullTreasure;
 	
-	public static boolean canOutrushBeAppliedToBooks;
-	public static boolean canOutrushBeAppliedToItems;
-	public static boolean canOutrushGenerateInLoot;
-	public static boolean canOutrushAppearInTrades;
+	public static boolean isOutrushDiscoverable;
+	public static boolean isOutrushTradeable;
+	public static boolean isOutrushTreasure;
 
-	public static boolean canPillagingBeAppliedToBooks;
-	public static boolean canPillagingBeAppliedToItems;
-	public static boolean canPillagingGenerateInLoot;
-	public static boolean canPillagingAppearInTrades;
+	public static boolean isPillagingDiscoverable;
+	public static boolean isPillagingTradeable;
+	public static boolean isPillagingTreasure;
 	
-	public static boolean canPointedBeAppliedToBooks;
-	public static boolean canPointedBeAppliedToItems;
-	public static boolean canPointedGenerateInLoot;
-	public static boolean canPointedAppearInTrades;
+	public static boolean isPointedDiscoverable;
+	public static boolean isPointedTradeable;
+	public static boolean isPointedTreasure;
 
-	public static boolean canPoisonAspectBeAppliedToBooks;
-	public static boolean canPoisonAspectBeAppliedToItems;
-	public static boolean canPoisonAspectGenerateInLoot;
-	public static boolean canPoisonAspectAppearInTrades;
+	public static boolean isPoisonAspectDiscoverable;
+	public static boolean isPoisonAspectTradeable;
+	public static boolean isPoisonAspectTreasure;
 	
-	public static boolean canQuicknessBeAppliedToBooks;
-	public static boolean canQuicknessGenerateInLoot;
-	public static boolean canQuicknessAppearInTrades;
+	public static boolean isQuicknessDiscoverable;
+	public static boolean isQuicknessTradeable;
+	public static boolean isQuicknessTreasure;
 	
-	public static boolean canSearingBeAppliedToBooks;
-	public static boolean canSearingBeAppliedToItems;
-	//public static boolean isSearingApplicableOnOtherArmourAnvil;
-	public static boolean canSearingGenerateInLoot;
-	public static boolean canSearingAppearInTrades;
+	public static boolean isSearingDiscoverable;
+	public static boolean isSearingTradeable;
+	public static boolean isSearingTreasure;
 	
-	public static boolean canSteadfastBeAppliedToBooks;
-	public static boolean canSteadfastBeAppliedToItems;
-	public static boolean canSteadfastGenerateInLoot;
-	public static boolean canSteadfastAppearInTrades;
+	public static boolean isSteadfastDiscoverable;
+	public static boolean isSteadfastTradeable;
+	public static boolean isSteadfastTreasure;
 	
-	public static boolean canTorrentBeAppliedToBooks;
-	public static boolean canTorrentBeAppliedToItems;
-	public static boolean canTorrentGenerateInLoot;
-	public static boolean canTorrentAppearInTrades;
+	public static boolean isTorrentDiscoverable;
+	public static boolean isTorrentTradeable;
+	public static boolean isTorrentTreasure;
 
-	public static boolean canVampiricBeAppliedToBooks;
-	public static boolean canVampiricBeAppliedToItems;
-	public static boolean canVampiricGenerateInLoot;
-	public static boolean canVampiricAppearInTrades;
+	public static boolean isVampiricDiscoverable;
+	public static boolean isVampiricTradeable;
+	public static boolean isVampiricTreasure;
 	
-	public static boolean canWeightedBeAppliedToBooks;
-	public static boolean canWeightedBeAppliedToItems;
-	public static boolean canWeightedGenerateInLoot;
-	public static boolean canWeightedAppearInTrades;
+	public static boolean isWeightedBladeDiscoverable;
+	public static boolean isWeightedBladeTradeable;
+	public static boolean isWeightedBladeTreasure;
 	
-	public static boolean canWitherAspectBeAppliedToBooks;
-	public static boolean canWitherAspectBeAppliedToItems;
-	public static boolean canWitherAspectGenerateInLoot;
-	public static boolean canWitherAspectAppearInTrades;	
+	public static boolean isWitherAspectDiscoverable;
+	public static boolean isWitherAspectTradeable;
+	public static boolean isWitherAspectTreasure;
 	
-	public static boolean enableSaddlesRandomlyEnchanted;
-	public static double enchantSaddleChance;
 	
 	public static void bakeConfig() {
 		
-		canAnchoringCurseGenerateInLoot = COMMON.canAnchoringCurseGenerateInLoot.get();
-		canAnchoringCurseAppearInTrades = COMMON.canAnchoringCurseAppearInTrades.get();
+		isAnchoringCurseDiscoverable = COMMON.isAnchoringCurseDiscoverable.get();
+		isAnchoringCurseTradeable = COMMON.isAnchoringCurseTradeable.get();
 		
-		canAquaticRejuvenationBeAppliedToBooks = COMMON.canAquaticRejuvenationBeAppliedToBooks.get();
-		canAquaticRejuvenationBeAppliedToItems = COMMON.canAquaticRejuvenationBeAppliedToItems.get();
-		canAquaticRejuvenationGenerateInLoot = COMMON.canAquaticRejuvenationGenerateInLoot.get();
-		canAquaticRejuvenationAppearInTrades = COMMON.canAquaticRejuvenationAppearInTrades.get();
+		isAquaticRejuvenationDiscoverable = COMMON.isAquaticRejuvenationDiscoverable.get();
+		isAquaticRejuvenationTradeable = COMMON.isAquaticRejuvenationTradeable.get();
+		isAquaticRejuvenationTreasure = COMMON.isAquaticRejuvenationTreasure.get();
 		
-		canBloodlustBeAppliedToBooks = COMMON.canBloodlustBeAppliedToBooks.get();
-		canBloodlustBeAppliedToItems = COMMON.canBloodlustBeAppliedToItems.get();
-		canBloodlustGenerateInLoot = COMMON.canBloodlustGenerateInLoot.get();
-		canBloodlustAppearInTrades = COMMON.canBloodlustAppearInTrades.get();
+		isBloodlustDiscoverable = COMMON.isBloodlustDiscoverable.get();
+		isBloodlustTradeable = COMMON.isBloodlustTradeable.get();
+		isBloodlustTreasure = COMMON.isBloodlustTreasure.get();
 		
-		canButcheringBeAppliedToBooks = COMMON.canButcheringBeAppliedToBooks.get();
-		canButcheringBeAppliedToItems = COMMON.canButcheringBeAppliedToItems.get();
-		canButcheringGenerateInLoot = COMMON.canButcheringGenerateInLoot.get();
-		canButcheringAppearInTrades = COMMON.canButcheringAppearInTrades.get();
+		isBuoyancyDiscoverable = COMMON.isBuoyancyDiscoverable.get();
+		isBuoyancyTradeable = COMMON.isBuoyancyTradeable.get();
+		isBuoyancyTreasure = COMMON.isBuoyancyTreasure.get();
 		
-		canBuoyancyBeAppliedToBooks = COMMON.canBuoyancyBeAppliedToBooks.get();
-		canBuoyancyGenerateInLoot = COMMON.canBuoyancyGenerateInLoot.get();
-		canBuoyancyAppearInTrades = COMMON.canBuoyancyAppearInTrades.get();
+		isButcheringDiscoverable = COMMON.isButcheringDiscoverable.get();
+		isButcheringTradeable = COMMON.isButcheringTradeable.get();
+		isButcheringTreasure = COMMON.isButcheringTreasure.get();
 		
-		canInfernoBeAppliedToBooks = COMMON.canInfernoBeAppliedToBooks.get();
-		canInfernoBeAppliedToItems = COMMON.canInfernoBeAppliedToItems.get();
-		canInfernoGenerateInLoot = COMMON.canInfernoGenerateInLoot.get();
-		canInfernoAppearInTrades = COMMON.canInfernoAppearInTrades.get();
+		isInfernoDiscoverable = COMMON.isInfernoDiscoverable.get();
+		isInfernoTradeable = COMMON.isInfernoTradeable.get();
+		isInfernoTreasure = COMMON.isInfernoTreasure.get();
 		
-		canLeapingBeAppliedToBooks = COMMON.canLeapingBeAppliedToBooks.get();
-		canLeapingGenerateInLoot = COMMON.canLeapingGenerateInLoot.get();
-		canLeapingAppearInTrades = COMMON.canLeapingAppearInTrades.get();
+		isLeapingDiscoverable = COMMON.isLeapingDiscoverable.get();
+		isLeapingTradeable = COMMON.isLeapingTradeable.get();
+		isLeapingTreasure = COMMON.isLeapingTreasure.get();
 		
-		canMaelstromBeAppliedToBooks = COMMON.canMaelstromBeAppliedToBooks.get();
-		canMaelstromBeAppliedToItems = COMMON.canMaelstromBeAppliedToItems.get();
-		canMaelstromGenerateInLoot = COMMON.canMaelstromGenerateInLoot.get();
-		canMaelstromAppearInTrades = COMMON.canMaelstromAppearInTrades.get();
+		isMaelstromDiscoverable = COMMON.isMaelstromDiscoverable.get();
+		isMaelstromTradeable = COMMON.isMaelstromTradeable.get();
+		isMaelstromTreasure = COMMON.isMaelstromTreasure.get();
 		
-		canObsidianSkullBeAppliedToBooks = COMMON.canObsidianSkullBeAppliedToBooks.get();
-		canObsidianSkullBeAppliedToItems = COMMON.canObsidianSkullBeAppliedToItems.get();
-		canObsidianSkullGenerateInLoot = COMMON.canObsidianSkullGenerateInLoot.get();
-		canObsidianSkullAppearInTrades = COMMON.canObsidianSkullAppearInTrades.get();
+		isObsidianSkullDiscoverable = COMMON.isObsidianSkullDiscoverable.get();
+		isObsidianSkullTradeable = COMMON.isObsidianSkullTradeable.get();
+		isObsidianSkullTreasure = COMMON.isObsidianSkullTreasure.get();
 		
-		canOutrushBeAppliedToBooks = COMMON.canOutrushBeAppliedToBooks.get();
-		canOutrushBeAppliedToItems = COMMON.canOutrushBeAppliedToItems.get();
-		canOutrushGenerateInLoot = COMMON.canOutrushGenerateInLoot.get();
-		canOutrushAppearInTrades = COMMON.canOutrushAppearInTrades.get();
+		isOutrushDiscoverable = COMMON.isOutrushDiscoverable.get();
+		isOutrushTradeable = COMMON.isOutrushTradeable.get();
+		isOutrushTreasure = COMMON.isOutrushTreasure.get();
 		
-		canPillagingBeAppliedToBooks = COMMON.canPillagingBeAppliedToBooks.get();
-		canPillagingBeAppliedToItems = COMMON.canPillagingBeAppliedToItems.get();
-		canPillagingGenerateInLoot = COMMON.canPillagingGenerateInLoot.get();
-		canPillagingAppearInTrades = COMMON.canPillagingAppearInTrades.get();
+		isPillagingDiscoverable = COMMON.isPillagingDiscoverable.get();
+		isPillagingTradeable = COMMON.isPillagingTradeable.get();
+		isPillagingTreasure = COMMON.isPillagingTreasure.get();
 		
-		canPointedBeAppliedToBooks = COMMON.canPointedBeAppliedToBooks.get();
-		canPointedBeAppliedToItems = COMMON.canPointedBeAppliedToItems.get();
-		canPointedGenerateInLoot = COMMON.canPointedGenerateInLoot.get();
-		canPointedAppearInTrades = COMMON.canPointedAppearInTrades.get();
+		isPointedDiscoverable = COMMON.isPointedDiscoverable.get();
+		isPointedTradeable = COMMON.isPointedTradeable.get();
+		isPointedTreasure = COMMON.isPointedTreasure.get();
 		
-		canPoisonAspectBeAppliedToBooks = COMMON.canPoisonAspectBeAppliedToBooks.get();
-		canPoisonAspectBeAppliedToItems = COMMON.canPoisonAspectBeAppliedToItems.get();
-		canPoisonAspectGenerateInLoot = COMMON.canPoisonAspectGenerateInLoot.get();
-		canPoisonAspectAppearInTrades = COMMON.canPoisonAspectAppearInTrades.get();
+		isPoisonAspectDiscoverable = COMMON.isPoisonAspectDiscoverable.get();
+		isPoisonAspectTradeable = COMMON.isPoisonAspectTradeable.get();
+		isPoisonAspectTreasure = COMMON.isPoisonAspectTreasure.get();
 		
-		canQuicknessBeAppliedToBooks = COMMON.canQuicknessBeAppliedToBooks.get();
-		canQuicknessGenerateInLoot = COMMON.canQuicknessGenerateInLoot.get();
-		canQuicknessAppearInTrades = COMMON.canQuicknessAppearInTrades.get();
+		isQuicknessDiscoverable = COMMON.isQuicknessDiscoverable.get();
+		isQuicknessTradeable = COMMON.isQuicknessTradeable.get();
+		isQuicknessTreasure = COMMON.isQuicknessTreasure.get();
 		
-		canSearingBeAppliedToBooks = COMMON.canSearingBeAppliedToBooks.get();
-		canSearingBeAppliedToItems = COMMON.canSearingBeAppliedToItems.get();
-		canSearingGenerateInLoot = COMMON.canSearingGenerateInLoot.get();
-		canSearingAppearInTrades = COMMON.canSearingAppearInTrades.get();
+		isSearingDiscoverable = COMMON.isSearingDiscoverable.get();
+		isSearingTradeable = COMMON.isSearingTradeable.get();
+		isSearingTreasure = COMMON.isSearingTreasure.get();
 		
-		canSteadfastBeAppliedToBooks = COMMON.canSteadfastBeAppliedToBooks.get();
-		canSteadfastBeAppliedToItems = COMMON.canSteadfastBeAppliedToItems.get();
-		canSteadfastGenerateInLoot = COMMON.canSteadfastGenerateInLoot.get();
-		canSteadfastAppearInTrades = COMMON.canSteadfastAppearInTrades.get();
+		isSteadfastDiscoverable = COMMON.isSteadfastDiscoverable.get();
+		isSteadfastTradeable = COMMON.isSteadfastTradeable.get();
+		isSteadfastTreasure = COMMON.isSteadfastTreasure.get();
 		
-		canTorrentBeAppliedToBooks = COMMON.canTorrentBeAppliedToBooks.get();
-		canTorrentBeAppliedToItems = COMMON.canTorrentBeAppliedToItems.get();
-		canTorrentGenerateInLoot = COMMON.canTorrentGenerateInLoot.get();
-		canTorrentAppearInTrades = COMMON.canTorrentAppearInTrades.get();
+		isTorrentDiscoverable = COMMON.isTorrentDiscoverable.get();
+		isTorrentTradeable = COMMON.isTorrentTradeable.get();
+		isTorrentTreasure = COMMON.isTorrentTreasure.get();
 		
-		canVampiricBeAppliedToBooks = COMMON.canVampiricBeAppliedToBooks.get();
-		canVampiricBeAppliedToItems = COMMON.canVampiricBeAppliedToItems.get();
-		canVampiricGenerateInLoot = COMMON.canVampiricGenerateInLoot.get();
-		canVampiricAppearInTrades = COMMON.canVampiricAppearInTrades.get();
+		isVampiricDiscoverable = COMMON.isVampiricDiscoverable.get();
+		isVampiricTradeable = COMMON.isVampiricTradeable.get();
+		isVampiricTreasure = COMMON.isVampiricTreasure.get();
 		
-		canWeightedBeAppliedToBooks = COMMON.canWeightedBeAppliedToBooks.get();
-		canWeightedBeAppliedToItems = COMMON.canWeightedBeAppliedToItems.get();
-		canWeightedGenerateInLoot = COMMON.canWeightedGenerateInLoot.get();
-		canWeightedAppearInTrades = COMMON.canWeightedAppearInTrades.get();
+		isWeightedBladeDiscoverable = COMMON.isWeightedBladeDiscoverable.get();
+		isWeightedBladeTradeable = COMMON.isWeightedBladeTradeable.get();
+		isWeightedBladeTreasure = COMMON.isWeightedBladeTreasure.get();
 		
-		canWitherAspectBeAppliedToBooks = COMMON.canWitherAspectBeAppliedToBooks.get();
-		canWitherAspectBeAppliedToItems = COMMON.canWitherAspectBeAppliedToItems.get();
-		canWitherAspectGenerateInLoot = COMMON.canWitherAspectGenerateInLoot.get();
-		canWitherAspectAppearInTrades = COMMON.canWitherAspectAppearInTrades.get();
+		isWitherAspectDiscoverable = COMMON.isWitherAspectDiscoverable.get();
+		isWitherAspectTradeable = COMMON.isWitherAspectTradeable.get();
+		isWitherAspectTreasure = COMMON.isWitherAspectTreasure.get();
 		
-		enableSaddlesRandomlyEnchanted = COMMON.enableSaddlesRandomlyEnchanted.get();
-		enchantSaddleChance = COMMON.enchantSaddleChance.get();
-		
-		FFE.LOGGER.info("Baked FFE Config.");
+		FFECore.LOGGER.info("Baked FFE Config.");
 	}
 	
 	@SubscribeEvent
@@ -232,543 +194,335 @@ public class FFEConfig
 	
 	@SubscribeEvent
     public static void onLoad(final ModConfigEvent.Loading configEvent) {
-		FFE.LOGGER.debug("Loaded FFE config file", configEvent.getConfig().getFileName());
+		FFECore.LOGGER.debug("Loaded FFE config file", configEvent.getConfig().getFileName());
     }
 
     @SubscribeEvent
     public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
-    	FFE.LOGGER.debug("FFE config just got changed on the file system!");
+    	FFECore.LOGGER.debug("FFEnchantments config was reloaded");
     }
 	
 	public static class Common {
 		
-		public final ForgeConfigSpec.BooleanValue canAnchoringCurseGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canAnchoringCurseAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isAnchoringCurseDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isAnchoringCurseTradeable;
 		
-		public final ForgeConfigSpec.BooleanValue canAquaticRejuvenationBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canAquaticRejuvenationBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canAquaticRejuvenationGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canAquaticRejuvenationAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isAquaticRejuvenationDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isAquaticRejuvenationTradeable;
+		public final ForgeConfigSpec.BooleanValue isAquaticRejuvenationTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canBloodlustBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canBloodlustBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canBloodlustGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canBloodlustAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isBloodlustDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isBloodlustTradeable;
+		public final ForgeConfigSpec.BooleanValue isBloodlustTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canBuoyancyBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canBuoyancyGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canBuoyancyAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isBuoyancyDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isBuoyancyTradeable;
+		public final ForgeConfigSpec.BooleanValue isBuoyancyTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canButcheringBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canButcheringBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canButcheringGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canButcheringAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isButcheringDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isButcheringTradeable;
+		public final ForgeConfigSpec.BooleanValue isButcheringTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canInfernoBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canInfernoBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canInfernoGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canInfernoAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isInfernoDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isInfernoTradeable;
+		public final ForgeConfigSpec.BooleanValue isInfernoTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canLeapingBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canLeapingGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canLeapingAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isLeapingDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isLeapingTradeable;
+		public final ForgeConfigSpec.BooleanValue isLeapingTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canMaelstromBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canMaelstromBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canMaelstromGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canMaelstromAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isMaelstromDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isMaelstromTradeable;
+		public final ForgeConfigSpec.BooleanValue isMaelstromTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canObsidianSkullBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canObsidianSkullBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canObsidianSkullGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canObsidianSkullAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isObsidianSkullDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isObsidianSkullTradeable;
+		public final ForgeConfigSpec.BooleanValue isObsidianSkullTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canOutrushBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canOutrushBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canOutrushGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canOutrushAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isOutrushDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isOutrushTradeable;
+		public final ForgeConfigSpec.BooleanValue isOutrushTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canPillagingBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canPillagingBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canPillagingGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canPillagingAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isPillagingDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isPillagingTradeable;
+		public final ForgeConfigSpec.BooleanValue isPillagingTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canPointedBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canPointedBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canPointedGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canPointedAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isPointedDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isPointedTradeable;
+		public final ForgeConfigSpec.BooleanValue isPointedTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canPoisonAspectBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canPoisonAspectBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canPoisonAspectGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canPoisonAspectAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isPoisonAspectDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isPoisonAspectTradeable;
+		public final ForgeConfigSpec.BooleanValue isPoisonAspectTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canQuicknessBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canQuicknessGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canQuicknessAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isQuicknessDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isQuicknessTradeable;
+		public final ForgeConfigSpec.BooleanValue isQuicknessTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canSearingBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canSearingBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canSearingGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canSearingAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isSearingDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isSearingTradeable;
+		public final ForgeConfigSpec.BooleanValue isSearingTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canSteadfastBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canSteadfastBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canSteadfastGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canSteadfastAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isSteadfastDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isSteadfastTradeable;
+		public final ForgeConfigSpec.BooleanValue isSteadfastTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canTorrentBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canTorrentBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canTorrentGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canTorrentAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isTorrentDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isTorrentTradeable;
+		public final ForgeConfigSpec.BooleanValue isTorrentTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canVampiricBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canVampiricBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canVampiricGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canVampiricAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isVampiricDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isVampiricTradeable;
+		public final ForgeConfigSpec.BooleanValue isVampiricTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canWeightedBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canWeightedBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canWeightedGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canWeightedAppearInTrades;
+		public final ForgeConfigSpec.BooleanValue isWeightedBladeDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isWeightedBladeTradeable;
+		public final ForgeConfigSpec.BooleanValue isWeightedBladeTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue canWitherAspectBeAppliedToItems;
-		public final ForgeConfigSpec.BooleanValue canWitherAspectBeAppliedToBooks;
-		public final ForgeConfigSpec.BooleanValue canWitherAspectGenerateInLoot;
-		public final ForgeConfigSpec.BooleanValue canWitherAspectAppearInTrades;	
-		
-		public final ForgeConfigSpec.BooleanValue enableSaddlesRandomlyEnchanted;
-		public final ForgeConfigSpec.DoubleValue enchantSaddleChance;
+		public final ForgeConfigSpec.BooleanValue isWitherAspectDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isWitherAspectTradeable;
+		public final ForgeConfigSpec.BooleanValue isWitherAspectTreasure;
 		
 		public Common(ForgeConfigSpec.Builder builder) {
 			builder.comment("Enchantment Configuration")
 			.push("enchantments");
 			
 			builder.push("anchoring_curse");
-			canAnchoringCurseGenerateInLoot = builder
-					.comment("Whether or not Curse of Anchoring can be found on enchanted books in naturally generated chests.")
+			isAnchoringCurseDiscoverable = builder
 					.worldRestart()
-					.define("canAnchoringCurseGenerateInLoot", true);
-			
-			canAnchoringCurseAppearInTrades = builder
-					.comment("Whether or not Curse of Anchoring can be traded by villagers.")
+					.define("isAnchoringCurseDiscoverable", true);			
+			isAnchoringCurseTradeable = builder
 					.worldRestart()
-					.define("canAnchoringCurseAppearInTrades", true);
+					.define("isAnchoringCurseTradeable", true);
 			builder.pop();
 			
 			builder.push("aquatic_rejuvenation");
-			canAquaticRejuvenationBeAppliedToItems = builder
-					.comment("Whether or not Aquatic Rejuvenation can be applied to possible items.")
+			isAquaticRejuvenationDiscoverable = builder
 					.worldRestart()
-					.define("canAquaticRejuvenationBeAppliedToItems", false);
-			
-			canAquaticRejuvenationBeAppliedToBooks = builder
-					.comment("Whether or not Aquatic Rejuvenation can be applied to books.")
+					.define("canAquaticRejuvenationGenerateInLoot", true);			
+			isAquaticRejuvenationTradeable = builder
 					.worldRestart()
-					.define("canAquaticRejuvenationBeAppliedToBooks", false);			
-			
-			canAquaticRejuvenationGenerateInLoot = builder
-					.comment("Whether or not Aquatic Rejuvenation can be found on enchanted books in naturally generated chests.")
+					.define("isAquaticRejuvenationTradeable", true);
+			isAquaticRejuvenationTreasure = builder
 					.worldRestart()
-					.define("canAquaticRejuvenationGenerateInLoot", true);
-			
-			canAquaticRejuvenationAppearInTrades = builder
-					.comment("Whether or not Aquatic Rejuvenation can be traded by villagers.")
-					.worldRestart()
-					.define("canAquaticRejuvenationAppearInTrades", true);
+					.define("isAquaticRejuvenationTreasure", true);
 			builder.pop();
 			
 			builder.push("bloodlust");
-			canBloodlustBeAppliedToItems = builder
-					.comment("Whether or not Bloodlust can be applied to possible items.")
+			isBloodlustDiscoverable = builder
 					.worldRestart()
-					.define("canBloodlustBeAppliedToItems", true);
-			
-			canBloodlustBeAppliedToBooks = builder
-					.comment("Whether or not Bloodlust can be applied to books.")
+					.define("isBloodlustDiscoverable", true);			
+			isBloodlustTradeable = builder
 					.worldRestart()
-					.define("canBloodlustBeAppliedToBooks", true);			
-			
-			canBloodlustGenerateInLoot = builder
-					.comment("Whether or not Bloodlust can be found on enchanted books in naturally generated chests.")
+					.define("isBloodlustTradeable", true);
+			isBloodlustTreasure = builder
 					.worldRestart()
-					.define("canBloodlustGenerateInLoot", true);
-			
-			canBloodlustAppearInTrades = builder
-					.comment("Whether or not Bloodlust can be traded by villagers.")
-					.worldRestart()
-					.define("canBloodlustAppearInTrades", true);
+					.define("isBloodlustTreasure", false);
 			builder.pop();
 			
 			builder.push("buoyancy");
-			canBuoyancyBeAppliedToBooks = builder
-					.comment("Whether or not Buoyancy can be applied to books.")
+			isBuoyancyDiscoverable = builder
 					.worldRestart()
-					.define("canBuoyancyBeAppliedToBooks", true);
-			
-			canBuoyancyGenerateInLoot = builder
-					.comment("Whether or not Buoyancy can be found on enchanted books in naturally generated chests.")
+					.define("isBuoyancyDiscoverable", true);			
+			isBuoyancyTradeable = builder
 					.worldRestart()
-					.define("canBuoyancyGenerateInLoot", true);
-			
-			canBuoyancyAppearInTrades = builder
-					.comment("Whether or not Buoyancy can be traded by villagers.")
+					.define("isBuoyancyTradeable", true);
+			isBuoyancyTreasure = builder
 					.worldRestart()
-					.define("canBuoyancyAppearInTrades", true);
+					.define("isBuoyancyTreasure", false);
 			builder.pop();
 			
 			builder.push("butchering");
-			canButcheringBeAppliedToItems = builder
-					.comment("Whether or not Butchering can be applied to possible items.")
+			isButcheringDiscoverable = builder
 					.worldRestart()
-					.define("canButcheringBeAppliedToItems", true);
-			
-			canButcheringBeAppliedToBooks = builder
-					.comment("Whether or not Butchering can be applied to books.")
+					.define("isButcheringDiscoverable", true);			
+			isButcheringTradeable = builder
 					.worldRestart()
-					.define("canButcheringBeAppliedToBooks", true);			
-			
-			canButcheringGenerateInLoot = builder
-					.comment("Whether or not Butchering can be found on enchanted books in naturally generated chests.")
+					.define("isButcheringTradeable", true);
+			isButcheringTreasure = builder
 					.worldRestart()
-					.define("canButcheringGenerateInLoot", true);
-			
-			canButcheringAppearInTrades = builder
-					.comment("Whether or not Butchering can be traded by villagers.")
-					.worldRestart()
-					.define("canButcheringAppearInTrades", true);
+					.define("isButcheringTreasure", false);
 			builder.pop();
 			
 			builder.push("inferno");
-			canInfernoBeAppliedToItems = builder
-					.comment("Whether or not Inferno can be applied to possible items.")
+			isInfernoDiscoverable = builder
 					.worldRestart()
-					.define("canInfernoBeAppliedToItems", true);
-			
-			canInfernoBeAppliedToBooks = builder
-					.comment("Whether or not Inferno can be applied to books.")
+					.define("isInfernoDiscoverable", true);			
+			isInfernoTradeable = builder
 					.worldRestart()
-					.define("canInfernoBeAppliedToBooks", true);			
-			
-			canInfernoGenerateInLoot = builder
-					.comment("Whether or not Inferno can be found on enchanted books in naturally generated chests.")
+					.define("isInfernoTradeable", true);
+			isInfernoTreasure = builder
 					.worldRestart()
-					.define("canInfernoGenerateInLoot", true);
-			
-			canInfernoAppearInTrades = builder
-					.comment("Whether or not Inferno can be traded by villagers.")
-					.worldRestart()
-					.define("canInfernoAppearInTrades", true);
+					.define("isInfernoTreasure", false);
 			builder.pop();
 			
 			builder.push("leaping");
-			canLeapingBeAppliedToBooks = builder
-					.comment("Whether or not Leaping can be applied to books.")
+			isLeapingDiscoverable = builder
 					.worldRestart()
-					.define("canLeapingBeAppliedToBooks", true);
-			
-			canLeapingGenerateInLoot = builder
-					.comment("Whether or not Leaping can be found on enchanted books in naturally generated chests.")
+					.define("isLeapingDiscoverable", true);			
+			isLeapingTradeable = builder
 					.worldRestart()
-					.define("canLeapingGenerateInLoot", true);
-			
-			canLeapingAppearInTrades = builder
-					.comment("Whether or not Leaping can be traded by villagers.")
+					.define("isLeapingTradeable", true);
+			isLeapingTreasure = builder
 					.worldRestart()
-					.define("canLeapingAppearInTrades", true);
+					.define("isLeapingTreasure", false);
 			builder.pop();
 			
 			builder.push("maelstrom");
-			canMaelstromBeAppliedToItems = builder
-					.comment("Whether or not Maelstrom can be applied to possible items.")
+			isMaelstromDiscoverable = builder
 					.worldRestart()
-					.define("canMaelstromBeAppliedToItems", true);
-			
-			canMaelstromBeAppliedToBooks = builder
-					.comment("Whether or not Maelstrom can be applied to books.")
+					.define("isMaelstromDiscoverable", true);			
+			isMaelstromTradeable = builder
 					.worldRestart()
-					.define("canMaelstromBeAppliedToBooks", true);			
-			
-			canMaelstromGenerateInLoot = builder
-					.comment("Whether or not Maelstrom can be found on enchanted books in naturally generated chests.")
+					.define("isMaelstromTradeable", true);
+			isMaelstromTreasure = builder
 					.worldRestart()
-					.define("canMaelstromGenerateInLoot", true);
-			
-			canMaelstromAppearInTrades = builder
-					.comment("Whether or not Maelstrom can be traded by villagers.")
-					.worldRestart()
-					.define("canMaelstromAppearInTrades", true);
+					.define("isMaelstromTreasure", false);
 			builder.pop();
 			
 			builder.push("obsidian_skull");
-			canObsidianSkullBeAppliedToItems = builder
-					.comment("Whether or not Obsidian Skull can be applied to possible items.")
+			isObsidianSkullDiscoverable = builder
 					.worldRestart()
-					.define("canObsidianSkullBeAppliedToItems", false);
-			
-			canObsidianSkullBeAppliedToBooks = builder
-					.comment("Whether or not Obsidia nSkull can be applied to books.")
+					.define("isObsidianSkullDiscoverable", true);			
+			isObsidianSkullTradeable = builder
 					.worldRestart()
-					.define("canObsidianSkullBeAppliedToBooks", false);			
-			
-			canObsidianSkullGenerateInLoot = builder
-					.comment("Whether or not Obsidian Skull can be found on enchanted books in naturally generated chests.")
+					.define("isObsidianSkullTradeable", true);
+			isObsidianSkullTreasure = builder
 					.worldRestart()
-					.define("canObsidianSkullGenerateInLoot", true);
-			
-			canObsidianSkullAppearInTrades = builder
-					.comment("Whether or not Obsidian Skull can be traded by villagers.")
-					.worldRestart()
-					.define("canObsidianSkullAppearInTrades", true);
+					.define("isObsidianSkullTreasure", true);
 			builder.pop();
 			
 			builder.push("outrush");
-			canOutrushBeAppliedToItems = builder
-					.comment("Whether or not Outrush can be applied to possible items.")
+			isOutrushDiscoverable = builder
 					.worldRestart()
-					.define("canOutrushBeAppliedToItems", true);
-			
-			canOutrushBeAppliedToBooks = builder
-					.comment("Whether or not Outrush can be applied to books.")
+					.define("isOutrushDiscoverable", true);			
+			isOutrushTradeable = builder
 					.worldRestart()
-					.define("canOutrushBeAppliedToBooks", true);			
-			
-			canOutrushGenerateInLoot = builder
-					.comment("Whether or not Outrush can be found on enchanted books in naturally generated chests.")
+					.define("isOutrushTradeable", true);
+			isOutrushTreasure = builder
 					.worldRestart()
-					.define("canOutrushGenerateInLoot", true);
-			
-			canOutrushAppearInTrades = builder
-					.comment("Whether or not Outrush can be traded by villagers.")
-					.worldRestart()
-					.define("canOutrushAppearInTrades", true);
+					.define("isOutrushTreasure", false);
 			builder.pop();
 			
 			builder.push("pillaging");
-			canPillagingBeAppliedToItems = builder
-					.comment("Whether or not Pillaging can be applied to possible items.")
+			isPillagingDiscoverable = builder
 					.worldRestart()
-					.define("canPillagingBeAppliedToItems", true);
-			
-			canPillagingBeAppliedToBooks = builder
-					.comment("Whether or not Pillaging can be applied to books.")
+					.define("isPillagingDiscoverable", true);			
+			isPillagingTradeable = builder
 					.worldRestart()
-					.define("canPillagingBeAppliedToBooks", true);			
-			
-			canPillagingGenerateInLoot = builder
-					.comment("Whether or not Pillaging can be found on enchanted books in naturally generated chests.")
+					.define("isPillagingTradeable", true);
+			isPillagingTreasure = builder
 					.worldRestart()
-					.define("canPillagingGenerateInLoot", true);
-			
-			canPillagingAppearInTrades = builder
-					.comment("Whether or not Pillaging can be traded by villagers.")
-					.worldRestart()
-					.define("canPillagingAppearInTrades", true);
+					.define("isPillagingTreasure", false);
 			builder.pop();
 			
 			builder.push("pointed");
-			canPointedBeAppliedToItems = builder
+			isPointedDiscoverable = builder
 					.worldRestart()
-					.define("canPointedBeAppliedToItems", true);
-			
-			canPointedBeAppliedToBooks = builder
+					.define("isPointedDiscoverable", true);			
+			isPointedTradeable = builder
 					.worldRestart()
-					.define("canPointedBeAppliedToBooks", true);			
-			
-			canPointedGenerateInLoot = builder
+					.define("isPointedTradeable", true);
+			isPointedTreasure = builder
 					.worldRestart()
-					.define("canPointedGenerateInLoot", true);
-			
-			canPointedAppearInTrades = builder
-					.worldRestart()
-					.define("canPointedAppearInTrades", true);
+					.define("isPointedTreasure", false);
 			builder.pop();
 			
 			builder.push("poison_aspect");
-			canPoisonAspectBeAppliedToItems = builder
-					.comment("Whether or not Poison Aspect can be applied to possible items.")
+			isPoisonAspectDiscoverable = builder
 					.worldRestart()
-					.define("canPoisonAspectBeAppliedToItems", true);
-			
-			canPoisonAspectBeAppliedToBooks = builder
-					.comment("Whether or not Poison Aspect can be applied to books.")
+					.define("isPoisonAspectDiscoverable", true);			
+			isPoisonAspectTradeable = builder
 					.worldRestart()
-					.define("canPoisonAspectBeAppliedToBooks", true);			
-			
-			canPoisonAspectGenerateInLoot = builder
-					.comment("Whether or not Poison Aspect can be found on enchanted books in naturally generated chests.")
+					.define("isPoisonAspectTradeable", true);
+			isPoisonAspectTreasure = builder
 					.worldRestart()
-					.define("canPoisonAspectGenerateInLoot", true);
-			
-			canPoisonAspectAppearInTrades = builder
-					.comment("Whether or not Poison Aspect can be traded by villagers.")
-					.worldRestart()
-					.define("canPoisonAspectAppearInTrades", true);
+					.define("isPoisonAspectTreasure", false);
 			builder.pop();
 			
 			builder.push("quickness");
-			canQuicknessBeAppliedToBooks = builder
-					.comment("Whether or not Quickness can be applied to books.")
+			isQuicknessDiscoverable = builder
 					.worldRestart()
-					.define("canQuicknessBeAppliedToBooks", true);
-			
-			canQuicknessGenerateInLoot = builder
-					.comment("Whether or not Quickness can be found on enchanted books in naturally generated chests.")
+					.define("isQuicknessDiscoverable", true);			
+			isQuicknessTradeable = builder
 					.worldRestart()
-					.define("canQuicknessGenerateInLoot", true);
-			
-			canQuicknessAppearInTrades = builder
-					.comment("Whether or not Quickness can be traded by villagers.")
+					.define("isQuicknessTradeable", true);
+			isQuicknessTreasure = builder
 					.worldRestart()
-					.define("canQuicknessAppearInTrades", true);
+					.define("isQuicknessTreasure", false);
 			builder.pop();
 			
 			builder.push("searing");
-			canSearingBeAppliedToItems = builder
-					.comment("Whether or not Searing can be applied to possible items.")
+			isSearingDiscoverable = builder
 					.worldRestart()
-					.define("canSearingBeAppliedToItems", true);
-			
-			canSearingBeAppliedToBooks = builder
-					.comment("Whether or not Searing can be applied to books.")
+					.define("isSearingDiscoverable", true);			
+			isSearingTradeable = builder
 					.worldRestart()
-					.define("canSearingBeAppliedToBooks", true);
-		
-			canSearingGenerateInLoot = builder
-					.comment("Whether or not Searing can be found on enchanted books in naturally generated chests.")
+					.define("isSearingTradeable", true);
+			isSearingTreasure = builder
 					.worldRestart()
-					.define("canSearingGenerateInLoot", true);
-			
-			canSearingAppearInTrades = builder
-					.comment("Whether or not Searing can be traded by villagers.")
-					.worldRestart()
-					.define("canSearingAppearInTrades", true);
+					.define("isSearingTreasure", false);
 			builder.pop();
 			
 			builder.push("steadfast");
-			canSteadfastBeAppliedToItems = builder
-					.comment("Whether or not Steadfast can be applied to possible items.")
+			isSteadfastDiscoverable = builder
 					.worldRestart()
-					.define("canSteadfastBeAppliedToItems", true);
-			
-			canSteadfastBeAppliedToBooks = builder
-					.comment("Whether or not Steadfast can be applied to books.")
+					.define("isSteadfastDiscoverable", true);			
+			isSteadfastTradeable = builder
 					.worldRestart()
-					.define("canSteadfastBeAppliedToBooks", true);			
-			
-			canSteadfastGenerateInLoot = builder
-					.comment("Whether or not Steadfast can be found on enchanted books in naturally generated chests.")
+					.define("isSteadfastTradeable", true);
+			isSteadfastTreasure = builder
 					.worldRestart()
-					.define("canSteadfastGenerateInLoot", true);
-			
-			canSteadfastAppearInTrades = builder
-					.comment("Whether or not Steadfast can be traded by villagers.")
-					.worldRestart()
-					.define("canSteadfastAppearInTrades", true);
+					.define("isSteadfastTreasure", false);
 			builder.pop();
 			
 			builder.push("torrent");
-			canTorrentBeAppliedToItems = builder
-					.comment("Whether or not Torrent can be applied to possible items.")
+			isTorrentDiscoverable = builder
 					.worldRestart()
-					.define("canTorrentBeAppliedToItems", true);
-			
-			canTorrentBeAppliedToBooks = builder
-					.comment("Whether or not Torrent can be applied to books.")
+					.define("isTorrentDiscoverable", true);			
+			isTorrentTradeable = builder
 					.worldRestart()
-					.define("canTorrentBeAppliedToBooks", true);			
-			
-			canTorrentGenerateInLoot = builder
-					.comment("Whether or not Torrent can be found on enchanted books in naturally generated chests.")
+					.define("isTorrentTradeable", true);
+			isTorrentTreasure = builder
 					.worldRestart()
-					.define("canTorrentGenerateInLoot", true);
-			
-			canTorrentAppearInTrades = builder
-					.comment("Whether or not Torrent can be traded by villagers.")
-					.worldRestart()
-					.define("canTorrentAppearInTrades", true);
+					.define("isTorrentTreasure", false);
 			builder.pop();
 			
 			builder.push("vampiric");
-			canVampiricBeAppliedToItems = builder
-					.comment("Whether or not Vampiric can be applied to possible items.")
+			isVampiricDiscoverable = builder
 					.worldRestart()
-					.define("canVampiricBeAppliedToItems", false);
-			
-			canVampiricBeAppliedToBooks = builder
-					.comment("Whether or not Vampiric can be applied to books.")
+					.define("isVampiricDiscoverable", true);			
+			isVampiricTradeable = builder
 					.worldRestart()
-					.define("canVampiricBeAppliedToBooks", false);			
-			
-			canVampiricGenerateInLoot = builder
-					.comment("Whether or not Vampiric can be found on enchanted books in naturally generated chests.")
+					.define("isVampiricTradeable", true);
+			isVampiricTreasure = builder
 					.worldRestart()
-					.define("canVampiricGenerateInLoot", true);
-			
-			canVampiricAppearInTrades = builder
-					.comment("Whether or not Vampiric can be traded by villagers.")
-					.worldRestart()
-					.define("canVampiricAppearInTrades", true);
+					.define("isVampiricTreasure", true);
 			builder.pop();
 			
 			builder.push("weighted");
-			canWeightedBeAppliedToItems = builder
-					.comment("Whether or not Weighted can be applied to possible items.")
+			isWeightedBladeDiscoverable = builder
 					.worldRestart()
-					.define("canWeightedBeAppliedToItems", true);
-			
-			canWeightedBeAppliedToBooks = builder
-					.comment("Whether or not Weighted can be applied to books.")
+					.define("isWeightedBladeDiscoverable", true);			
+			isWeightedBladeTradeable = builder
 					.worldRestart()
-					.define("canWeightedBeAppliedToBooks", true);			
-			
-			canWeightedGenerateInLoot = builder
-					.comment("Whether or not Weighted can be found on enchanted books in naturally generated chests.")
+					.define("isWeightedBladeTradeable", true);
+			isWeightedBladeTreasure = builder
 					.worldRestart()
-					.define("canWeightedGenerateInLoot", true);
-			
-			canWeightedAppearInTrades = builder
-					.comment("Whether or not Weighted can be traded by villagers.")
-					.worldRestart()
-					.define("canWeightedAppearInTrades", true);
+					.define("isWeightedBladeTreasure", false);
 			builder.pop();				
 			
 			builder.push("wither_aspect");
-			canWitherAspectBeAppliedToItems = builder
-					.comment("Whether or not Wither Aspect can be applied to possible items.")
+			isWitherAspectDiscoverable = builder
 					.worldRestart()
-					.define("canWitherAspectBeAppliedToItems", false);
-			
-			canWitherAspectBeAppliedToBooks = builder
-					.comment("Whether or not Wither Aspect can be applied to books.")
+					.define("isWitherAspectDiscoverable", true);			
+			isWitherAspectTradeable = builder
 					.worldRestart()
-					.define("canWitherAspectBeAppliedToBooks", false);			
-			
-			canWitherAspectGenerateInLoot = builder
-					.comment("Whether or not Wither Aspect can be found on enchanted books in naturally generated chests.")
+					.define("isWitherAspectTradeable", true);
+			isWitherAspectTreasure = builder
 					.worldRestart()
-					.define("canWitherAspectGenerateInLoot", true);
-			
-			canWitherAspectAppearInTrades = builder
-					.comment("Whether or not Wither Aspect can be traded by villagers.")
-					.worldRestart()
-					.define("canWitherAspectAppearInTrades", true);
+					.define("isWitherAspectTreasure", true);
 			builder.pop();
-			
-			builder.pop();
-			
-			builder.comment("Loot Modifier Configuration")
-			.push("loot_modifiers");
-			
-			enableSaddlesRandomlyEnchanted = builder
-					.comment("Allow/disallow saddles as part of loot to be randomly enchanted.")
-					.worldRestart()
-					.define("enableSaddlesRandomlyEnchanted", true);
-			
-			enchantSaddleChance = builder
-					.comment("The chance for a saddle to be enchanted with a random saddle enchantment. 1.0 means it will be guaranteed to be enchanted.")
-					.worldRestart()
-					.defineInRange("enchantSaddleChance", 0.4F, 0.0F, 1.0F);
 			
 			builder.pop();
 		}

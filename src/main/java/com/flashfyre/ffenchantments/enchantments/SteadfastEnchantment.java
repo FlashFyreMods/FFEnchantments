@@ -10,16 +10,10 @@ public class SteadfastEnchantment extends FFEnchantment {
 	public static final String STEADFAST_MODIFIER_ID = "c9b42190-12b8-4015-96b3-d0df6c89812c";
 	
 	public SteadfastEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(rarity, type, slots, 
-				() -> FFEConfig.canSteadfastBeAppliedToItems, 
-				() -> FFEConfig.canSteadfastBeAppliedToBooks, 
-				() -> FFEConfig.canSteadfastGenerateInLoot, 
-				() -> FFEConfig.canSteadfastAppearInTrades);
-	}
-	
-	@Override
-	public int getMaxLevel() {
-		return 3;
+		super(3, rarity, type, slots, 
+				() -> FFEConfig.isSteadfastDiscoverable,
+				() -> FFEConfig.isSteadfastTradeable, 
+				() -> FFEConfig.isSteadfastTreasure);
 	}
 	
 	@Override
