@@ -9,8 +9,8 @@ public class SteadfastEnchantment extends FFEnchantment {
 	
 	public static final String STEADFAST_MODIFIER_ID = "c9b42190-12b8-4015-96b3-d0df6c89812c";
 	
-	public SteadfastEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(3, rarity, type, slots, 
+	public SteadfastEnchantment(Rarity rarity) {
+		super(rarity, 3, EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST, 
 				() -> FFEConfig.isSteadfastDiscoverable,
 				() -> FFEConfig.isSteadfastTradeable, 
 				() -> FFEConfig.isSteadfastTreasure);

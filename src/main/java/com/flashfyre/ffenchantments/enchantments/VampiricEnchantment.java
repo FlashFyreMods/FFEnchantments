@@ -22,8 +22,8 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid=FFECore.MOD_ID)
 public class VampiricEnchantment extends FFEnchantment {
 
-	public VampiricEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(2, rarity, type, slots, 
+	public VampiricEnchantment(Rarity rarity) {
+		super(rarity, 1, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND, 
 				() -> FFEConfig.isVampiricDiscoverable, 
 				() -> FFEConfig.isVampiricTradeable,
 				() -> FFEConfig.isVampiricTreasure);

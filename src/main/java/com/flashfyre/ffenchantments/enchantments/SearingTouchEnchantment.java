@@ -15,13 +15,13 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 
-public class SearingEnchantment extends FFEnchantment {
+public class SearingTouchEnchantment extends FFEnchantment {
 	
-	public SearingEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(2, rarity, type, slots,
-				() -> FFEConfig.isSearingDiscoverable,
-				() -> FFEConfig.isSearingTradeable,
-				() -> FFEConfig.isSearingTreasure);
+	public SearingTouchEnchantment(Rarity rarity) {
+		super(rarity, 2, EnchantmentCategory.ARMOR, ARMOUR_SLOTS,
+				() -> FFEConfig.isSearingTouchDiscoverable,
+				() -> FFEConfig.isSearingTouchTradeable,
+				() -> FFEConfig.isSearingTouchTreasure);
 	}
 	
 	@Override
@@ -53,7 +53,7 @@ public class SearingEnchantment extends FFEnchantment {
 		Iterable<ItemStack> armour = wearer.getArmorSlots();
 		int burnDuration = 0;
 		for(ItemStack stack : armour) {
-			int level = stack.getEnchantmentLevel(FFECore.Enchantments.SEARING.get());
+			int level = stack.getEnchantmentLevel(FFECore.Enchantments.SEARING_TOUCH.get());
 			if (level > 0 && wearer.getRandom().nextFloat() < level * 0.225F) {
 				burnDuration += 2;				
 			}

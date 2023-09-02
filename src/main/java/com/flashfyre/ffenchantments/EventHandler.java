@@ -12,7 +12,7 @@ import com.flashfyre.ffenchantments.enchantments.InfernoEnchantment;
 import com.flashfyre.ffenchantments.enchantments.MaelstromEnchantment;
 import com.flashfyre.ffenchantments.enchantments.OutrushEnchantment;
 import com.flashfyre.ffenchantments.enchantments.QuicknessHorseEnchantment;
-import com.flashfyre.ffenchantments.enchantments.SearingEnchantment;
+import com.flashfyre.ffenchantments.enchantments.SearingTouchEnchantment;
 import com.flashfyre.ffenchantments.enchantments.SteadfastEnchantment;
 import com.flashfyre.ffenchantments.enchantments.TorrentEnchantment;
 import com.flashfyre.ffenchantments.packets.BuoyancyPacket;
@@ -39,6 +39,8 @@ import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -230,7 +232,7 @@ public class EventHandler {
 							if(data.hasEnchantment(FFECore.Enchantments.INFERNO.get())) {
 								int level = data.getEnchantments().get(FFECore.Enchantments.INFERNO.get());
 								if(level > 0) {
-									List<LivingEntity> entitiesInAoE = FFECore.getEntitiesInAABB(arrow.level, level*1.5, arrow.position());
+									List<LivingEntity> entitiesInAoE = getEntitiesInAABB(arrow.level, level*1.5, arrow.position());
 									for(LivingEntity e : entitiesInAoE) {
 										if(!InfernoEnchantment.isEntityValidForIgnition(e, arrow)) continue;						
 										e.setSecondsOnFire(10);
@@ -298,7 +300,7 @@ public class EventHandler {
 						if(data.hasEnchantment(FFECore.Enchantments.INFERNO.get())) {
 							int level = data.getEnchantments().get(FFECore.Enchantments.INFERNO.get());
 							if(level > 0) {
-								List<LivingEntity> entitiesInAoE = FFECore.getEntitiesInAABB(sWorld, level*0.75, arrow.position());
+								List<LivingEntity> entitiesInAoE = getEntitiesInAABB(sWorld, level*0.75, arrow.position());
 								for(LivingEntity e : entitiesInAoE) {
 									if(!InfernoEnchantment.isEntityValidForIgnition(e, arrow)) continue;
 									e.setSecondsOnFire(5);
@@ -315,16 +317,9 @@ public class EventHandler {
 		savedData.removeInfernoArrowUUIDS(arrowsToRemove);
 	}
 	
-	@SubscribeEvent
-	public static void onCrit(CriticalHitEvent event) {
-		if(event.isVanillaCritical()) {
-			int level = event.getEntity().getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(FFECore.Enchantments.WEIGHTED_BLADE.get());
-			if(level > 0) {
-				if(event.getTarget() instanceof LivingEntity livingTarget) {
-					livingTarget.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60 * level, 0, false, true));
-				}
-			}
-		}				
+	public static List<LivingEntity> getEntitiesInAABB(Level level, double size, Vec3 centrePos) {
+		AABB aabb = new AABB(centrePos.add(size, size, size), centrePos.add(-size, -size, -size));
+		return level.getEntitiesOfClass(LivingEntity.class, aabb);
 	}
 	
 	@SubscribeEvent
@@ -376,7 +371,7 @@ public class EventHandler {
 			}
 			
 			if(!(attacker.fireImmune() || target.isInWaterOrBubble())) {
-				int burnDuration = SearingEnchantment.calculateBurnDuration(target);
+				int burnDuration = SearingTouchEnchantment.calculateBurnDuration(target);
 				if (burnDuration > 0) {
 					attacker.setSecondsOnFire(burnDuration);
 				}				
@@ -429,7 +424,7 @@ public class EventHandler {
 	@SubscribeEvent
 	public static void applyKnockbackResistance(LivingEquipmentChangeEvent event) {
 		LivingEntity wearer = event.getEntity();
-		if(event.getSlot() == EquipmentSlot.CHEST) { // If chestplate is put in armour slot
+		if(event.getSlot() == EquipmentSlot.CHEST) { // If chestplate slot is changed
 			int levelTo = event.getTo().getEnchantmentLevel(FFECore.Enchantments.STEADFAST.get());
 			int levelFrom = event.getFrom().getEnchantmentLevel(FFECore.Enchantments.STEADFAST.get());
 			if(levelTo == levelFrom) return; //If the levels are the same we don't need to adjust anything

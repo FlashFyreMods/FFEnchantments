@@ -8,8 +8,8 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.Enchantments;
 
 public class AquaticRejuvenationEnchantment extends FFEnchantment {
-	public AquaticRejuvenationEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(2, rarity, type, slots, 
+	public AquaticRejuvenationEnchantment(Rarity rarity) {
+		super(rarity, 2, EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND, 
 				() -> FFEConfig.isAquaticRejuvenationDiscoverable, 
 				() -> FFEConfig.isAquaticRejuvenationTradeable, 
 				() -> FFEConfig.isAquaticRejuvenationTreasure);

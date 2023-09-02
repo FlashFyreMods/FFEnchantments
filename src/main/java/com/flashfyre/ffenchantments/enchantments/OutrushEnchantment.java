@@ -14,8 +14,8 @@ import net.minecraft.world.level.Level;
 
 public class OutrushEnchantment extends FFEnchantment {
 	
-	public OutrushEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... slots) {
-		super(5, rarity, category, slots, 
+	public OutrushEnchantment(Rarity rarity) {
+		super(rarity, 5, EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND, 
 				() -> FFEConfig.isOutrushDiscoverable, 
 				() -> FFEConfig.isOutrushTradeable, 
 				() -> FFEConfig.isOutrushTreasure);

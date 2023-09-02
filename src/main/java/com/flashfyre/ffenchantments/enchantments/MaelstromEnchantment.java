@@ -2,13 +2,11 @@ package com.flashfyre.ffenchantments.enchantments;
 
 import java.util.List;
 
-import com.flashfyre.ffenchantments.FFEDamageTypes;
 import com.flashfyre.ffenchantments.FFEConfig;
+import com.flashfyre.ffenchantments.FFECore;
 
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
@@ -23,8 +21,8 @@ import net.minecraft.world.phys.Vec3;
 
 public class MaelstromEnchantment extends FFEnchantment {
 	
-	public MaelstromEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... slots) {
-		super(3, rarity, category, slots, 
+	public MaelstromEnchantment(Rarity rarity) {
+		super(rarity, 3, EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND, 
 				() -> FFEConfig.isMaelstromDiscoverable, 
 				() -> FFEConfig.isMaelstromTradeable, 
 				() -> FFEConfig.isMaelstromTreasure);
@@ -66,7 +64,8 @@ public class MaelstromEnchantment extends FFEnchantment {
 			Vec3 tridentPos = trident.position();
 			e.push((tridentPos.x()-entityPos.x())*moveStrength, (tridentPos.y()-entityPos.y())*moveStrength, (tridentPos.z()-entityPos.z())*moveStrength);
 			//e.push(trident.getDeltaMovement().x() / 15, trident.getDeltaMovement().y() / 15, trident.getDeltaMovement().z() / 15);
-			e.hurt(new DamageSource(e.level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(FFEDamageTypes.MAELSTROM), trident.getOwner(), null), 2.0F * level);
+			//e.hurt(new DamageSource(e.level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(FFEDamageTypes.MAELSTROM), trident.getOwner(), null), 2.0F * level);
+			e.hurt(FFECore.maelstromDamage(trident, trident.getOwner()), 2.0F*level);
 			e.hurtMarked = true;
 		});
 	}

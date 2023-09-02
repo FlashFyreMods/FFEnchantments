@@ -7,8 +7,8 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class AnchoringCurseEnchantment extends FFEnchantment {
 
-	public AnchoringCurseEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(1, rarity, type, slots, 
+	public AnchoringCurseEnchantment(Rarity rarity) {
+		super(rarity, 1, EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET,
 				() -> FFEConfig.isAnchoringCurseDiscoverable, 
 				() -> FFEConfig.isAnchoringCurseTradeable, 
 				() -> true);

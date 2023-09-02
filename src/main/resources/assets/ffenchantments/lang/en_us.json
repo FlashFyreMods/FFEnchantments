@@ -26,7 +26,7 @@
 	"enchantment.ffenchantments.poison_aspect.desc": "Inflicts poison on hit.",
 	"enchantment.ffenchantments.wither_aspect.desc": "Inflicts wither on hit.",
 	"enchantment.ffenchantments.pillaging.desc": "Deals increased damage to illagers.",
-	"enchantment.ffenchantments.searing.desc": "Has a chance to light mobs that hit you on fire.",
+	"enchantment.ffenchantments.searing_touch.desc": "Has a chance to light mobs that hit you on fire.",
 	"enchantment.ffenchantments.steadfast.desc": "Reduces knockback taken and knocks back attackers.",	
 	"enchantment.ffenchantments.outrush.desc": "Deals increased damage to fire mobs.",
 	"enchantment.ffenchantments.torrent.desc": "Increases entities' swimming speed while the trident is being held.",

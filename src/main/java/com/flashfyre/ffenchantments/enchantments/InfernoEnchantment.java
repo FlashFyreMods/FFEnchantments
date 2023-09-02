@@ -14,8 +14,8 @@ import net.minecraft.world.phys.Vec3;
 
 public class InfernoEnchantment extends FFEnchantment {
 	
-	public InfernoEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(2, rarity, type, slots, 
+	public InfernoEnchantment(Rarity rarity) {
+		super(rarity, 2, EnchantmentCategory.CROSSBOW, EquipmentSlot.MAINHAND, 
 				() -> FFEConfig.isInfernoDiscoverable, 
 				() -> FFEConfig.isInfernoTradeable, 
 				() -> FFEConfig.isInfernoTreasure);

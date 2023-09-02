@@ -9,8 +9,8 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class PillagingEnchantment extends FFEnchantment {
 	
-	public PillagingEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... slots) {
-		super(5, rarity, category, slots, 
+	public PillagingEnchantment(Rarity rarity) {
+		super(rarity, 5, EnchantmentCategory.CROSSBOW, EquipmentSlot.MAINHAND, 
 				() -> FFEConfig.isPillagingDiscoverable, 
 				() -> FFEConfig.isPillagingTradeable, 
 				() -> FFEConfig.isPillagingTreasure);

@@ -3,12 +3,11 @@ package com.flashfyre.ffenchantments.enchantments;
 import com.flashfyre.ffenchantments.FFEConfig;
 
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class BloodlustEnchantment extends FFEnchantment {
 
-	public BloodlustEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(2, rarity, type, slots, 
+	public BloodlustEnchantment(Rarity rarity) {
+		super(rarity, 2, Category.SWORD_AND_AXE, EquipmentSlot.MAINHAND, 
 				() -> FFEConfig.isBloodlustDiscoverable, 
 				() -> FFEConfig.isBloodlustTradeable, 
 				() -> FFEConfig.isBloodlustTreasure);

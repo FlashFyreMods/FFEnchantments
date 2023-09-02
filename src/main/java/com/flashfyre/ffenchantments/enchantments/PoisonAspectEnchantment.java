@@ -15,8 +15,8 @@ import net.minecraftforge.common.util.FakePlayer;
 
 public class PoisonAspectEnchantment extends FFEnchantment {
 	
-	public PoisonAspectEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... slots) {
-		super(2, rarity, category, slots, 
+	public PoisonAspectEnchantment(Rarity rarity) {
+		super(rarity, 2, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND, 
 				() -> FFEConfig.isPoisonAspectDiscoverable, 
 				() -> FFEConfig.isPoisonAspectTradeable, 
 				() -> FFEConfig.isPoisonAspectTreasure);

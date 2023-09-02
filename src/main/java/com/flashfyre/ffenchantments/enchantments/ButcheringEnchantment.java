@@ -3,12 +3,11 @@ package com.flashfyre.ffenchantments.enchantments;
 import com.flashfyre.ffenchantments.FFEConfig;
 
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class ButcheringEnchantment extends FFEnchantment {
 	
-	public ButcheringEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... slots) {
-		super(3, rarity, category, slots, 
+	public ButcheringEnchantment(Rarity rarity) {
+		super(rarity, 3, Category.AXE, EquipmentSlot.MAINHAND, 
 				() -> FFEConfig.isButcheringDiscoverable, 
 				() -> FFEConfig.isButcheringTradeable, 
 				() -> FFEConfig.isButcheringTreasure);

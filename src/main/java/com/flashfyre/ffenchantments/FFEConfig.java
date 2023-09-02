@@ -76,9 +76,9 @@ public class FFEConfig
 	public static boolean isQuicknessTradeable;
 	public static boolean isQuicknessTreasure;
 	
-	public static boolean isSearingDiscoverable;
-	public static boolean isSearingTradeable;
-	public static boolean isSearingTreasure;
+	public static boolean isSearingTouchDiscoverable;
+	public static boolean isSearingTouchTradeable;
+	public static boolean isSearingTouchTreasure;
 	
 	public static boolean isSteadfastDiscoverable;
 	public static boolean isSteadfastTradeable;
@@ -158,9 +158,9 @@ public class FFEConfig
 		isQuicknessTradeable = COMMON.isQuicknessTradeable.get();
 		isQuicknessTreasure = COMMON.isQuicknessTreasure.get();
 		
-		isSearingDiscoverable = COMMON.isSearingDiscoverable.get();
-		isSearingTradeable = COMMON.isSearingTradeable.get();
-		isSearingTreasure = COMMON.isSearingTreasure.get();
+		isSearingTouchDiscoverable = COMMON.isSearingTouchDiscoverable.get();
+		isSearingTouchTradeable = COMMON.isSearingTouchTradeable.get();
+		isSearingTouchTreasure = COMMON.isSearingTouchTreasure.get();
 		
 		isSteadfastDiscoverable = COMMON.isSteadfastDiscoverable.get();
 		isSteadfastTradeable = COMMON.isSteadfastTradeable.get();
@@ -259,9 +259,9 @@ public class FFEConfig
 		public final ForgeConfigSpec.BooleanValue isQuicknessTradeable;
 		public final ForgeConfigSpec.BooleanValue isQuicknessTreasure;
 		
-		public final ForgeConfigSpec.BooleanValue isSearingDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isSearingTradeable;
-		public final ForgeConfigSpec.BooleanValue isSearingTreasure;
+		public final ForgeConfigSpec.BooleanValue isSearingTouchDiscoverable;
+		public final ForgeConfigSpec.BooleanValue isSearingTouchTradeable;
+		public final ForgeConfigSpec.BooleanValue isSearingTouchTreasure;
 		
 		public final ForgeConfigSpec.BooleanValue isSteadfastDiscoverable;
 		public final ForgeConfigSpec.BooleanValue isSteadfastTradeable;
@@ -453,13 +453,13 @@ public class FFEConfig
 			builder.pop();
 			
 			builder.push("searing");
-			isSearingDiscoverable = builder
+			isSearingTouchDiscoverable = builder
 					.worldRestart()
-					.define("isSearingDiscoverable", true);			
-			isSearingTradeable = builder
+					.define("isSearingTouchDiscoverable", true);			
+			isSearingTouchTradeable = builder
 					.worldRestart()
 					.define("isSearingTradeable", true);
-			isSearingTreasure = builder
+			isSearingTouchTreasure = builder
 					.worldRestart()
 					.define("isSearingTreasure", false);
 			builder.pop();

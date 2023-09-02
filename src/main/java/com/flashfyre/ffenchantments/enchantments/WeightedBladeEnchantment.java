@@ -1,16 +1,19 @@
 package com.flashfyre.ffenchantments.enchantments;
 
 import com.flashfyre.ffenchantments.FFEConfig;
+import com.flashfyre.ffenchantments.FFECore;
 
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class WeightedBladeEnchantment extends FFEnchantment {
 	
-	public WeightedBladeEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(2, rarity, type, slots, 
+	public WeightedBladeEnchantment(Rarity rarity) {
+		super(rarity, 2, Category.SWORD_AND_AXE, EquipmentSlot.MAINHAND,
 				() -> FFEConfig.isWeightedBladeDiscoverable,
 				() -> FFEConfig.isWeightedBladeTradeable, 
 				() -> FFEConfig.isWeightedBladeTreasure);
@@ -26,9 +29,15 @@ public class WeightedBladeEnchantment extends FFEnchantment {
 		return this.getMinCost(level) + 15;
 	}
 	
-	@Override
-	public boolean canEnchant(ItemStack stack) {
-		return stack.getItem() instanceof AxeItem ? true : super.canEnchant(stack);
+	@SubscribeEvent
+	public static void onCrit(CriticalHitEvent event) {
+		if(event.isVanillaCritical()) {
+			int level = event.getEntity().getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(FFECore.Enchantments.WEIGHTED_BLADE.get());
+			if(level > 0) {
+				if(event.getTarget() instanceof LivingEntity livingTarget) {
+					livingTarget.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 60 * level, 0, false, true));
+				}
+			}
+		}				
 	}
-
 }

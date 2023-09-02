@@ -1,7 +1,7 @@
 package com.flashfyre.ffenchantments.enchantments;
 
-import com.flashfyre.ffenchantments.FFECore;
 import com.flashfyre.ffenchantments.FFEConfig;
+import com.flashfyre.ffenchantments.FFECore;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -15,8 +15,8 @@ import net.minecraftforge.common.util.FakePlayer;
 
 public class WitherAspectEnchantment extends FFEnchantment {
 
-	public WitherAspectEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(2, rarity, type, slots, 
+	public WitherAspectEnchantment(Rarity rarity) {
+		super(rarity, 2, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND,
 				() -> FFEConfig.isWitherAspectDiscoverable,
 				() -> FFEConfig.isWitherAspectTradeable,
 				() -> FFEConfig.isWitherAspectTreasure);

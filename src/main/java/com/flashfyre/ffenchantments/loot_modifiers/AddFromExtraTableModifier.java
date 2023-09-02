@@ -24,7 +24,7 @@ public class AddFromExtraTableModifier extends LootModifier {
 	@Override
 	protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext ctx) {
 		LootTable tableToInject = ctx.getLootTable(this.table);
-		tableToInject.getRandomItemsRaw(ctx, LootTable.createStackSplitter(ctx, generatedLoot::add));
+		tableToInject.getRandomItemsRaw(ctx, generatedLoot::add);//LootTable.createStackSplitter(ctx, generatedLoot::add));
 		return generatedLoot;	
 	}
 	

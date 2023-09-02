@@ -9,8 +9,8 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class PointedEnchantment extends FFEnchantment {
 	
-	public PointedEnchantment(Rarity rarity, EnchantmentCategory category, EquipmentSlot... slots) {
-		super(3, rarity, category, slots, 
+	public PointedEnchantment(Rarity rarity) {
+		super(rarity, 3, EnchantmentCategory.CROSSBOW, EquipmentSlot.MAINHAND, 
 				() -> FFEConfig.isPointedDiscoverable, 
 				() -> FFEConfig.isPointedTradeable, 
 				() -> FFEConfig.isPointedTreasure);

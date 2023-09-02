@@ -14,8 +14,8 @@ import net.minecraft.world.phys.Vec3;
 
 public class EndCurseEnchantment extends FFEnchantment {
 	
-	public EndCurseEnchantment(Rarity rarity, EnchantmentCategory type, EquipmentSlot... slots) {
-		super(1, rarity, type, slots, 
+	public EndCurseEnchantment(Rarity rarity) {
+		super(rarity, 1, EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD, 
 				() -> true, 
 				() -> true, 
 				() -> true);
