@@ -2,10 +2,9 @@ package com.flashfyre.ffenchantments.enchantments;
 
 import java.util.Map.Entry;
 
-import com.flashfyre.ffenchantments.FFECore;
 import com.flashfyre.ffenchantments.FFEConfig;
+import com.flashfyre.ffenchantments.FFECore;
 
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
@@ -18,7 +17,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 public class SearingTouchEnchantment extends FFEnchantment {
 	
 	public SearingTouchEnchantment(Rarity rarity) {
-		super(rarity, 2, EnchantmentCategory.ARMOR, ARMOUR_SLOTS,
+		super(rarity, 2, EnchantmentCategory.ARMOR_CHEST, ARMOUR_SLOTS,
 				() -> FFEConfig.isSearingTouchDiscoverable,
 				() -> FFEConfig.isSearingTouchTradeable,
 				() -> FFEConfig.isSearingTouchTreasure);
@@ -35,18 +34,13 @@ public class SearingTouchEnchantment extends FFEnchantment {
 	}
 	
 	@Override
-	public boolean canEnchant(ItemStack stack) {
-		return stack.getItem() instanceof ArmorItem ? true : super.canEnchant(stack);
-	}
-	
-	@Override
 	protected boolean checkCompatibility(Enchantment ench) {
 		return super.checkCompatibility(ench) && ench != Enchantments.FROST_WALKER && ench != Enchantments.DEPTH_STRIDER;
 	}
 	
 	@Override
-	public void doPostAttack(LivingEntity p_44686_, Entity p_44687_, int p_44688_) {
-		super.doPostAttack(p_44686_, p_44687_, p_44688_);
+	public boolean canEnchant(ItemStack stack) {
+		return stack.getItem() instanceof ArmorItem ? true : super.canEnchant(stack);
 	}
 	
 	public static int calculateBurnDuration(LivingEntity wearer) {
@@ -60,7 +54,7 @@ public class SearingTouchEnchantment extends FFEnchantment {
 		}
 		
 		if(burnDuration > 0) {
-			Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.getRandomItemWith(Enchantments.THORNS, wearer);
+			Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.getRandomItemWith(FFECore.Enchantments.SEARING_TOUCH.get(), wearer);
 			if(entry != null) {
 				entry.getValue().hurtAndBreak(2, wearer, (livingEntity) -> {
 					livingEntity.broadcastBreakEvent(entry.getKey());

@@ -16,7 +16,7 @@
       "StoredEnchantments": [
         {
           "lvl": 1,
-          "id": "ffenchantments:aquatic_rejuvenation"
+          "id": "ffenchantments:ender_shroud"
         }
       ]
     }
@@ -37,19 +37,13 @@
     },
     {
       "item": {
-        "item": "minecraft:ghast_tear"
-      },
-      "index": 2
-    },
-    {
-      "item": {
         "item": "minecraft:lapis_lazuli"
       },
       "index": 3
     },
     {
       "item": {
-        "item": "minecraft:heart_of_the_sea"
+        "item": "minecraft:ender_pearl"
       },
       "index": 4
     },
@@ -58,12 +52,6 @@
         "item": "minecraft:lapis_lazuli"
       },
       "index": 5
-    },
-    {
-      "item": {
-        "item": "minecraft:ghast_tear"
-      },
-      "index": 6
     },
     {
       "item": {

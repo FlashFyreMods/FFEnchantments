@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import com.flashfyre.ffenchantments.FFEConfig;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
@@ -19,39 +18,39 @@ import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class EnchantItemLootModifier extends LootModifier {
+public class EnchantItemInChestLootModifier extends LootModifier {
 	
-	public static final Codec<EnchantItemLootModifier> CODEC = RecordCodecBuilder.create(
+	public static final Codec<EnchantItemInChestLootModifier> CODEC = RecordCodecBuilder.create(
 		inst -> LootModifier.codecStart(inst).and(
 			inst.group(
-					ForgeRegistries.ITEMS.getCodec().fieldOf("item_to_enchant").forGetter(m -> m.itemToEnchant),
+					ForgeRegistries.ITEMS.getCodec().fieldOf("item").forGetter(m -> m.item),
 					Codec.FLOAT.fieldOf("chance").forGetter(m -> m.chance),
-					Codec.list(ForgeRegistries.ENCHANTMENTS.getCodec()).fieldOf("possible_enchantments").forGetter(m -> m.possibleEnchantments)
+					Codec.list(ForgeRegistries.ENCHANTMENTS.getCodec()).fieldOf("enchantments").forGetter(m -> m.enchantments)
 				)			
-			).apply(inst, EnchantItemLootModifier::new)
+			).apply(inst, EnchantItemInChestLootModifier::new)
 		);
 	
-	private final Item itemToEnchant;
+	private final Item item;
 	private final float chance;
-	private final List<Enchantment> possibleEnchantments;
+	private final List<Enchantment> enchantments;
 
-	public EnchantItemLootModifier(LootItemCondition[] conditions, Item itemToEnchant, float chance, List<Enchantment> enchantmentsList) {
+	public EnchantItemInChestLootModifier(LootItemCondition[] conditions, Item item, float chance, List<Enchantment> enchantmentsList) {
 		super(conditions);
-		this.itemToEnchant = itemToEnchant;
+		this.item = item;
 		this.chance = chance;
-		this.possibleEnchantments = enchantmentsList;
+		this.enchantments = enchantmentsList;
 	}
 	
 	@Nonnull
 	@Override
 	public ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext ctx) {
+		//if(!ctx.hasParam(LootContextParams.BLOCK_ENTITY)) return generatedLoot;
 		RandomSource r = ctx.getRandom();
-		
 		for(ItemStack stack : generatedLoot) {
 			if(stack.isEmpty()) continue;
-			if(stack.getItem() == itemToEnchant) {
+			if(stack.getItem() == item) {
 				if(r.nextDouble() < this.chance) {
-					Enchantment enchantment = possibleEnchantments.get(r.nextInt(possibleEnchantments.size()));
+					Enchantment enchantment = enchantments.get(r.nextInt(enchantments.size()));
 					stack.enchant(enchantment, 1 + ctx.getRandom().nextInt(enchantment.getMaxLevel()));
 				}					
 			}

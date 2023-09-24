@@ -7,12 +7,12 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.Enchantments;
 
-public class AquaticRejuvenationEnchantment extends FFEnchantment {
-	public AquaticRejuvenationEnchantment(Rarity rarity) {
+public class AquaticRestoration extends FFEnchantment {
+	public AquaticRestoration(Rarity rarity) {
 		super(rarity, 2, EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND, 
-				() -> FFEConfig.isAquaticRejuvenationDiscoverable, 
-				() -> FFEConfig.isAquaticRejuvenationTradeable, 
-				() -> FFEConfig.isAquaticRejuvenationTreasure);
+				() -> FFEConfig.isAquaticRestorationDiscoverable, 
+				() -> FFEConfig.isAquaticRestorationTradeable, 
+				() -> FFEConfig.isAquaticRestorationTreasure);
 	}
 	
 	@Override

@@ -20,9 +20,19 @@
 					"loot_table_id": "minecraft:chests/bastion_other"
 				}
 			]
+		},
+		{
+			"condition": "minecraft:random_chance",
+			"chance": 0.5
 		}
 		
 	],
-	"table": "ffenchantments:inject/bastion",
-	"type": "ffenchantments:add_from_extra_table"
+	"enchantments":  [
+		"minecraft:quick_charge",
+		"minecraft:piercing",
+		"minecraft:multishot",
+		"ffenchantments:inferno",
+		"ffenchantments:keen_point"
+	],
+	"type": "ffenchantments:add_enchanted_book"
 }

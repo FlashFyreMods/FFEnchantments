@@ -1,16 +1,16 @@
 {
   "replace": false,
   "entries": [    
-	"ffenchantments:piglin_bartering_replacement",
-	"ffenchantments:bastion_addition",
-	"ffenchantments:jungle_temple_addition",
-	"ffenchantments:end_city_addition",
-	"ffenchantments:igloo_addition",
-	"ffenchantments:nether_bridge_addition",
-	"ffenchantments:pillager_outpost_addition",
-	"ffenchantments:underwater_ruin_big_addition",
-	"ffenchantments:underwater_ruin_small_addition",
-	"ffenchantments:woodland_mansion_addition",
-	"ffenchantments:enchant_saddles"
+	"ffenchantments:add_enchanted_book_bastion",
+	"ffenchantments:add_enchanted_book_end_city",
+	"ffenchantments:add_enchanted_book_igloo",
+	"ffenchantments:add_enchanted_book_jungle_temple",
+	"ffenchantments:add_enchanted_book_nether_bridge",
+	"ffenchantments:add_enchanted_book_pillager_outpost",
+	"ffenchantments:add_enchanted_book_underwater_ruin_big",
+	"ffenchantments:add_enchanted_book_underwater_ruin_small",
+	"ffenchantments:add_from_table_woodland_mansion",
+	"ffenchantments:enchant_saddles",
+	"ffenchantments:replace_loot_table_piglin_bartering"
   ]
 }

@@ -63,8 +63,6 @@ public class MaelstromEnchantment extends FFEnchantment {
 			Vec3 entityPos = e.getBoundingBox().getCenter();
 			Vec3 tridentPos = trident.position();
 			e.push((tridentPos.x()-entityPos.x())*moveStrength, (tridentPos.y()-entityPos.y())*moveStrength, (tridentPos.z()-entityPos.z())*moveStrength);
-			//e.push(trident.getDeltaMovement().x() / 15, trident.getDeltaMovement().y() / 15, trident.getDeltaMovement().z() / 15);
-			//e.hurt(new DamageSource(e.level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(FFEDamageTypes.MAELSTROM), trident.getOwner(), null), 2.0F * level);
 			e.hurt(FFECore.maelstromDamage(trident, trident.getOwner()), 2.0F*level);
 			e.hurtMarked = true;
 		});

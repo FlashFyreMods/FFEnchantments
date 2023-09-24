@@ -16,9 +16,9 @@ public class OutrushEnchantment extends FFEnchantment {
 	
 	public OutrushEnchantment(Rarity rarity) {
 		super(rarity, 5, EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND, 
-				() -> FFEConfig.isOutrushDiscoverable, 
-				() -> FFEConfig.isOutrushTradeable, 
-				() -> FFEConfig.isOutrushTreasure);
+				() -> FFEConfig.isOutpourDiscoverable, 
+				() -> FFEConfig.isOutpourTradeable, 
+				() -> FFEConfig.isOutpourTreasure);
 	}
 	
 	@Override

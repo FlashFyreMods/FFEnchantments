@@ -7,13 +7,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
-public class PillagingEnchantment extends FFEnchantment {
+public class RetributionEnchantment extends FFEnchantment {
 	
-	public PillagingEnchantment(Rarity rarity) {
+	public RetributionEnchantment(Rarity rarity) {
 		super(rarity, 5, EnchantmentCategory.CROSSBOW, EquipmentSlot.MAINHAND, 
-				() -> FFEConfig.isPillagingDiscoverable, 
-				() -> FFEConfig.isPillagingTradeable, 
-				() -> FFEConfig.isPillagingTreasure);
+				() -> FFEConfig.isRetributionDiscoverable, 
+				() -> FFEConfig.isRetributionTradeable, 
+				() -> FFEConfig.isRetributionTreasure);
 	}
 	
 	@Override
@@ -28,6 +28,6 @@ public class PillagingEnchantment extends FFEnchantment {
 	
 	@Override
 	public boolean checkCompatibility(Enchantment ench) {
-		return super.checkCompatibility(ench) && ench != FFECore.Enchantments.POINTED.get();
+		return super.checkCompatibility(ench) && ench != FFECore.Enchantments.KEEN_POINT.get();
 	}
 }

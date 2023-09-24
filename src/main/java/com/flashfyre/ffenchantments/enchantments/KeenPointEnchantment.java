@@ -7,13 +7,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
-public class PointedEnchantment extends FFEnchantment {
+public class KeenPointEnchantment extends FFEnchantment {
 	
-	public PointedEnchantment(Rarity rarity) {
+	public KeenPointEnchantment(Rarity rarity) {
 		super(rarity, 3, EnchantmentCategory.CROSSBOW, EquipmentSlot.MAINHAND, 
-				() -> FFEConfig.isPointedDiscoverable, 
-				() -> FFEConfig.isPointedTradeable, 
-				() -> FFEConfig.isPointedTreasure);
+				() -> FFEConfig.isKeenPointDiscoverable, 
+				() -> FFEConfig.isKeenPointTradeable, 
+				() -> FFEConfig.isKeenPointTreasure);
 	}
 	
 	public int getMinCost(int level) {
@@ -26,6 +26,6 @@ public class PointedEnchantment extends FFEnchantment {
 	
 	@Override
 	public boolean checkCompatibility(Enchantment ench) {
-		return super.checkCompatibility(ench) && ench != FFECore.Enchantments.PILLAGING.get();
+		return super.checkCompatibility(ench) && ench != FFECore.Enchantments.RETRIBUTION.get();
 	}
 }

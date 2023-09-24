@@ -3,8 +3,12 @@
 		{
 			"condition": "forge:loot_table_id",
 			"loot_table_id": "minecraft:chests/woodland_mansion"
+		},
+		{
+			"condition": "minecraft:random_chance",
+			"chance": 0.4
 		}
 	],
-	"table": "ffenchantments:inject/woodland_mansion",
+	"table": "ffenchantments:woodland_mansion_addition",
 	"type": "ffenchantments:add_from_extra_table"
 }

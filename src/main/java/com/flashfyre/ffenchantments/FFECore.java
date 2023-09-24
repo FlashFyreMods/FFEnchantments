@@ -1,6 +1,5 @@
 package com.flashfyre.ffenchantments;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -11,22 +10,19 @@ import org.apache.logging.log4j.Logger;
 
 import com.flashfyre.ffenchantments.capability.MaelstromTridentReturning;
 import com.flashfyre.ffenchantments.capability.ShooterEnchantments;
-import com.flashfyre.ffenchantments.enchantments.AnchoringCurseEnchantment;
-import com.flashfyre.ffenchantments.enchantments.AquaticRejuvenationEnchantment;
-import com.flashfyre.ffenchantments.enchantments.BloodlustEnchantment;
+import com.flashfyre.ffenchantments.enchantments.AquaticRestoration;
 import com.flashfyre.ffenchantments.enchantments.BuoyancyHorseEnchantment;
 import com.flashfyre.ffenchantments.enchantments.ButcheringEnchantment;
-import com.flashfyre.ffenchantments.enchantments.EndCurseEnchantment;
 import com.flashfyre.ffenchantments.enchantments.EnderShroudEnchantment;
 import com.flashfyre.ffenchantments.enchantments.InfernoEnchantment;
+import com.flashfyre.ffenchantments.enchantments.KeenPointEnchantment;
 import com.flashfyre.ffenchantments.enchantments.LeapingHorseEnchantment;
 import com.flashfyre.ffenchantments.enchantments.MaelstromEnchantment;
 import com.flashfyre.ffenchantments.enchantments.ObsidianSkullEnchantment;
 import com.flashfyre.ffenchantments.enchantments.OutrushEnchantment;
-import com.flashfyre.ffenchantments.enchantments.PillagingEnchantment;
-import com.flashfyre.ffenchantments.enchantments.PointedEnchantment;
 import com.flashfyre.ffenchantments.enchantments.PoisonAspectEnchantment;
 import com.flashfyre.ffenchantments.enchantments.QuicknessHorseEnchantment;
+import com.flashfyre.ffenchantments.enchantments.RetributionEnchantment;
 import com.flashfyre.ffenchantments.enchantments.SearingTouchEnchantment;
 import com.flashfyre.ffenchantments.enchantments.SteadfastEnchantment;
 import com.flashfyre.ffenchantments.enchantments.TorrentEnchantment;
@@ -44,13 +40,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.IndirectEntityDamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantment.Rarity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -83,44 +76,40 @@ public class FFECore {
 		forgeBus.addListener(EnderShroudEnchantment::onEndermanAnger);
 		forgeBus.addListener(WeightedBladeEnchantment::onCrit);		
 	}
-	
-	
-	
-	
+
 	public static class Enchantments {		
 		public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, FFECore.MOD_ID);
 		
-		// Sword or Axe
-		public static final RegistryObject<Enchantment> BLOODLUST = register("bloodlust", new BloodlustEnchantment(Rarity.RARE));
+		// Sword & Axe
 		public static final RegistryObject<Enchantment> BUTCHERING = register("butchering", new ButcheringEnchantment(Rarity.RARE));
 		public static final RegistryObject<Enchantment> POISON_ASPECT = register("poison_aspect", new PoisonAspectEnchantment(Rarity.RARE));
 		public static final RegistryObject<Enchantment> VAMPIRIC = register("vampiric", new VampiricEnchantment(Rarity.VERY_RARE));
 		public static final RegistryObject<Enchantment> WEIGHTED_BLADE = register("weighted_blade", new WeightedBladeEnchantment(Rarity.UNCOMMON));
 		public static final RegistryObject<Enchantment> WITHER_ASPECT = register("wither_aspect", new WitherAspectEnchantment(Rarity.VERY_RARE));		
 		
+		// Bow
+		
 		// Crossbow
-		public static final RegistryObject<Enchantment> PILLAGING = register("pillaging", new PillagingEnchantment(Rarity.UNCOMMON));
-		public static final RegistryObject<Enchantment> POINTED = register("pointed", new PointedEnchantment(Rarity.COMMON));
+		public static final RegistryObject<Enchantment> INFERNO = register("inferno", new InfernoEnchantment(Rarity.VERY_RARE));
+		public static final RegistryObject<Enchantment> KEEN_POINT = register("keen_point", new KeenPointEnchantment(Rarity.COMMON));
+		public static final RegistryObject<Enchantment> RETRIBUTION = register("retribution", new RetributionEnchantment(Rarity.UNCOMMON));		
 		
 		// Trident
-		public static final RegistryObject<Enchantment> AQUATIC_REJUVENATION = register("aquatic_rejuvenation", new AquaticRejuvenationEnchantment(Enchantment.Rarity.COMMON));
-		public static final RegistryObject<Enchantment> INFERNO = register("inferno", new InfernoEnchantment(Rarity.VERY_RARE));
+		public static final RegistryObject<Enchantment> AQUATIC_RESTORATION = register("aquatic_restoration", new AquaticRestoration(Enchantment.Rarity.VERY_RARE));		
 		public static final RegistryObject<Enchantment> MAELSTROM = register("maelstrom", new MaelstromEnchantment(Rarity.RARE));
-		public static final RegistryObject<Enchantment> OUTRUSH = register("outrush", new OutrushEnchantment(Rarity.UNCOMMON));
-		public static final RegistryObject<Enchantment> TORRENT = register("torrent", new TorrentEnchantment(Rarity.RARE));
+		public static final RegistryObject<Enchantment> OUTPOUR = register("outpour", new OutrushEnchantment(Rarity.UNCOMMON));
+		public static final RegistryObject<Enchantment> TORRENT = register("torrent", new TorrentEnchantment(Rarity.RARE));		
+		
+		// Armour
+		public static final RegistryObject<Enchantment> ENDER_SHROUD = register("ender_shroud", new EnderShroudEnchantment(Rarity.VERY_RARE));
+		public static final RegistryObject<Enchantment> OBSIDIAN_SKULL = register("obsidian_skull", new ObsidianSkullEnchantment(Rarity.VERY_RARE));
+		public static final RegistryObject<Enchantment> SEARING_TOUCH = register("searing_touch", new SearingTouchEnchantment(Rarity.VERY_RARE));
+		public static final RegistryObject<Enchantment> STEADFAST = register("steadfast", new SteadfastEnchantment(Rarity.UNCOMMON));
 		
 		// Saddle
 		public static final RegistryObject<Enchantment> BUOYANCY_HORSE = register("buoyancy_horse", new BuoyancyHorseEnchantment(Enchantment.Rarity.RARE));
 		public static final RegistryObject<Enchantment> LEAPING_HORSE = register("leaping_horse", new LeapingHorseEnchantment(Enchantment.Rarity.UNCOMMON));
 		public static final RegistryObject<Enchantment> QUICKNESS_HORSE = register("quickness_horse", new QuicknessHorseEnchantment(Rarity.UNCOMMON));
-		
-		// Armour		
-		public static final RegistryObject<Enchantment> ANCHORING_CURSE = register("anchoring_curse", new AnchoringCurseEnchantment(Rarity.VERY_RARE));
-		public static final RegistryObject<Enchantment> END_CURSE = register("end_curse", new EndCurseEnchantment(Rarity.VERY_RARE));
-		public static final RegistryObject<Enchantment> ENDER_SHROUD = register("ender_shroud", new EnderShroudEnchantment(Rarity.VERY_RARE));
-		public static final RegistryObject<Enchantment> OBSIDIAN_SKULL = register("obsidian_skull", new ObsidianSkullEnchantment(Rarity.VERY_RARE));
-		public static final RegistryObject<Enchantment> SEARING_TOUCH = register("searing_touch", new SearingTouchEnchantment(Rarity.UNCOMMON));
-		public static final RegistryObject<Enchantment> STEADFAST = register("steadfast", new SteadfastEnchantment(Rarity.UNCOMMON));
 
 		private static RegistryObject<Enchantment> register(String id, Enchantment enchantment) {
 			RegistryObject<Enchantment> regObject = ENCHANTMENTS.register(id, () -> enchantment);			

@@ -16,7 +16,7 @@
       "StoredEnchantments": [
         {
           "lvl": 1,
-          "id": "ffenchantments:pillaging"
+          "id": "ffenchantments:aquatic_restoration"
         }
       ]
     }
@@ -37,7 +37,7 @@
     },
     {
       "item": {
-        "item": "minecraft:tripwire_hook"
+        "item": "minecraft:ghast_tear"
       },
       "index": 2
     },
@@ -49,7 +49,7 @@
     },
     {
       "item": {
-        "item": "minecraft:emerald"
+        "item": "minecraft:heart_of_the_sea"
       },
       "index": 4
     },
@@ -61,7 +61,7 @@
     },
     {
       "item": {
-        "item": "minecraft:tripwire_hook"
+        "item": "minecraft:ghast_tear"
       },
       "index": 6
     },

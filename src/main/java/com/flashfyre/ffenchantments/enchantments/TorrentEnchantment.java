@@ -1,16 +1,9 @@
 package com.flashfyre.ffenchantments.enchantments;
 
-import java.util.UUID;
-
-import com.flashfyre.ffenchantments.FFECore;
 import com.flashfyre.ffenchantments.FFEConfig;
 
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraftforge.common.ForgeMod;
 
 public class TorrentEnchantment extends FFEnchantment {
 	
@@ -31,27 +24,5 @@ public class TorrentEnchantment extends FFEnchantment {
 	@Override
 	public int getMaxCost(int enchantmentLevel) {
 		return this.getMinCost(enchantmentLevel) + 6;
-	}
-	
-	public static void increaseSpeed(LivingEntity entity) {
-		int level = entity.getItemInHand(InteractionHand.MAIN_HAND).getEnchantmentLevel(FFECore.Enchantments.TORRENT.get());
-		if(!entity.isInWater()) {
-			if(entity.getAttribute(ForgeMod.SWIM_SPEED.get()).getModifier(UUID.fromString(TORRENT_MODIFIER_UUID)) != null) {
-				entity.getAttribute(ForgeMod.SWIM_SPEED.get()).removeModifier(UUID.fromString(TORRENT_MODIFIER_UUID));
-			}
-			return;
-		}
-		if(level > 0) {
-			if(entity.getAttribute(ForgeMod.SWIM_SPEED.get()).getModifier(UUID.fromString(TORRENT_MODIFIER_UUID)) == null) {
-				AttributeModifier modifier = new AttributeModifier(UUID.fromString(TORRENT_MODIFIER_UUID), "torrent_enchantment", (level * 0.3333333333333F), AttributeModifier.Operation.ADDITION);
-				entity.getAttribute(ForgeMod.SWIM_SPEED.get()).addPermanentModifier(modifier);
-			}
-			
-		}
-		else {
-			if(entity.getAttribute(ForgeMod.SWIM_SPEED.get()).getModifier(UUID.fromString(TORRENT_MODIFIER_UUID)) != null) {
-				entity.getAttribute(ForgeMod.SWIM_SPEED.get()).removeModifier(UUID.fromString(TORRENT_MODIFIER_UUID));
-			}		
-		}	
 	}
 }

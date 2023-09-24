@@ -27,9 +27,6 @@ public class ObsidianSkullEnchantment extends FFEnchantment {
 	
 	@Override
 	public int getDamageProtection(int level, DamageSource source) {
-		if(source == DamageSource.FLY_INTO_WALL) {
-			return level * 4;
-		}
-		return 0;
+		return source == DamageSource.FLY_INTO_WALL ? level * 4 : 0;
 	}
 }

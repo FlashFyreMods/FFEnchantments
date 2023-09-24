@@ -5,10 +5,7 @@ import com.flashfyre.ffenchantments.FFEConfig;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
-public class SteadfastEnchantment extends FFEnchantment {
-	
-	public static final String STEADFAST_MODIFIER_ID = "c9b42190-12b8-4015-96b3-d0df6c89812c";
-	
+public class SteadfastEnchantment extends FFEnchantment {	
 	public SteadfastEnchantment(Rarity rarity) {
 		super(rarity, 3, EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST, 
 				() -> FFEConfig.isSteadfastDiscoverable,

@@ -9,6 +9,6 @@
 			"chance": 0.00217864923
 		}
 	],
-	"table": "ffenchantments:inject/piglin_bartering",
+	"table": "ffenchantments:piglin_bartering_replacement",
 	"type": "ffenchantments:replace_with_table"
 }

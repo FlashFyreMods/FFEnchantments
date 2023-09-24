@@ -16,7 +16,7 @@
       "StoredEnchantments": [
         {
           "lvl": 1,
-          "id": "ffenchantments:searing"
+          "id": "ffenchantments:retribution"
         }
       ]
     }
@@ -37,7 +37,7 @@
     },
     {
       "item": {
-        "item": "minecraft:blaze_powder"
+        "item": "minecraft:tripwire_hook"
       },
       "index": 2
     },
@@ -49,7 +49,7 @@
     },
     {
       "item": {
-        "item": "minecraft:flint_and_steel"
+        "item": "minecraft:emerald"
       },
       "index": 4
     },
@@ -61,7 +61,7 @@
     },
     {
       "item": {
-        "item": "minecraft:blaze_powder"
+        "item": "minecraft:tripwire_hook"
       },
       "index": 6
     },

@@ -1,0 +1,20 @@
+{
+	"conditions": [
+		{
+			"condition": "forge:loot_table_id",
+			"loot_table_id": "minecraft:chests/nether_bridge"
+		},
+		{
+			"condition": "minecraft:random_chance",
+			"chance": 0.3
+		}
+	],
+	"enchantments":  [
+		"minecraft:fire_aspect",
+		"minecraft:fire_protection",
+		"minecraft:flame",
+		"ffenchantments:searing_touch",
+		"ffenchantments:wither_aspect"
+	],
+	"type": "ffenchantments:add_enchanted_book"
+}

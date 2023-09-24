@@ -21,98 +21,32 @@ public class FFEConfig
 		COMMON = specPair.getLeft();
 	}
 	
-	public static boolean isAnchoringCurseDiscoverable;
-	public static boolean isAnchoringCurseTradeable;
-	
-	public static boolean isAquaticRejuvenationDiscoverable;
-	public static boolean isAquaticRejuvenationTradeable;
-	public static boolean isAquaticRejuvenationTreasure;
-
-	public static boolean isBloodlustDiscoverable;
-	public static boolean isBloodlustTradeable;
-	public static boolean isBloodlustTreasure;
-	
-	public static boolean isBuoyancyDiscoverable;
-	public static boolean isBuoyancyTradeable;
-	public static boolean isBuoyancyTreasure;
-	
-	public static boolean isButcheringDiscoverable;
-	public static boolean isButcheringTradeable;
-	public static boolean isButcheringTreasure;
-	
-	public static boolean isInfernoDiscoverable;
-	public static boolean isInfernoTradeable;
-	public static boolean isInfernoTreasure;
-	
-	public static boolean isLeapingDiscoverable;
-	public static boolean isLeapingTradeable;
-	public static boolean isLeapingTreasure;
-	
-	public static boolean isMaelstromDiscoverable;
-	public static boolean isMaelstromTradeable;
-	public static boolean isMaelstromTreasure;
-	
-	public static boolean isObsidianSkullDiscoverable;
-	public static boolean isObsidianSkullTradeable;
-	public static boolean isObsidianSkullTreasure;
-	
-	public static boolean isOutrushDiscoverable;
-	public static boolean isOutrushTradeable;
-	public static boolean isOutrushTreasure;
-
-	public static boolean isPillagingDiscoverable;
-	public static boolean isPillagingTradeable;
-	public static boolean isPillagingTreasure;
-	
-	public static boolean isPointedDiscoverable;
-	public static boolean isPointedTradeable;
-	public static boolean isPointedTreasure;
-
-	public static boolean isPoisonAspectDiscoverable;
-	public static boolean isPoisonAspectTradeable;
-	public static boolean isPoisonAspectTreasure;
-	
-	public static boolean isQuicknessDiscoverable;
-	public static boolean isQuicknessTradeable;
-	public static boolean isQuicknessTreasure;
-	
-	public static boolean isSearingTouchDiscoverable;
-	public static boolean isSearingTouchTradeable;
-	public static boolean isSearingTouchTreasure;
-	
-	public static boolean isSteadfastDiscoverable;
-	public static boolean isSteadfastTradeable;
-	public static boolean isSteadfastTreasure;
-	
-	public static boolean isTorrentDiscoverable;
-	public static boolean isTorrentTradeable;
-	public static boolean isTorrentTreasure;
-
-	public static boolean isVampiricDiscoverable;
-	public static boolean isVampiricTradeable;
-	public static boolean isVampiricTreasure;
-	
-	public static boolean isWeightedBladeDiscoverable;
-	public static boolean isWeightedBladeTradeable;
-	public static boolean isWeightedBladeTreasure;
-	
-	public static boolean isWitherAspectDiscoverable;
-	public static boolean isWitherAspectTradeable;
-	public static boolean isWitherAspectTreasure;
+	public static boolean isAquaticRestorationDiscoverable, isAquaticRestorationTradeable, isAquaticRestorationTreasure;
+	public static boolean isBuoyancyDiscoverable, isBuoyancyTradeable, isBuoyancyTreasure;	
+	public static boolean isButcheringDiscoverable, isButcheringTradeable, isButcheringTreasure;
+	public static boolean isEnderShroudDiscoverable, isEnderShroudTradeable, isEnderShroudTreasure;
+	public static boolean isInfernoDiscoverable, isInfernoTradeable, isInfernoTreasure;	
+	public static boolean isLeapingDiscoverable, isLeapingTradeable, isLeapingTreasure;	
+	public static boolean isMaelstromDiscoverable, isMaelstromTradeable, isMaelstromTreasure;	
+	public static boolean isObsidianSkullDiscoverable, isObsidianSkullTradeable, isObsidianSkullTreasure;	
+	public static boolean isOutpourDiscoverable, isOutpourTradeable, isOutpourTreasure;
+	public static boolean isRetributionDiscoverable, isRetributionTradeable, isRetributionTreasure;	
+	public static boolean isKeenPointDiscoverable, isKeenPointTradeable, isKeenPointTreasure;
+	public static boolean isPoisonAspectDiscoverable, isPoisonAspectTradeable, isPoisonAspectTreasure;	
+	public static boolean isQuicknessDiscoverable, isQuicknessTradeable, isQuicknessTreasure;	
+	public static boolean isSearingTouchDiscoverable, isSearingTouchTradeable, isSearingTouchTreasure;	
+	public static boolean isSteadfastDiscoverable, isSteadfastTradeable, isSteadfastTreasure;	
+	public static boolean isTorrentDiscoverable, isTorrentTradeable, isTorrentTreasure;
+	public static boolean isVampiricDiscoverable, isVampiricTradeable, isVampiricTreasure;	
+	public static boolean isWeightedBladeDiscoverable, isWeightedBladeTradeable, isWeightedBladeTreasure;	
+	public static boolean isWitherAspectDiscoverable, isWitherAspectTradeable, isWitherAspectTreasure;
 	
 	
 	public static void bakeConfig() {
 		
-		isAnchoringCurseDiscoverable = COMMON.isAnchoringCurseDiscoverable.get();
-		isAnchoringCurseTradeable = COMMON.isAnchoringCurseTradeable.get();
-		
-		isAquaticRejuvenationDiscoverable = COMMON.isAquaticRejuvenationDiscoverable.get();
-		isAquaticRejuvenationTradeable = COMMON.isAquaticRejuvenationTradeable.get();
-		isAquaticRejuvenationTreasure = COMMON.isAquaticRejuvenationTreasure.get();
-		
-		isBloodlustDiscoverable = COMMON.isBloodlustDiscoverable.get();
-		isBloodlustTradeable = COMMON.isBloodlustTradeable.get();
-		isBloodlustTreasure = COMMON.isBloodlustTreasure.get();
+		isAquaticRestorationDiscoverable = COMMON.isAquaticRejuvenationDiscoverable.get();
+		isAquaticRestorationTradeable = COMMON.isAquaticRejuvenationTradeable.get();
+		isAquaticRestorationTreasure = COMMON.isAquaticRejuvenationTreasure.get();
 		
 		isBuoyancyDiscoverable = COMMON.isBuoyancyDiscoverable.get();
 		isBuoyancyTradeable = COMMON.isBuoyancyTradeable.get();
@@ -121,6 +55,10 @@ public class FFEConfig
 		isButcheringDiscoverable = COMMON.isButcheringDiscoverable.get();
 		isButcheringTradeable = COMMON.isButcheringTradeable.get();
 		isButcheringTreasure = COMMON.isButcheringTreasure.get();
+		
+		isEnderShroudDiscoverable = COMMON.isEnderShroudDiscoverable.get();
+		isEnderShroudTradeable = COMMON.isEnderShroudTradeable.get();
+		isEnderShroudTreasure = COMMON.isEnderShroudTreasure.get();
 		
 		isInfernoDiscoverable = COMMON.isInfernoDiscoverable.get();
 		isInfernoTradeable = COMMON.isInfernoTradeable.get();
@@ -138,17 +76,17 @@ public class FFEConfig
 		isObsidianSkullTradeable = COMMON.isObsidianSkullTradeable.get();
 		isObsidianSkullTreasure = COMMON.isObsidianSkullTreasure.get();
 		
-		isOutrushDiscoverable = COMMON.isOutrushDiscoverable.get();
-		isOutrushTradeable = COMMON.isOutrushTradeable.get();
-		isOutrushTreasure = COMMON.isOutrushTreasure.get();
+		isOutpourDiscoverable = COMMON.isOutpourDiscoverable.get();
+		isOutpourTradeable = COMMON.isOutpourTradeable.get();
+		isOutpourTreasure = COMMON.isOutpourTreasure.get();
 		
-		isPillagingDiscoverable = COMMON.isPillagingDiscoverable.get();
-		isPillagingTradeable = COMMON.isPillagingTradeable.get();
-		isPillagingTreasure = COMMON.isPillagingTreasure.get();
+		isRetributionDiscoverable = COMMON.isRetributionDiscoverable.get();
+		isRetributionTradeable = COMMON.isRetributionTradeable.get();
+		isRetributionTreasure = COMMON.isRetributionTreasure.get();
 		
-		isPointedDiscoverable = COMMON.isPointedDiscoverable.get();
-		isPointedTradeable = COMMON.isPointedTradeable.get();
-		isPointedTreasure = COMMON.isPointedTreasure.get();
+		isKeenPointDiscoverable = COMMON.isKeenPointDiscoverable.get();
+		isKeenPointTradeable = COMMON.isKeenPointTradeable.get();
+		isKeenPointTreasure = COMMON.isKeenPointTreasure.get();
 		
 		isPoisonAspectDiscoverable = COMMON.isPoisonAspectDiscoverable.get();
 		isPoisonAspectTradeable = COMMON.isPoisonAspectTradeable.get();
@@ -204,99 +142,31 @@ public class FFEConfig
 	
 	public static class Common {
 		
-		public final ForgeConfigSpec.BooleanValue isAnchoringCurseDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isAnchoringCurseTradeable;
-		
-		public final ForgeConfigSpec.BooleanValue isAquaticRejuvenationDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isAquaticRejuvenationTradeable;
-		public final ForgeConfigSpec.BooleanValue isAquaticRejuvenationTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isBloodlustDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isBloodlustTradeable;
-		public final ForgeConfigSpec.BooleanValue isBloodlustTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isBuoyancyDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isBuoyancyTradeable;
-		public final ForgeConfigSpec.BooleanValue isBuoyancyTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isButcheringDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isButcheringTradeable;
-		public final ForgeConfigSpec.BooleanValue isButcheringTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isInfernoDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isInfernoTradeable;
-		public final ForgeConfigSpec.BooleanValue isInfernoTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isLeapingDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isLeapingTradeable;
-		public final ForgeConfigSpec.BooleanValue isLeapingTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isMaelstromDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isMaelstromTradeable;
-		public final ForgeConfigSpec.BooleanValue isMaelstromTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isObsidianSkullDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isObsidianSkullTradeable;
-		public final ForgeConfigSpec.BooleanValue isObsidianSkullTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isOutrushDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isOutrushTradeable;
-		public final ForgeConfigSpec.BooleanValue isOutrushTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isPillagingDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isPillagingTradeable;
-		public final ForgeConfigSpec.BooleanValue isPillagingTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isPointedDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isPointedTradeable;
-		public final ForgeConfigSpec.BooleanValue isPointedTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isPoisonAspectDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isPoisonAspectTradeable;
-		public final ForgeConfigSpec.BooleanValue isPoisonAspectTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isQuicknessDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isQuicknessTradeable;
-		public final ForgeConfigSpec.BooleanValue isQuicknessTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isSearingTouchDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isSearingTouchTradeable;
-		public final ForgeConfigSpec.BooleanValue isSearingTouchTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isSteadfastDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isSteadfastTradeable;
-		public final ForgeConfigSpec.BooleanValue isSteadfastTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isTorrentDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isTorrentTradeable;
-		public final ForgeConfigSpec.BooleanValue isTorrentTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isVampiricDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isVampiricTradeable;
-		public final ForgeConfigSpec.BooleanValue isVampiricTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isWeightedBladeDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isWeightedBladeTradeable;
-		public final ForgeConfigSpec.BooleanValue isWeightedBladeTreasure;
-		
-		public final ForgeConfigSpec.BooleanValue isWitherAspectDiscoverable;
-		public final ForgeConfigSpec.BooleanValue isWitherAspectTradeable;
-		public final ForgeConfigSpec.BooleanValue isWitherAspectTreasure;
+		public final ForgeConfigSpec.BooleanValue isAquaticRejuvenationDiscoverable, isAquaticRejuvenationTradeable, isAquaticRejuvenationTreasure;
+		public final ForgeConfigSpec.BooleanValue isBuoyancyDiscoverable, isBuoyancyTradeable, isBuoyancyTreasure;
+		public final ForgeConfigSpec.BooleanValue isButcheringDiscoverable, isButcheringTradeable, isButcheringTreasure;
+		public final ForgeConfigSpec.BooleanValue isEnderShroudDiscoverable, isEnderShroudTradeable, isEnderShroudTreasure;
+		public final ForgeConfigSpec.BooleanValue isInfernoDiscoverable, isInfernoTradeable, isInfernoTreasure;
+		public final ForgeConfigSpec.BooleanValue isLeapingDiscoverable, isLeapingTradeable, isLeapingTreasure;
+		public final ForgeConfigSpec.BooleanValue isMaelstromDiscoverable, isMaelstromTradeable, isMaelstromTreasure;
+		public final ForgeConfigSpec.BooleanValue isObsidianSkullDiscoverable, isObsidianSkullTradeable, isObsidianSkullTreasure;
+		public final ForgeConfigSpec.BooleanValue isOutpourDiscoverable, isOutpourTradeable, isOutpourTreasure;
+		public final ForgeConfigSpec.BooleanValue isRetributionDiscoverable, isRetributionTradeable, isRetributionTreasure;
+		public final ForgeConfigSpec.BooleanValue isKeenPointDiscoverable, isKeenPointTradeable, isKeenPointTreasure;
+		public final ForgeConfigSpec.BooleanValue isPoisonAspectDiscoverable, isPoisonAspectTradeable, isPoisonAspectTreasure;
+		public final ForgeConfigSpec.BooleanValue isQuicknessDiscoverable, isQuicknessTradeable, isQuicknessTreasure;
+		public final ForgeConfigSpec.BooleanValue isSearingTouchDiscoverable, isSearingTouchTradeable, isSearingTouchTreasure;
+		public final ForgeConfigSpec.BooleanValue isSteadfastDiscoverable, isSteadfastTradeable, isSteadfastTreasure;
+		public final ForgeConfigSpec.BooleanValue isTorrentDiscoverable, isTorrentTradeable, isTorrentTreasure;
+		public final ForgeConfigSpec.BooleanValue isVampiricDiscoverable, isVampiricTradeable, isVampiricTreasure;
+		public final ForgeConfigSpec.BooleanValue isWeightedBladeDiscoverable, isWeightedBladeTradeable, isWeightedBladeTreasure;
+		public final ForgeConfigSpec.BooleanValue isWitherAspectDiscoverable, isWitherAspectTradeable, isWitherAspectTreasure;
 		
 		public Common(ForgeConfigSpec.Builder builder) {
 			builder.comment("Enchantment Configuration")
 			.push("enchantments");
 			
-			builder.push("anchoring_curse");
-			isAnchoringCurseDiscoverable = builder
-					.worldRestart()
-					.define("isAnchoringCurseDiscoverable", true);			
-			isAnchoringCurseTradeable = builder
-					.worldRestart()
-					.define("isAnchoringCurseTradeable", true);
-			builder.pop();
-			
-			builder.push("aquatic_rejuvenation");
+			builder.push("aquatic_restoration");
 			isAquaticRejuvenationDiscoverable = builder
 					.worldRestart()
 					.define("canAquaticRejuvenationGenerateInLoot", true);			
@@ -306,18 +176,6 @@ public class FFEConfig
 			isAquaticRejuvenationTreasure = builder
 					.worldRestart()
 					.define("isAquaticRejuvenationTreasure", true);
-			builder.pop();
-			
-			builder.push("bloodlust");
-			isBloodlustDiscoverable = builder
-					.worldRestart()
-					.define("isBloodlustDiscoverable", true);			
-			isBloodlustTradeable = builder
-					.worldRestart()
-					.define("isBloodlustTradeable", true);
-			isBloodlustTreasure = builder
-					.worldRestart()
-					.define("isBloodlustTreasure", false);
 			builder.pop();
 			
 			builder.push("buoyancy");
@@ -342,6 +200,18 @@ public class FFEConfig
 			isButcheringTreasure = builder
 					.worldRestart()
 					.define("isButcheringTreasure", false);
+			builder.pop();
+			
+			builder.push("ender_shroud");
+			isEnderShroudDiscoverable = builder
+					.worldRestart()
+					.define("isEnderShroudDiscoverable", true);			
+			isEnderShroudTradeable = builder
+					.worldRestart()
+					.define("isEnderShroudTradeable", true);
+			isEnderShroudTreasure = builder
+					.worldRestart()
+					.define("isEnderShroudTreasure", false);
 			builder.pop();
 			
 			builder.push("inferno");
@@ -392,40 +262,40 @@ public class FFEConfig
 					.define("isObsidianSkullTreasure", true);
 			builder.pop();
 			
-			builder.push("outrush");
-			isOutrushDiscoverable = builder
+			builder.push("outpour");
+			isOutpourDiscoverable = builder
 					.worldRestart()
-					.define("isOutrushDiscoverable", true);			
-			isOutrushTradeable = builder
+					.define("isOutpourDiscoverable", true);			
+			isOutpourTradeable = builder
 					.worldRestart()
-					.define("isOutrushTradeable", true);
-			isOutrushTreasure = builder
+					.define("isOutpourTradeable", true);
+			isOutpourTreasure = builder
 					.worldRestart()
-					.define("isOutrushTreasure", false);
+					.define("isOutpourTreasure", false);
 			builder.pop();
 			
-			builder.push("pillaging");
-			isPillagingDiscoverable = builder
+			builder.push("retribution");
+			isRetributionDiscoverable = builder
 					.worldRestart()
-					.define("isPillagingDiscoverable", true);			
-			isPillagingTradeable = builder
+					.define("isRetributionDiscoverable", true);			
+			isRetributionTradeable = builder
 					.worldRestart()
-					.define("isPillagingTradeable", true);
-			isPillagingTreasure = builder
+					.define("isRetributionTradeable", true);
+			isRetributionTreasure = builder
 					.worldRestart()
-					.define("isPillagingTreasure", false);
+					.define("isRetributionTreasure", false);
 			builder.pop();
 			
-			builder.push("pointed");
-			isPointedDiscoverable = builder
+			builder.push("keen_point");
+			isKeenPointDiscoverable = builder
 					.worldRestart()
-					.define("isPointedDiscoverable", true);			
-			isPointedTradeable = builder
+					.define("isKeenPointDiscoverable", true);			
+			isKeenPointTradeable = builder
 					.worldRestart()
-					.define("isPointedTradeable", true);
-			isPointedTreasure = builder
+					.define("isKeenPointTradeable", true);
+			isKeenPointTreasure = builder
 					.worldRestart()
-					.define("isPointedTreasure", false);
+					.define("isKeenPointTreasure", false);
 			builder.pop();
 			
 			builder.push("poison_aspect");
@@ -452,16 +322,16 @@ public class FFEConfig
 					.define("isQuicknessTreasure", false);
 			builder.pop();
 			
-			builder.push("searing");
+			builder.push("searing_touch");
 			isSearingTouchDiscoverable = builder
 					.worldRestart()
 					.define("isSearingTouchDiscoverable", true);			
 			isSearingTouchTradeable = builder
 					.worldRestart()
-					.define("isSearingTradeable", true);
+					.define("isSearingTouchTradeable", true);
 			isSearingTouchTreasure = builder
 					.worldRestart()
-					.define("isSearingTreasure", false);
+					.define("isSearingTouchTreasure", false);
 			builder.pop();
 			
 			builder.push("steadfast");
@@ -500,7 +370,7 @@ public class FFEConfig
 					.define("isVampiricTreasure", true);
 			builder.pop();
 			
-			builder.push("weighted");
+			builder.push("weighted_blade");
 			isWeightedBladeDiscoverable = builder
 					.worldRestart()
 					.define("isWeightedBladeDiscoverable", true);			

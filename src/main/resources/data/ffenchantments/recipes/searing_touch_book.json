@@ -16,7 +16,7 @@
       "StoredEnchantments": [
         {
           "lvl": 1,
-          "id": "ffenchantments:bloodlust"
+          "id": "ffenchantments:searing_touch"
         }
       ]
     }
@@ -37,7 +37,7 @@
     },
     {
       "item": {
-        "item": "minecraft:rotten_flesh"
+        "item": "minecraft:blaze_powder"
       },
       "index": 2
     },
@@ -49,7 +49,7 @@
     },
     {
       "item": {
-        "item": "minecraft:rotten_flesh"
+        "item": "minecraft:flint_and_steel"
       },
       "index": 4
     },
@@ -61,7 +61,7 @@
     },
     {
       "item": {
-        "item": "minecraft:rotten_flesh"
+        "item": "minecraft:blaze_powder"
       },
       "index": 6
     },
