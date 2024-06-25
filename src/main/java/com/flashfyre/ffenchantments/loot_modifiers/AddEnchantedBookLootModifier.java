@@ -41,7 +41,7 @@ public class AddEnchantedBookLootModifier extends LootModifier {
 		List<Enchantment> enchantments = this.enchantments.stream().filter(e -> e.isDiscoverable() && e.isAllowedOnBooks()).collect(Collectors.toList());
 		if(!enchantments.isEmpty()) {
 			RandomSource r = ctx.getRandom();
-			Enchantment ench = enchantments.get(r.nextInt(this.enchantments.size()));
+			Enchantment ench = enchantments.get(r.nextInt(enchantments.size()));
 			ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
 			EnchantedBookItem.addEnchantment(book, new EnchantmentInstance(ench, Mth.nextInt(r, ench.getMinLevel(), ench.getMaxLevel())));
 			generatedLoot.add(book);

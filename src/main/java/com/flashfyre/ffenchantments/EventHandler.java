@@ -191,7 +191,7 @@ public class EventHandler {
 						{
 							if(data.hasEnchantment(FFECore.Enchantments.INFERNO.get())) {
 								int level = data.getEnchantments().get(FFECore.Enchantments.INFERNO.get());
-								if(level > 0) {
+								if(level > 0 && arrow.isOnFire()) {
 									List<LivingEntity> entitiesInAoE = getEntitiesInAABB(arrow.level, level*1.5, arrow.position());
 									for(LivingEntity e : entitiesInAoE) {
 										if(!InfernoEnchantment.isEntityValidForIgnition(e, arrow)) continue;						
@@ -259,7 +259,7 @@ public class EventHandler {
 					arrow.getCapability(ShooterEnchantmentsProvider.SHOOTER_ENCHANTMENTS).ifPresent(data -> {
 						if(data.hasEnchantment(FFECore.Enchantments.INFERNO.get())) {
 							int level = data.getEnchantments().get(FFECore.Enchantments.INFERNO.get());
-							if(level > 0) {
+							if(level > 0 && arrow.isOnFire()) {
 								List<LivingEntity> entitiesInAoE = getEntitiesInAABB(sWorld, level*0.75, arrow.position());
 								for(LivingEntity e : entitiesInAoE) {
 									if(!InfernoEnchantment.isEntityValidForIgnition(e, arrow)) continue;
