@@ -25,11 +25,11 @@ public class ReplaceWithTableModifier extends LootModifier {
 
 	@Override
 	protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot,
-			LootContext ctx) {		
+			LootContext ctx) {
+		generatedLoot.clear();
 		LootTable replacementTable = ctx.getLootTable(this.table);
-		ObjectArrayList<ItemStack> replacementLoot = new ObjectArrayList<ItemStack>();
-		replacementTable.getRandomItemsRaw(ctx, generatedLoot::add);
-		return replacementLoot;
+		replacementTable.getRandomItemsRaw(ctx, LootTable.createStackSplitter(generatedLoot::add));
+		return generatedLoot;
 	}
 	
 	public static final Codec<ReplaceWithTableModifier> CODEC = RecordCodecBuilder.create(instance -> codecStart(instance).and(
