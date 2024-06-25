@@ -22,7 +22,7 @@ public class InfernoEnchantment extends FFEnchantment {
 	}
 	
 	public static boolean isEntityValidForIgnition(LivingEntity livingEntity, AbstractArrow arrow) {
-		if(arrow.level.isRainingAt(arrow.blockPosition())) return false;
+		if(arrow.level().isRainingAt(arrow.blockPosition())) return false;
 		if(livingEntity == arrow.getOwner()) return false;
 		if(livingEntity.isInWater()) return false;
 		if(livingEntity instanceof TamableAnimal) {

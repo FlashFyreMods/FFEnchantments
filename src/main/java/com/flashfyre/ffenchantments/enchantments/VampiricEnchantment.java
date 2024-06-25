@@ -60,21 +60,21 @@ public class VampiricEnchantment extends FFEnchantment {
 			LivingEntity livingTarget = (LivingEntity) target;
 			LivingEntity livingAttacker = (LivingEntity) attacker;
 			if(livingTarget.isInvertedHealAndHarm()) return;
-			int level = livingAttacker.getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(FFECore.Enchantments.VAMPIRIC.get());
-			if(level > 0) {
-				Level world = livingAttacker.level;
-				if(!world.isClientSide() && world instanceof ServerLevel) {
+			int enchLevel = livingAttacker.getItemBySlot(EquipmentSlot.MAINHAND).getEnchantmentLevel(FFECore.Enchantments.VAMPIRIC.get());
+			if(enchLevel > 0) {
+				Level level = livingAttacker.level();
+				if(!level.isClientSide() && level instanceof ServerLevel) {
 					RandomSource r = livingAttacker.getRandom();
-					if(r.nextInt(6 - level) == 0) {
+					if(r.nextInt(6 - enchLevel) == 0) {
 						livingAttacker.heal(2);
 						if(livingAttacker instanceof Player) {
-							world.playSound(null, livingAttacker.blockPosition(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 1.0F, 1.0F);
+							level.playSound(null, livingAttacker.blockPosition(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 1.0F, 1.0F);
 						}
 						else {
-							world.playSound(null, livingAttacker.blockPosition(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.HOSTILE, 1.0F, 1.0F);
+							level.playSound(null, livingAttacker.blockPosition(), SoundEvents.EVOKER_CAST_SPELL, SoundSource.HOSTILE, 1.0F, 1.0F);
 						}
-						ServerLevel serverWorld = (ServerLevel) livingAttacker.level;
-						serverWorld.sendParticles(ParticleTypes.HEART, (double) livingAttacker.blockPosition().getX() + 0.5D, (double) livingAttacker.blockPosition().getY() + 1.5D, (double) livingAttacker.blockPosition().getZ() + 0.5D, 1, 0, 0, 0, 0);
+						ServerLevel serverLevel = (ServerLevel) livingAttacker.level();
+						serverLevel.sendParticles(ParticleTypes.HEART, (double) livingAttacker.blockPosition().getX() + 0.5D, (double) livingAttacker.blockPosition().getY() + 1.5D, (double) livingAttacker.blockPosition().getZ() + 0.5D, 1, 0, 0, 0, 0);
 					}
 				}			
 			}

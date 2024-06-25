@@ -39,6 +39,6 @@
 	"enchantment.ffenchantments.keen_point.desc": "Increases the damage of arrows fired from the crossbow.",
 	"enchantment.ffenchantments.ender_shroud.desc": "Prevents Endermen from getting angry when looked at while the helmet is being worn",
 	
-	"death.attack.ffenchantments.maelstrom": "%1$s perished in %2$s's whirlpool",
-	"death.attack.ffenchantments.maelstrom.item": "%1$s perished in %2$s's whirlpool using %3$s"
+	"death.attack.ffenchantments.maelstrom": "%1$s was swept up in %2$s's maelstrom",
+	"death.attack.ffenchantments.maelstrom.item": "%1$s was swept up in %2$s's whirlpool using %3$s"
 }

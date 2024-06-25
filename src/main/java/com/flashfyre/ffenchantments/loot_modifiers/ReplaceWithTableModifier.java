@@ -23,13 +23,14 @@ public class ReplaceWithTableModifier extends LootModifier {
 		this.table = table;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot,
-			LootContext ctx) {		
-		LootTable replacementTable = ctx.getLootTable(this.table);
-		ObjectArrayList<ItemStack> replacementLoot = new ObjectArrayList<ItemStack>();
-		replacementTable.getRandomItemsRaw(ctx, generatedLoot::add);
-		return replacementLoot;
+			LootContext ctx) {
+		generatedLoot.clear();
+		LootTable replacementTable = ctx.getResolver().getLootTable(table);
+		replacementTable.getRandomItemsRaw(ctx, LootTable.createStackSplitter(ctx.getLevel(), generatedLoot::add)); // Use the deprecated method as we don't want any Forge loot modifiers to be applied
+		return generatedLoot;
 	}
 	
 	public static final Codec<ReplaceWithTableModifier> CODEC = RecordCodecBuilder.create(instance -> codecStart(instance).and(

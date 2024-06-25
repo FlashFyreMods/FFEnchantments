@@ -5,8 +5,14 @@ import java.util.List;
 import com.flashfyre.ffenchantments.FFEConfig;
 import com.flashfyre.ffenchantments.FFECore;
 
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
@@ -63,7 +69,8 @@ public class MaelstromEnchantment extends FFEnchantment {
 			Vec3 entityPos = e.getBoundingBox().getCenter();
 			Vec3 tridentPos = trident.position();
 			e.push((tridentPos.x()-entityPos.x())*moveStrength, (tridentPos.y()-entityPos.y())*moveStrength, (tridentPos.z()-entityPos.z())*moveStrength);
-			e.hurt(FFECore.maelstromDamage(trident, trident.getOwner()), 2.0F*level);
+			Registry<DamageType> damageTypeReg = sWorld.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE);
+			e.hurt(new DamageSource(damageTypeReg.getHolderOrThrow(FFECore.MAELSTROM_DAMAGE_TYPE), trident, trident.getOwner(), tridentPos), 2.0F*level);
 			e.hurtMarked = true;
 		});
 	}

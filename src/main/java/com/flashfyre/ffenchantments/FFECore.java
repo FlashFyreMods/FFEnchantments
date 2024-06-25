@@ -3,8 +3,6 @@ package com.flashfyre.ffenchantments;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import javax.annotation.Nullable;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,10 +34,10 @@ import com.flashfyre.ffenchantments.packets.LeapingToServerPacket;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.IndirectEntityDamageSource;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantment.Rarity;
@@ -160,7 +158,5 @@ public class FFECore {
 		}
 	}
 	
-	public static DamageSource maelstromDamage(Entity source, @Nullable Entity indirectEntityIn) {
-		return new IndirectEntityDamageSource(FFECore.MOD_ID+":maelstrom", source, indirectEntityIn).setMagic();
-	}
+	public static final ResourceKey<DamageType> MAELSTROM_DAMAGE_TYPE = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(FFECore.MOD_ID, "maelstrom"));
 }

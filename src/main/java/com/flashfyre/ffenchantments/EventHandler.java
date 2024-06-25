@@ -123,7 +123,7 @@ public class EventHandler {
 			if(stack.isDamaged()) {
 				int level = stack.getEnchantmentLevel(FFECore.Enchantments.AQUATIC_RESTORATION.get());
 				if(level > 0) {
-					if(entity.level.getGameTime() % (140 - (level * 40)) == 0) {
+					if(entity.level().getGameTime() % (140 - (level * 40)) == 0) {
 						stack.setDamageValue(stack.getDamageValue() - 1);
 					}	
 				}	
@@ -131,7 +131,8 @@ public class EventHandler {
 		}
 		if(entity instanceof AbstractHorse) {
 			AbstractHorse horse = (AbstractHorse) entity;
-			if(!horse.level.isClientSide) {
+			Level level = horse.level();
+			if(!level.isClientSide) {
 				ItemStack stack = horse.inventory.getItem(0);
 				int buoyancyLevel = stack.getEnchantmentLevel(FFECore.Enchantments.BUOYANCY_HORSE.get());
 				if(buoyancyLevel > 0) {
@@ -192,11 +193,11 @@ public class EventHandler {
 							if(data.hasEnchantment(FFECore.Enchantments.INFERNO.get())) {
 								int level = data.getEnchantments().get(FFECore.Enchantments.INFERNO.get());
 								if(level > 0 && arrow.isOnFire()) {
-									List<LivingEntity> entitiesInAoE = getEntitiesInAABB(arrow.level, level*1.5, arrow.position());
+									List<LivingEntity> entitiesInAoE = getEntitiesInAABB(arrow.level(), level*1.5, arrow.position());
 									for(LivingEntity e : entitiesInAoE) {
 										if(!InfernoEnchantment.isEntityValidForIgnition(e, arrow)) continue;						
 										e.setSecondsOnFire(10);
-										InfernoEnchantment.spawnParticles(arrow.level, e.position(), 3);
+										InfernoEnchantment.spawnParticles(arrow.level(), e.position(), 3);
 									}
 								}
 							}
@@ -385,8 +386,8 @@ public class EventHandler {
 	public static void onLivingJump(LivingJumpEvent event) {
 		
 		LivingEntity entity = event.getEntity();
-		
-		if(!entity.level.isClientSide) return;
+		Level level = entity.level();
+		if(!level.isClientSide) return;
 		
 		if(entity instanceof AbstractHorse) {
 			FFECore.PacketHandler.INSTANCE.sendToServer(new LeapingToServerPacket());

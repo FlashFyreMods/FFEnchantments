@@ -3,6 +3,7 @@ package com.flashfyre.ffenchantments.enchantments;
 import com.flashfyre.ffenchantments.FFEConfig;
 
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
@@ -27,6 +28,6 @@ public class ObsidianSkullEnchantment extends FFEnchantment {
 	
 	@Override
 	public int getDamageProtection(int level, DamageSource source) {
-		return source == DamageSource.FLY_INTO_WALL ? level * 4 : 0;
+		return source.is(DamageTypes.FLY_INTO_WALL) ? level * 4 : 0;
 	}
 }

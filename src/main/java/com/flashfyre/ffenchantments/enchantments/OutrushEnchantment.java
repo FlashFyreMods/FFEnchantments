@@ -32,7 +32,7 @@ public class OutrushEnchantment extends FFEnchantment {
 	}
 	
 	public static void doExtraEffects(LivingEntity attacker, LivingEntity target) {		
-		Level world = attacker.level;
+		Level world = attacker.level();
 		if(!world.isClientSide()) {
 			if(attacker instanceof Player) {
 				world.playSound(null, target.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.MASTER, 1.0F, 1.0F);

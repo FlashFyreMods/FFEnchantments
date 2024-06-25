@@ -6,7 +6,7 @@
 		},
 		{
 			"condition": "minecraft:random_chance",
-			"chance": 0.00217864923
+			"chance": 0.03773584906
 		}
 	],
 	"table": "ffenchantments:piglin_bartering_replacement",
